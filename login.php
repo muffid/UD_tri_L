@@ -126,7 +126,7 @@ if(!isset($_SESSION['login'])){
 </html>
 <?php 
 }else{
-    header("Location: index.php");
+    header("Location: index.php?m=1&n=1");
     exit();
 }
 ?>
