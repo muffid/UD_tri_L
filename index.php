@@ -15,8 +15,6 @@ if(isset($_SESSION['login'])){
   * contact us +62 812-3342-2006 / +62 878-4686-7493 
   * License: https://anemos.id/license/
   * Version control : Github
-  
-
   ======================================================== -->
 
 <head>
