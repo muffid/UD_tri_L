@@ -36,22 +36,23 @@
            Setting Data
        </div>
        <!-- Nav Item - Pages Collapse Menu -->
-       <li <?php if($_GET['m']==4 && $_GET['n']==1){echo "class='nav-item active'";} ?>>
-           <a <?php if($_GET['m']==4 && $_GET['n']==1){echo  "class='nav-link'";}else{echo " class='nav-link collapsed'";} ?>
-               href="#" data-toggle="collapse" data-target="#settingPage" aria-expanded="true"
+       <li <?php if($_GET['m']==4){echo "class='nav-item active'";}else{echo "class='nav-item'";} ?>>
+           <a class='nav-link' href="#" data-toggle="collapse" data-target="#settingPage" aria-expanded="true"
                aria-controls="settingPage">
                <i class="fas fa-fw fa-cog"></i>
                <span>Masukkan Data</span>
            </a>
 
-           <div id="settingPage" <?php if($_GET['m']==4 && $_GET['n']==1){ echo "class='collapse-show'";}
-                   else{ echo "class='collapse'";} ?> aria-labelledby="headingPages" data-parent="#accordionSidebar">
+           <div id="settingPage" <?php if($_GET['m']==4){echo "class='collapse show'";}else{echo "class='collapse'";} ?>
+               aria-labelledby="headingPages" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
                    <h6 class="collapse-header">Input Data:</h6>
-                   <a <?php if($_GET['m']==4 && $_GET['n']==1){ echo "class='collapse-item active'";}
-                   else{ echo "class='collapse-item'";} ?> href="blank.php?m=4&n=1">Kelompok Tani</a>
-                   <a class="collapse-item" href="login.html">Anggota</a>
-                   <a class="collapse-item" href="register.html">Pupuk</a>
+                   <a <?php if($_GET['m']==4 && $_GET['n']==2){echo "class='collapse-item active'";}else{echo "class='collapse-item'";} ?>
+                       href="blank.php?m=4&n=2">Kelompok Tani</a>
+                   <a <?php if($_GET['m']==4 && $_GET['n']==3){echo "class='collapse-item active'";}else{echo "class='collapse-item'";} ?>
+                       href="blank.php?m=4&n=3">Anggota</a>
+                   <a <?php if($_GET['m']==4 && $_GET['n']==4){echo "class='collapse-item active'";}else{echo "class='collapse-item'";} ?>
+                       href="blank.php?m=4&n=4">Pupuk</a>
                </div>
            </div>
        </li>
@@ -62,18 +63,18 @@
            Halaman
        </div>
        <!-- Nav Item - Pages Collapse Menu -->
-       <li class="nav-item ">
-           <a class="nav-link" href="blank.php">
+       <li <?php if($_GET['m']==5 && $_GET['n']==5){echo "class='nav-item active'";}else{echo "class='nav-item'";} ?>>
+           <a class="nav-link" href="blank.php?m=5&n=5">
                <i class="fas fa-fw fa-tachometer-alt"></i>
                <span>Administrator</span></a>
        </li>
-       <li class="nav-item">
-           <a class="nav-link" href="blank.php">
+       <li <?php if($_GET['m']==6 && $_GET['n']==6){echo "class='nav-item active'";}else{echo "class='nav-item'";} ?>>
+           <a class="nav-link" href="blank.php?m=6&n=6">
                <i class="fas fa-fw fa-chart-area"></i>
                <span>Akun</span></a>
        </li>
-       <li class="nav-item">
-           <a class="nav-link" href="blank.php">
+       <li <?php if($_GET['m']==7 && $_GET['n']==7){echo "class='nav-item active'";}else{echo "class='nav-item'";} ?>>
+           <a class="nav-link" href="blank.php?m=7&n=7">
                <i class="fas fa-fw fa-chart-area"></i>
                <span>Laporkan Masalah</span></a>
        </li>
