@@ -1,6 +1,10 @@
 <?php
 session_start();
 if(isset($_SESSION['login'])){
+    if(!isset($_GET['m'])){
+  header("Location: index.php?m=1&n=1");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
