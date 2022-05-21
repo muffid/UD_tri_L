@@ -21,9 +21,10 @@
 
             if(mysqli_num_rows($result)===1){
                 $row = mysqli_fetch_assoc($result);
-
                 if($row['User_Name']===$user && $row['Password']===$pass){
                     $_SESSION['login']='ok';
+                    $_SESSION['nama']=$row['Nama'];
+                    $_SESSION['foto']=$row['Gambar'];
 
                 }
             }else{
