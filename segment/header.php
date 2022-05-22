@@ -175,7 +175,8 @@
                 aria-haspopup="true" aria-expanded="false">
                 <span
                     class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo ("Hai, ".$_SESSION['nama']);?></span>
-                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                <?php $foto = $_SESSION['foto']; ?>
+                <img class='img-profile rounded-circle' src='img/<?php echo $foto; ?>'>
             </a>
 
             <!-- Dropdown - User Information -->
