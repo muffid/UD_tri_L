@@ -83,20 +83,33 @@ if(isset($_SESSION['login'])){
                             <div class="my-5"></div>
                             <center>
                                 <div class="my-5"></div>
-                                <a href="#" class="btn btn-success btn-icon-split">
+                                <button class=" btn btn-success" onclick="kirim2()">
                                     <span class="icon text-white-50">
-                                        <i class="fas fa-check"></i>
+                                        <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
                                     </span>
                                     <span class="text"> Lukim</span>
-                                </a>
-                                <a href="#" class="btn btn-success btn-icon-split">
+                                </button>
+                                <button class=" btn btn-success" onclick="kirim1()">
                                     <span class="icon text-white-50">
-                                        <i class="fas fa-check"></i>
+                                        <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
                                     </span>
                                     <span class="text"> Mufid</span>
-                                </a>
+                                </button>
                             </center>
                             <div class="my-5"></div>
+                            <script>
+                            function kirim1() {
+                                window.open(
+                                    "https://api.whatsapp.com/send/?phone=+6287846867493&text=Halo%20Kak%20Mufid,%20saya%20mau%20bertanya%20tentang%20sistem%20Distribusi%20Pupuk%20UD.Tri%20L..!"
+                                );
+                            }
+
+                            function kirim2() {
+                                window.open(
+                                    "https://api.whatsapp.com/send/?phone=+6281233422006&text=Halo%20Kak%20Lukim,%20saya%20mau%20bertanya%20tentang%20sistem%20Distribusi%20Pupuk%20UD.Tri%20L..!"
+                                );
+                            }
+                            </script>
                         </div>
                     </div>
                 </div>
