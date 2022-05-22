@@ -83,13 +83,13 @@ if(isset($_SESSION['login'])){
                             <div class="my-5"></div>
                             <center>
                                 <div class="my-5"></div>
-                                <button class=" btn btn-success" onclick="kirim2()">
+                                <button class=" btn btn-success " onclick="kirim2()">
                                     <span class="icon text-white-50">
                                         <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
                                     </span>
                                     <span class="text"> Lukim</span>
                                 </button>
-                                <button class=" btn btn-success" onclick="kirim1()">
+                                <button class=" btn btn-success " onclick="kirim1()">
                                     <span class="icon text-white-50">
                                         <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
                                     </span>
