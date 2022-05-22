@@ -64,8 +64,42 @@ if(isset($_SESSION['login'])){
 
 
                 </div>
-                <!-- /.container-fluid -->
-
+                <!-- End container-fluid -->
+                <div class="col-lg-12 mb-6">
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Konsultasi Sistem</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                    src="img/undraw_posting_photo.svg" alt="...">
+                            </div>
+                            <h5>Halaman ini digunakan saat pengguna mengalami kesulitan dalam mengoprasikan sistem,
+                                dapat
+                                ditanyakan melalui<a target="_blank" rel="nofollow" href="https://anemos.id/"> Website
+                                    Anemos.id</a>, atau melalu WhatsApp Kami dibawah ini</h5>
+                            <div class="my-5"></div>
+                            <center>
+                                <div class="my-5"></div>
+                                <a href="#" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="text"> Lukim</span>
+                                </a>
+                                <a href="#" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="text"> Mufid</span>
+                                </a>
+                            </center>
+                            <div class="my-5"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- End of Main Content -->
 
