@@ -20,7 +20,7 @@ if(isset($_SESSION['login'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UD. Tri L | Profil</title>
+    <title>UD. Tri L | Input Kelompok Tani</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -54,36 +54,49 @@ if(isset($_SESSION['login'])){
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mt-5">
                         <h1 class="h3 mt-5 text-gray-800">Profil</h1>
-
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-                    <!-- /.container-fluid -->
-                    <!-- Project Card Example -->
-                    <div class="col-lg-4 mb-4">
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <center>
-                                    <h6 class="m-0 font-weight-bold text-primary">Profil</h6>
-                                </center>
-                            </div>
-                            <div class="card-body">
-                                <img width="100" class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <!-- <div class="card-body"> -->
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Earnings (Monthly)</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End of Main Content -->
 
-            <!-- footer -->
-            <?php include"segment/footer.php"; ?>
-            <!-- end footer -->
+
+
+                </div>
+
+
+            </div>
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+        <!-- footer -->
+        <?php include"segment/footer.php"; ?>
+        <!-- end footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
