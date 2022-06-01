@@ -1,8 +1,4 @@
    <!-- Sidebar -->
-   <?php 
-
-
-?>
    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion mt-5 " id="accordionSidebar">
        <!-- Divider -->
        <hr class="sidebar-divider my-0 mt-4">
