@@ -20,14 +20,13 @@ if(isset($_SESSION['login'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UD. Tri L | Laporkan Masalah</title>
+    <title>UD. Tri L | Input Kelompok Tani</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
@@ -43,75 +42,73 @@ if(isset($_SESSION['login'])){
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <?php include "segment/header.php" ?>
+                <?php include "segment/header.php"; ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
-                    <div class="d-sm-flex align-items-center justify-content-between">
-                        <h1 class="h3 mt-3 text-gray-800">Laporkan Masalah</h1>
+                    <div class="d-sm-flex align-items-center justify-content-between ">
+                        <h1 class="h3 mb-3 text-gray-800">Laporkan Masalah</h1>
                     </div>
-                </div>
-                <!-- End container-fluid -->
+                    <!-- Konten -->
 
-                <div class="col-lg-12 mb-6">
-                    <!-- Illustrations -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Konsultasi Sistem</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center">
-                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                    src="img/undraw_posting_photo.svg" alt="...">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Konsultasi</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                            src="img/undraw_posting_photo.svg" alt="...">
+                                    </div>
+                                    <h5>Halaman ini digunakan saat pengguna mengalami kesulitan dalam mengoprasikan
+                                        sistem, dapat ditanyakan melalui<a target="_blank" rel="nofollow"
+                                            href="https://anemos.id/">
+                                            Website
+                                            Anemos.id</a>, atau melalu WhatsApp Kami dibawah ini</h5>
+                                    <div class="my-5"></div>
+                                    <center>
+                                        <div class="my-5"></div>
+                                        <button class=" btn btn-success " onclick="kirim2()">
+                                            <span class="icon text-white-50">
+                                                <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
+                                            </span>
+                                            <span class="text"> Lukim</span>
+                                        </button>
+                                        <button class=" btn btn-success " onclick="kirim1()">
+                                            <span class="icon text-white-50">
+                                                <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
+                                            </span>
+                                            <span class="text"> Mufid</span>
+                                        </button>
+                                    </center>
+                                    <div class="my-5"></div>
+                                    <script>
+                                    function kirim1() {
+                                        window.open(
+                                            "https://api.whatsapp.com/send/?phone=+6287846867493&text=Halo%20Kak%20Mufid,%20saya%20mau%20bertanya%20tentang%20sistem%20Distribusi%20Pupuk%20UD.Tri%20L..!"
+                                        );
+                                    }
+
+                                    function kirim2() {
+                                        window.open(
+                                            "https://api.whatsapp.com/send/?phone=+6281233422006&text=Halo%20Kak%20Lukim,%20saya%20mau%20bertanya%20tentang%20sistem%20Distribusi%20Pupuk%20UD.Tri%20L..!"
+                                        );
+                                    }
+                                    </script>
+
+                                </div>
                             </div>
-                            <h5>Halaman ini digunakan saat pengguna mengalami kesulitan dalam mengoprasikan sistem,
-                                dapat
-                                ditanyakan melalui<a target="_blank" rel="nofollow" href="https://anemos.id/"> Website
-                                    Anemos.id</a>, atau melalu WhatsApp Kami dibawah ini</h5>
-                            <div class="my-5"></div>
-                            <center>
-                                <div class="my-5"></div>
-                                <button class=" btn btn-success " onclick="kirim2()">
-                                    <span class="icon text-white-50">
-                                        <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
-                                    </span>
-                                    <span class="text"> Lukim</span>
-                                </button>
-                                <button class=" btn btn-success " onclick="kirim1()">
-                                    <span class="icon text-white-50">
-                                        <img style="width: 30px;" src="img/wa.png" alt="WhatsApp">
-                                    </span>
-                                    <span class="text"> Mufid</span>
-                                </button>
-                            </center>
-                            <div class="my-5"></div>
-                            <script>
-                            function kirim1() {
-                                window.open(
-                                    "https://api.whatsapp.com/send/?phone=+6287846867493&text=Halo%20Kak%20Mufid,%20saya%20mau%20bertanya%20tentang%20sistem%20Distribusi%20Pupuk%20UD.Tri%20L..!"
-                                );
-                            }
-
-                            function kirim2() {
-                                window.open(
-                                    "https://api.whatsapp.com/send/?phone=+6281233422006&text=Halo%20Kak%20Lukim,%20saya%20mau%20bertanya%20tentang%20sistem%20Distribusi%20Pupuk%20UD.Tri%20L..!"
-                                );
-                            }
-                            </script>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End of Main Content -->
-
-            <!-- footer -->
-            <?php include"segment/footer.php"; ?>
-            <!-- end footer -->
-
+            <?php include "segment/footer.php"; ?>
         </div>
-        <!-- End of Content Wrapper -->
-
+    </div>
     </div>
     <!-- End of Page Wrapper -->
 
