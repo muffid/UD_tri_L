@@ -29,6 +29,8 @@ if(isset($_SESSION['login'])){
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -57,7 +59,7 @@ if(isset($_SESSION['login'])){
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-8 col-lg-6">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -67,13 +69,46 @@ if(isset($_SESSION['login'])){
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                   
+
+                                <form>
+                                <!-- Nama Pupuk -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label"> Nama Pupuk : </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="namapupuk" name="namapupuk"
+                                            required>
+                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                    </div>
+                                </div>
+
+                                <!-- Harga Pupuk -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label"> Harga Pupuk : </label>
+                                    <div class="col-sm-8">
+                                        <input type="number" class="form-control" id="namapupuk" name="namapupuk"
+                                            required placeholder="harga pupuk per Kg">
+                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label"> </label>
+                                    <div class="col-sm-8">
+                                    <button type="submit" class="btn btn-primary" name="tambah"><i class="far fa-plus-square"></i> Tambahkan </button>
+                                    </div>
+                                </div>
+
+                                </form>
+
+                                
+
                                 </div>
                             </div>
                         </div>
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        <div class="col-xl-12 col-lg-10">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -84,6 +119,35 @@ if(isset($_SESSION['login'])){
                                 <!-- Card Body -->
                                 <div class="card-body">
                                    
+                                <!--tabel -->
+                                <div class="table-responsive">
+                                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Pupuk</th>
+                                            <th>Harga/Kg</th>
+                                            <th>Aksi</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                
+                                    <tbody>
+                                        <tr>
+                                            <td>UREA XSP-90</td>
+                                            <td>50000</td>
+                                            <td><button class="btn btn-primary">edit</button> </td>
+                                           
+                                        </tr>
+                                        <tr>
+                                            <td>PHONSKA F-77</td>
+                                            <td>100000</td>
+                                            <td><button class="btn btn-primary">edit</button> </td>
+                                            
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
                                     
                                 </div>
                             </div>
@@ -117,6 +181,13 @@ if(isset($_SESSION['login'])){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 
