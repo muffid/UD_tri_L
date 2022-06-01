@@ -20,26 +20,18 @@ if(isset($_SESSION['login'])){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>UD. Tri L | Stok Pupuk Masuk</title>
+    <title>UD. Tri L | Input Kelompok Tani</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <?php 
-    // header
-      include "segment/header.php"; 
-        //    end Header
-    ?>
-
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
@@ -48,33 +40,38 @@ if(isset($_SESSION['login'])){
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
+                <?php include "segment/header.php"; ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mt-5">
-                        <h1 class="h3 mt-5 text-gray-800">Stok Pupuk Masuk</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
+                    <hr class="sidebar-divider my-0 mt-5 mb-5">
+                    <div class="d-sm-flex align-items-center justify-content-between ">
+                        <h1 class="h3 mb-3 text-gray-800">Stok Pupuk Masuk</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
 
+                    <!-- Konten -->
+
+
+
 
                 </div>
-                <!-- /.container-fluid -->
 
             </div>
-            <!-- End of Main Content -->
-
-            <!-- footer -->
+            <!-- /.container-fluid -->
             <?php include"segment/footer.php"; ?>
-            <!-- end footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+        <!-- footer -->
+
+        <!-- end footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
