@@ -47,7 +47,10 @@ if(isset($_SESSION['login'])){
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
-                   
+                    <div class="d-sm-flex align-items-center justify-content-between ">
+                        <h1 class="h3 mb-3 text-gray-800">Stok Pupuk Masuk</h1>
+                       
+                    </div>
 
                     <!-- Konten -->
 
