@@ -76,9 +76,6 @@
        </li>
        <!-- Heading -->
        <hr class="sidebar-heading">
-
-
-
        <!-- Divider -->
        <hr class="sidebar-divider d-none d-md-block">
 

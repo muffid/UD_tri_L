@@ -30,16 +30,9 @@ if(isset($_SESSION['login'])){
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <?php 
-    // header
-      include "segment/header.php"; 
-        //    end Header
-    ?>
-
 </head>
 
 <body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
@@ -48,22 +41,19 @@ if(isset($_SESSION['login'])){
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
             <!-- Main Content -->
             <div id="content">
-
+                <?php include "segment/header.php" ?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mt-5">
-                        <h1 class="h3 mt-5 text-gray-800">Laporkan Masalah</h1>
-
+                    <hr class="sidebar-divider my-0 mt-5 mb-5">
+                    <div class="d-sm-flex align-items-center justify-content-between">
+                        <h1 class="h3 mt-3 text-gray-800">Laporkan Masalah</h1>
                     </div>
-
-
                 </div>
                 <!-- End container-fluid -->
+
                 <div class="col-lg-12 mb-6">
                     <!-- Illustrations -->
                     <div class="card shadow mb-4">
