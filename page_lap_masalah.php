@@ -62,7 +62,7 @@ if(isset($_SESSION['login'])){
                                 <div class="card-body">
                                     <div class="text-center">
                                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
+                                            src="img/konsultasi.png" alt="...">
                                     </div>
                                     <h5>Halaman ini digunakan saat pengguna mengalami kesulitan dalam mengoprasikan
                                         sistem, dapat ditanyakan melalui<a target="_blank" rel="nofollow"
