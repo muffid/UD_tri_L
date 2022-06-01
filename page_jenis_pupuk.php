@@ -124,21 +124,24 @@ if(isset($_SESSION['login'])){
                                 <table class="table" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Pupuk</th>
-                                            <th>Harga/Kg</th>
-                                            <th>Aksi</th>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Pupuk</th>
+                                            <th scope="col">Harga/Kg</th>
+                                            <th scope="col">Aksi</th>
                                            
                                         </tr>
                                     </thead>
                                 
                                     <tbody>
                                         <tr>
+                                            <td>1</td>
                                             <td>UREA XSP-90</td>
                                             <td>50000</td>
                                             <td><button class="btn btn-primary">edit</button> </td>
                                            
                                         </tr>
                                         <tr>
+                                            <td>2</td>
                                             <td>PHONSKA F-77</td>
                                             <td>100000</td>
                                             <td><button class="btn btn-primary">edit</button> </td>
