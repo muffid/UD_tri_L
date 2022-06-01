@@ -49,17 +49,38 @@ if(isset($_SESSION['login'])){
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Administrator</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+
                     </div>
 
                     <!-- Konten -->
+                    <div class="row">
+                        <!-- profile -->
+                        <div class="col-lg-3 mb-4">
+                            <div class="card bg-success text-white shadow">
+                                <div class="card-body">
+                                    <center>
+                                        <a>
+                                            <?php $foto = $_SESSION['foto']; ?>
+                                            <img class='img-profile rounded-circle w-50 mt-3'
+                                                src='img/<?php echo $foto; ?>'>
+
+                                        </a>
+                                        <div class="text-white-50 small mt-2">Pemilik Sistem</div>
+                                        <div class="text-m font-weight-bold text-Light text-uppercase mb-1 mt-1">
+                                            <?php echo ($_SESSION['nama']);?></div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Profile -->
+
+                        <!-- Edit Profile -->
 
 
+                        <!-- End Profile -->
 
-
+                    </div>
                 </div>
-
             </div>
             <!-- /.container-fluid -->
             <?php include"segment/footer.php"; ?>
