@@ -53,14 +53,32 @@ if(isset($_SESSION['login'])){
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Master Pupuk</h1>
 
+                        
                     </div>
 
                     <!-- Konten -->
 
                     <div class="row">
-
+                        
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-6">
+                        <?php
+                            @session_start();
+                            if(isset($_SESSION["info"])){
+                              ?>
+
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?php //echo $_SESSION["info"];
+                                echo ("Pupuk berhasil ditambah | klik");?>
+                                <button type="button" class="btn btn-light" data-dismiss="alert"
+                                    aria-label="Close"> Disini </button> untuk menutup
+                            </div>
+
+                            <?php
+                                  unset($_SESSION["info"]);
+                            }
+
+                            ?>
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -71,7 +89,7 @@ if(isset($_SESSION['login'])){
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                    <form>
+                                    <form method="POST" action="addPupuk.php">
                                         <!-- Nama Pupuk -->
                                         <div class="row mb-3">
                                             <label class="col-sm-3 col-form-label"> Nama Pupuk : </label>
@@ -86,8 +104,8 @@ if(isset($_SESSION['login'])){
                                         <div class="row mb-3">
                                             <label class="col-sm-3 col-form-label"> Harga Pupuk : </label>
                                             <div class="col-sm-8">
-                                                <input type="number" class="form-control" id="namapupuk"
-                                                    name="namapupuk" required placeholder="harga pupuk per Kg">
+                                                <input type="number" class="form-control" id="hargapupuk"
+                                                    name="hargapupuk" required placeholder="harga pupuk per Kg">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
