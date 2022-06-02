@@ -161,12 +161,43 @@ if(isset($_SESSION['login'])){
                                                 echo('<tr><td>'.$no.'</td>');
                                                 echo('<td>'.$all['Jenis_Pupuk'].'</td>');
                                                 echo('<td>'.$all['Harga'].'</td>');
-                                                echo('<td><button type="button" class="btn btn-primary">Edit</button>
-                                                <button type="button" class="btn btn-danger">Hapus</button></td></tr>');
+                                                echo ('<td>
+                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');echo($all['ID_PK'].'">Edit</a>
+                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modalSubscriptionForm');echo($all['ID_PK'].'">Hapus Pupuk</a></td></tr>
+                                              ');
                                                 $no++;
-                                               };
-                                               
-                                               ?>
+                                               ?></tr>
+                                                     <!-- modal input resi -->
+                                                     <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100">Edit Pupuk</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-2">
+          <!--<i class="fas fa-user prefix grey-text"></i> -->
+          <input type="text" id="form3" class="form-control validate" value="<?= $all['Jenis_Pupuk']?>">
+          <label data-error="wrong" data-success="right" for="form3">Jenis Pupuk</label>
+        </div>
+
+        <div class="md-form mb-2">
+          <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+          <input type="number" id="form2" class="form-control validate" value="<?= $all['Harga']?>">
+          <label data-error="wrong" data-success="right" for="form2">Harga / Kg</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-primary">Simpan perubahan <i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div><?php } ?>
 
                                             </tbody>
                                         </table>
