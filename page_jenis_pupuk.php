@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "connection.php";
 if(isset($_SESSION['login'])){
 ?>
 <!DOCTYPE html>
@@ -153,20 +154,19 @@ if(isset($_SESSION['login'])){
                                             </thead>
 
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>UREA XSP-90</td>
-                                                    <td>50000</td>
-                                                    <td><button class="btn btn-primary">edit</button> </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>PHONSKA F-77</td>
-                                                    <td>100000</td>
-                                                    <td><button class="btn btn-primary">edit</button> </td>
-
-                                                </tr>
+                                               <?php 
+                                               $no=1;
+                                               $data=mysqli_query($conn,"SELECT * FROM data_pupuk ORDER BY ID_PK DESC");
+                                               foreach ($data as $all){
+                                                echo('<tr><td>'.$no.'</td>');
+                                                echo('<td>'.$all['Jenis_Pupuk'].'</td>');
+                                                echo('<td>'.$all['Harga'].'</td>');
+                                                echo('<td><button type="button" class="btn btn-primary">Edit</button>
+                                                <button type="button" class="btn btn-danger">Hapus</button></td></tr>');
+                                                $no++;
+                                               };
+                                               
+                                               ?>
 
                                             </tbody>
                                         </table>
