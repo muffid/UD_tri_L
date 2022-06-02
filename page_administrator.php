@@ -50,7 +50,6 @@ if(isset($_SESSION['login'])){
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Administrator</h1>
-
                     </div>
 
                     <!-- Konten -->
@@ -73,64 +72,87 @@ if(isset($_SESSION['login'])){
                                 </div>
                             </div>
                         </div>
-                        <!-- End Profile -->
-
-                        <!-- Edit Profile -->
-                        <div class="col-xl-9 col-lg-12">
-                            <div class="card shadow mb-4">
+                        <!-- End Col  profil-->
+                        <div class="col-lg-9 mb-2">
+                            <div class="card shadow mb-2">
                                 <div
-                                    class="card-header py-0 d-flex flex-row align-items-center justify-content-between">
-
-                                    <nav>
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <a class="nav-link active" id="nav-home-tab" data-toggle="tab"
-                                                href="#nav-home" role="tab" aria-controls="nav-home"
-                                                aria-selected="true">Home</a>
-                                            <a class="nav-link" id="nav-profile-tab" data-toggle="tab"
-                                                href="#nav-profile" role="tab" aria-controls="nav-profile"
-                                                aria-selected="false">Profile</a>
-                                            <a class="nav-link" id="nav-contact-tab" data-toggle="tab"
-                                                href="#nav-contact" role="tab" aria-controls="nav-contact"
-                                                aria-selected="false">Contact</a>
-                                        </div>
-                                    </nav>
-
-
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="profil-tab" data-toggle="pill" href="#profil"
+                                                role="tab" aria-controls="profil" aria-selected="true">Profil</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="edit-profile-tab" data-toggle="pill"
+                                                href="#edit-profile" role="tab" aria-controls="edit-profile"
+                                                aria-selected="false">Edit Profile</a>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="card-body">
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                                            aria-labelledby="nav-home-tab">haloooo</div>
-                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                                            aria-labelledby="nav-profile-tab">iki kenek</div>
-                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel"
-                                            aria-labelledby="nav-contact-tab"> mboh kah</div>
+                                <div class=" card-body">
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="profil" role="tabpanel"
+                                            aria-labelledby="profil-tab">
+                                            <h6 class="font-weight-bold text-primary">Tentang
+                                                <?php echo ($_SESSION['per']); ?></h6>
+                                            <P class="mt-2 mb-3"><?php echo ($_SESSION['tentang']);?></p>
+                                            <h6 class="font-weight-bold text-primary mt-4">Profil Detail
+                                                <?php echo ($_SESSION['nama']); ?></h6>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <P>Nama Perusahaan</p>
+                                                </div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['per']);?></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <P>Adminstrator</p>
+                                                </div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['nama']);?></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <P>Status</p>
+                                                </div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['job']);?></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <P>Alamat</p>
+                                                </div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['alamat']);?></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <P>No Telp</p>
+                                                </div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['no_telp']);?></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="edit-profile" role="tabpanel"
+                                            aria-labelledby="edit-profile-tab">
+                                            <h6 class="font-weight-bold text-primary">Edit Prpfil</h6>
+
+                                        </div>
+
+
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-
-
-                        <!-- End Profile -->
-
                     </div>
                 </div>
+                <!-- /.container-fluid -->
+
             </div>
-            <!-- /.container-fluid -->
             <?php include"segment/footer.php"; ?>
         </div>
-        <!-- End of Main Content -->
-
-        <!-- footer -->
-
-        <!-- end footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
-
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

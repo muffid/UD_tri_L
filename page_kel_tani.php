@@ -30,8 +30,8 @@ if(isset($_SESSION['login'])){
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-     <!-- Custom styles for this page -->
-     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -53,7 +53,7 @@ if(isset($_SESSION['login'])){
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Input Kelompok Tani</h1>
-                        
+
                     </div>
 
                     <!-- Konten -->
@@ -67,84 +67,86 @@ if(isset($_SESSION['login'])){
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
-                                    
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                <form>
-                                <!-- Nama Kelompok -->
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> Nama Kelompok : </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="namakel" name="namakel"
-                                            required>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
-
-                                <!-- Ketua Kelompok -->
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> Ketua Kelompok : </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="ketuakel" name="ketuakel"
-                                            required>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
-
-                                <!-- NIK -->
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> NIK : </label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" id="nik" name="nik"
-                                            required>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
-
-                                 <!-- Alamat -->
-                                 <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> Alamat : </label>
-                                    <div class="col-sm-8">
-                                    <textarea class="form-control" style="height: 100px" id="alamat" name="alamat"
-                                            required></textarea>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
-
-                                 <!-- Telp -->
-                                 <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> Telepon : </label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" id="telp" name="telp"
-                                            required>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
-
-                                 <!-- FILE-->
-                                 <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> NIK : </label>
-                                    <div class="col-sm-8">
-                                        <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
-                                            <label class="custom-file-label" for="validatedCustomFile">Pilih File...</label>
+                                    <form>
+                                        <!-- Nama Kelompok -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> Nama Kelompok : </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="namakel" name="namakel"
+                                                    required>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
                                         </div>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
 
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> </label>
-                                    <div class="col-sm-8">
-                                    <button type="submit" class="btn btn-primary" name="tambah"><i class="far fa-plus-square"></i> Tambahkan </button>
-                                    </div>
-                                </div>
+                                        <!-- Ketua Kelompok -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> Ketua Kelompok : </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="ketuakel" name="ketuakel"
+                                                    required>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
 
-                                </form>
+                                        <!-- NIK -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> NIK : </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" id="nik" name="nik" required>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
 
-                                
+                                        <!-- Alamat -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> Alamat : </label>
+                                            <div class="col-sm-8">
+                                                <textarea class="form-control" style="height: 100px" id="alamat"
+                                                    name="alamat" required></textarea>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Telp -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> Telepon : </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" id="telp" name="telp"
+                                                    required>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
+
+                                        <!-- FILE-->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> NIK : </label>
+                                            <div class="col-sm-8">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input"
+                                                        id="validatedCustomFile" required>
+                                                    <label class="custom-file-label" for="validatedCustomFile">Pilih
+                                                        File...</label>
+                                                </div>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> </label>
+                                            <div class="col-sm-8">
+                                                <button type="submit" class="btn btn-primary" name="tambah"><i
+                                                        class="far fa-plus-square"></i> Tambahkan </button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+
 
                                 </div>
                             </div>
@@ -157,57 +159,57 @@ if(isset($_SESSION['login'])){
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Data Kelompok Tani</h6>
-                                    
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                   
-                                <!--tabel -->
-                                <div class="table-responsive">
-                                <table class="table" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Nama Kelompok</th>
-                                            <th scope="col">Ketua Kelompok</th>
-                                            <th scope="col">NIK</th>
-                                            <th scope="col">Alamat</th>
-                                            <th scope="col">Telp</th>
-                                            <th scope="col">Foto</th>
-                                            <th scope="col">Aksi</th>
 
-                                           
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Tani Madjoe Group</td>
-                                            <td>Sukarman</td>
-                                            <td>89746754675</td>
-                                            <td>Jl. Raya Manggoto NO 09 RT 1 RW 2</td>
-                                            <td>08987665432</td>
-                                            <td>pics</td>
-                                            <td><button class="btn btn-primary">edit</button> </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                        <td>2</td>
-                                            <td>Tani Moendoer Group</td>
-                                            <td>Tarmidjan</td>
-                                            <td>89746754675</td>
-                                            <td>Jl. Raya Manggoto NO 09 RT 1 RW 2</td>
-                                            <td>08987665432</td>
-                                            <td>pics</td>
-                                            <td><button class="btn btn-primary">edit</button> </td>
-                                            
-                                        </tr>
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                                    
+                                    <!--tabel -->
+                                    <div class="table-responsive">
+                                        <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Nama Kelompok</th>
+                                                    <th scope="col">Ketua Kelompok</th>
+                                                    <th scope="col">NIK</th>
+                                                    <th scope="col">Alamat</th>
+                                                    <th scope="col">Telp</th>
+                                                    <th scope="col">Foto</th>
+                                                    <th scope="col">Aksi</th>
+
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Tani Madjoe Group</td>
+                                                    <td>Sukarman</td>
+                                                    <td>89746754675</td>
+                                                    <td>Jl. Raya Manggoto NO 09 RT 1 RW 2</td>
+                                                    <td>08987665432</td>
+                                                    <td>pics</td>
+                                                    <td><button class="btn btn-primary">edit</button> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>Tani Moendoer Group</td>
+                                                    <td>Tarmidjan</td>
+                                                    <td>89746754675</td>
+                                                    <td>Jl. Raya Manggoto NO 09 RT 1 RW 2</td>
+                                                    <td>08987665432</td>
+                                                    <td>pics</td>
+                                                    <td><button class="btn btn-primary">edit</button> </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -220,15 +222,8 @@ if(isset($_SESSION['login'])){
             <!-- /.container-fluid -->
             <?php include"segment/footer.php"; ?>
         </div>
-        <!-- End of Main Content -->
-
-        <!-- footer -->
-
-        <!-- end footer -->
-
     </div>
     <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
 
@@ -241,7 +236,7 @@ if(isset($_SESSION['login'])){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    
+
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 

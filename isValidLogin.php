@@ -25,6 +25,12 @@
                     $_SESSION['login']='ok';
                     $_SESSION['nama']=$row['Nama'];
                     $_SESSION['foto']=$row['Gambar'];
+                    $_SESSION['per']=$row['Perusahaan'];
+                    $_SESSION['tentang']=$row['Tentang'];
+                    $_SESSION['job']=$row['Job'];
+                    $_SESSION['alamat']=$row['Alamat'];
+                    $_SESSION['no_telp']=$row['No_telp'];
+
 
                 }
             }else{
