@@ -64,11 +64,6 @@
                <i class="fas fa-fw fa-tachometer-alt"></i>
                <span>Administrator</span></a>
        </li>
-       <li <?php if($_GET['m']==6 && $_GET['n']==6){echo "class='nav-item active'";}else{echo "class='nav-item'";} ?>>
-           <a class="nav-link" href="page_akun.php?m=6&n=6">
-               <i class="fas fa-fw fa-chart-area"></i>
-               <span>Akun</span></a>
-       </li>
        <li <?php if($_GET['m']==7 && $_GET['n']==7){echo "class='nav-item active'";}else{echo "class='nav-item'";} ?>>
            <a class="nav-link" href="page_lap_masalah.php?m=7&n=7">
                <i class="fas fa-fw fa-chart-area"></i>
