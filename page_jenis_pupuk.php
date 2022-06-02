@@ -28,6 +28,7 @@ if(isset($_SESSION['login'])){
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <!-- Custom styles for this template-->
+
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -51,7 +52,7 @@ if(isset($_SESSION['login'])){
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Master Pupuk</h1>
-                       
+
                     </div>
 
                     <!-- Konten -->
@@ -65,43 +66,44 @@ if(isset($_SESSION['login'])){
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Input Jenis Pupuk</h6>
-                                    
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                <form>
-                                <!-- Nama Pupuk -->
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> Nama Pupuk : </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="namapupuk" name="namapupuk"
-                                            required>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
+                                    <form>
+                                        <!-- Nama Pupuk -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> Nama Pupuk : </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="namapupuk" name="namapupuk"
+                                                    required>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
 
-                                <!-- Harga Pupuk -->
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> Harga Pupuk : </label>
-                                    <div class="col-sm-8">
-                                        <input type="number" class="form-control" id="namapupuk" name="namapupuk"
-                                            required placeholder="harga pupuk per Kg">
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                    </div>
-                                </div>
+                                        <!-- Harga Pupuk -->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> Harga Pupuk : </label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" id="namapupuk"
+                                                    name="namapupuk" required placeholder="harga pupuk per Kg">
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
 
 
-                                <div class="row mb-3">
-                                    <label class="col-sm-3 col-form-label"> </label>
-                                    <div class="col-sm-8">
-                                    <button type="submit" class="btn btn-primary" name="tambah"><i class="far fa-plus-square"></i> Tambahkan </button>
-                                    </div>
-                                </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"> </label>
+                                            <div class="col-sm-8">
+                                                <button type="submit" class="btn btn-primary" name="tambah"><i
+                                                        class="far fa-plus-square"></i> Tambahkan </button>
+                                            </div>
+                                        </div>
 
-                                </form>
+                                    </form>
 
-                                
+
 
                                 </div>
                             </div>
@@ -114,44 +116,44 @@ if(isset($_SESSION['login'])){
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Data Pupuk</h6>
-                                    
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                   
-                                <!--tabel -->
-                                <div class="table-responsive">
-                                <table class="table" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Pupuk</th>
-                                            <th scope="col">Harga/Kg</th>
-                                            <th scope="col">Aksi</th>
-                                           
-                                        </tr>
-                                    </thead>
-                                
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>UREA XSP-90</td>
-                                            <td>50000</td>
-                                            <td><button class="btn btn-primary">edit</button> </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>PHONSKA F-77</td>
-                                            <td>100000</td>
-                                            <td><button class="btn btn-primary">edit</button> </td>
-                                            
-                                        </tr>
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
-                                    
+
+                                    <!--tabel -->
+                                    <div class="table-responsive">
+                                        <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Pupuk</th>
+                                                    <th scope="col">Harga/Kg</th>
+                                                    <th scope="col">Aksi</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>UREA XSP-90</td>
+                                                    <td>50000</td>
+                                                    <td><button class="btn btn-primary">edit</button> </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>PHONSKA F-77</td>
+                                                    <td>100000</td>
+                                                    <td><button class="btn btn-primary">edit</button> </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -184,7 +186,6 @@ if(isset($_SESSION['login'])){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-
 
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
