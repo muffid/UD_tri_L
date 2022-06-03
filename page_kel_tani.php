@@ -62,6 +62,24 @@ if(isset($_SESSION['login'])){
 
                         <!-- Area Chart -->
                         <div class="col-xl-8 col-lg-6">
+
+                        <?php
+                            @session_start();
+                            if(isset($_SESSION["info"])){
+                              ?>
+
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?php //echo $_SESSION["info"];
+                                echo ($_SESSION["info"]." klik");?>
+                                <button type="button" class="btn btn-light" data-dismiss="alert"
+                                    aria-label="Close"> Disini </button> untuk menutup
+                            </div>
+
+                            <?php
+                                  unset($_SESSION["info"]);
+                            }
+
+                            ?>
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -72,7 +90,7 @@ if(isset($_SESSION['login'])){
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                    <form>
+                                    <form method="POST" action="addKelompok.php" enctype="multipart/form-data">
                                         <!-- Nama Kelompok -->
                                         <div class="row mb-3">
                                             <label class="col-sm-3 col-form-label"> Nama Kelompok : </label>
@@ -122,16 +140,19 @@ if(isset($_SESSION['login'])){
                                             </div>
                                         </div>
 
+                                        <!-- IMAGE-->
+                                        <div class="row mb-3">
+                                            <label class="col-sm-3 col-form-label"></label>
+                                            <div class="col-sm-6">
+                                                <img id="pic" width="100%">
+                                            </div>
+                                        </div>
+
                                         <!-- FILE-->
                                         <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> NIK : </label>
-                                            <div class="col-sm-8">
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input"
-                                                        id="validatedCustomFile" required>
-                                                    <label class="custom-file-label" for="validatedCustomFile">Pilih
-                                                        File...</label>
-                                                </div>
+                                            <label class="col-sm-3 col-form-label"> Foto : </label>
+                                            <div class="col-sm-6">
+                                            <input id="pics" type="file" name="pics" class="form-control " onchange="PreviewImage();">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -242,6 +263,19 @@ if(isset($_SESSION['login'])){
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <script>
+
+                function PreviewImage(){
+                    var oFReader = new FileReader();
+                    oFReader.readAsDataURL(document.getElementById("pics").files[0]);
+                    oFReader.onload = function (oFREvent)
+                    {
+                      document.getElementById("pic").src = oFREvent.target.result;
+                      // document.getElementById("rubahGambar").disabled=false;
+                    };
+                  };
+    
+    </script>
 
 </body>
 
