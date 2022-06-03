@@ -218,7 +218,7 @@ if(isset($_SESSION['login'])){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Ya, Hapus</button>
+        <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>" class="btn btn-danger">Ya, Hapus</a>
       </div>
     </div>
   </div>
