@@ -1,14 +1,14 @@
 <?php
 session_start();
-if(isset($_SESSION['login'])){
-?>
+if (isset($_SESSION['login'])) {
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
-  * UI framework bootstrap 
-  * php programming language 
+  * UI framework bootstrap
+  * php programming language
   * System developed by anemos.id web & application developer tema
-  * contact us +62 812-3342-2006 / +62 878-4686-7493 
+  * contact us +62 812-3342-2006 / +62 878-4686-7493
   * License: https://anemos.id/license/
   * Version control : Github
   ======================================================== -->
@@ -36,14 +36,14 @@ if(isset($_SESSION['login'])){
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
-        <?php include "segment/sidebar.php"; ?>
+        <?php include "segment/sidebar.php";?>
         <!-- end include sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <?php include "segment/header.php"; ?>
+                <?php include "segment/header.php";?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -51,23 +51,38 @@ if(isset($_SESSION['login'])){
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Administrator</h1>
                     </div>
+                    <?php if (isset($_SESSION["ok"])): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><?php echo $_SESSION["ok"]; ?></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <?php unset($_SESSION["ok"]);endif;?>
+
+                    <?php if (isset($_SESSION["fail"])): ?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo $_SESSION["fail"]; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <?php unset($_SESSION["fail"]);endif;?>
 
                     <!-- Konten -->
                     <div class="row">
                         <!-- profile -->
                         <div class="col-lg-3 mb-4">
-                            <div class="card bg-success text-white shadow">
+                            <div class="card bg-light text-white shadow">
                                 <div class="card-body">
                                     <center>
                                         <a>
-                                            <?php $foto = $_SESSION['foto']; ?>
+                                            <?php $foto = $_SESSION['foto'];?>
                                             <img class='img-profile rounded-circle w-50 mt-3'
                                                 src='img/<?php echo $foto; ?>'>
 
                                         </a>
-                                        <div class="text-white-50 small mt-2">Pemilik Sistem</div>
-                                        <div class="text-m font-weight-bold text-Light text-uppercase mb-1 mt-1">
-                                            <?php echo ($_SESSION['nama']);?></div>
+                                        <div class="text-black-50 small mt-2"><?php echo ($_SESSION['job']); ?></div>
+                                        <div class="text-m font-weight-bold text-dark text-uppercase mb-1 mt-1">
+                                            <?php echo ($_SESSION['nama']); ?></div>
                                     </center>
                                 </div>
                             </div>
@@ -85,7 +100,7 @@ if(isset($_SESSION['login'])){
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link" id="edit-profile-tab" data-toggle="pill"
                                                 href="#edit-profile" role="tab" aria-controls="edit-profile"
-                                                aria-selected="false">Edit Profile</a>
+                                                aria-selected="false">Edit Profil</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -95,44 +110,174 @@ if(isset($_SESSION['login'])){
                                             aria-labelledby="profil-tab">
                                             <h6 class="font-weight-bold text-primary">Tentang
                                                 <?php echo ($_SESSION['per']); ?></h6>
-                                            <P class="mt-2 mb-3"><?php echo ($_SESSION['tentang']);?></p>
+                                            <P class="mt-2 mb-3"><?php echo ($_SESSION['tentang']); ?></p>
                                             <h6 class="font-weight-bold text-primary mt-4">Profil Detail
-                                                <?php echo ($_SESSION['nama']); ?></h6>
+                                            </h6>
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <P>Nama Perusahaan</p>
                                                 </div>
-                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['per']);?></div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['per']); ?></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3">
-                                                    <P>Adminstrator</p>
+                                                    <P>Nama Adminstrator</p>
                                                 </div>
-                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['nama']);?></div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['nama']); ?></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <P>Status</p>
                                                 </div>
-                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['job']);?></div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['job']); ?></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <P>Alamat</p>
                                                 </div>
-                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['alamat']);?></div>
+                                                <div class="col-lg-9 ">: <?php echo ($_SESSION['alamat']); ?></div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <P>No Telp</p>
                                                 </div>
-                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['no_telp']);?></div>
+                                                <div class="col-lg-4 ">: <?php echo ($_SESSION['no_telp']); ?></div>
                                             </div>
                                         </div>
 
                                         <div class="tab-pane fade" id="edit-profile" role="tabpanel"
                                             aria-labelledby="edit-profile-tab">
-                                            <h6 class="font-weight-bold text-primary">Edit Prpfil</h6>
+
+                                            <h5 class="font-weight-bold text-primary text-center">Edit </h5>
+                                            <hr class="sidebar-heading">
+                                            <script>
+                                            //matikan tombol
+                                            window.onload = disbld;
+
+                                            function disbld() {
+                                                document.getElementById("rubahGambar").disabled = true;
+                                            }
+
+                                            function enbld() {
+                                                document.getElementById("rubahGambar").disabled = false;
+                                            }
+                                            //untuk menampilkan gambar sebelum di upload
+                                            function PreviewImage() {
+                                                var oFReader = new FileReader();
+                                                oFReader.readAsDataURL(document.getElementById("Gambar").files[0]);
+                                                oFReader.onload = function(oFREvent) {
+                                                    document.getElementById("uploadPreview").src = oFREvent.target
+                                                        .result;
+                                                    document.getElementById("rubahGambar").disabled = false;
+                                                };
+                                            };
+                                            //hapus gambar
+                                            function hapus() {
+                                                document.getElementById("tmptgmbr").innerHTML =
+                                                    ' <img class="rounded-circle" id="uploadPreview" style="height: 100px;">';
+                                                document.getElementById("tmptSRC").innerHTML =
+                                                    '<br><input class="btn btn-outline-info btn-sm" id="Gambar" type="file" name="Gambar" class="form-control " onchange="PreviewImage();">';
+                                                document.getElementById("rubahGambar").disabled = true;
+
+                                            }
+                                            </script>
+
+                                            <form method="POST" action="insert_user.php" enctype="multipart/form-data">
+                                                <input name="gambarLama" value="<?=$_SESSION['foto'];?>" hidden>
+                                                <input name="idadmin" value="<?=$_SESSION['id'];?>" hidden>
+                                                <div class="row mb-6">
+                                                    <label for="Gambar" class="col-md-4 col-lg-3 col-form-label">Foto
+                                                        Profil</label>
+
+                                                    <div class="col-md-6 col-lg-6">
+                                                        <div class="row " id="tmptgmbr">
+                                                            <img class="rounded-circle" id="uploadPreview"
+                                                                style="width: 30%; height: 30%;">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col col-sm-10" id="tmptSRC">
+                                                                <br><input class="btn btn-outline-info btn-sm"
+                                                                    id="Gambar" type="file" name="Gambar"
+                                                                    class="form-control " onchange="PreviewImage();">
+                                                            </div>
+
+                                                            <div class="col col-md-2">
+                                                                <br><button type="button" class="btn btn-danger"
+                                                                    onclick="hapus()">Hapus</button><br><br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="TentangPer"
+                                                        class="col-md-4 col-lg-3 col-form-label">Tentang
+                                                        Perusahaan</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <textarea name="TentangPer" id="TentangPer"
+                                                            style="height: 100px" class="form-control"
+                                                            onkeypress="enbld()"><?php echo ($_SESSION['tentang']); ?></textarea>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="NamaPer" class="col-md-4 col-lg-3 col-form-label">Nama
+                                                        Perusahaan</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="NamaPer" type="text" class="form-control"
+                                                            id="NamaPer" value="<?php echo ($_SESSION['per']); ?>"
+                                                            onkeypress="enbld()">
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="Admin" class="col-md-4 col-lg-3 col-form-label">Nama
+                                                        Administrator</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="Admin" type="text" class="form-control" id="Admin"
+                                                            value="<?php echo ($_SESSION['nama']); ?>"
+                                                            onkeypress="enbld()">
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="status"
+                                                        class="col-md-4 col-lg-3 col-form-label">Status</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="status" type="text" class="form-control"
+                                                            id="status" value="<?php echo ($_SESSION['job']); ?>"
+                                                            onkeypress="enbld()">
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="Alamat"
+                                                        class="col-md-4 col-lg-3 col-form-label">Alamat</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <textarea name="Alamat" id="Alamat" style="height: 100px"
+                                                            class="form-control"
+                                                            onkeypress="enbld()"><?php echo ($_SESSION['alamat']); ?></textarea>
+                                                        <br>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-6">
+                                                    <label for="noTelp" class="col-md-4 col-lg-3 col-form-label">No
+                                                        Telp</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="noTelp" type="text" class="form-control"
+                                                            id="noTelp" value="<?php echo ($_SESSION['no_telp']); ?>"
+                                                            onkeypress="enbld()">
+                                                        <br>
+
+
+                                                        <button id="rubahGambar" type="submit" name="rubahGambar"
+                                                            class="btn btn-primary">Simpan Perubahan</button>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </form><!-- End Profile Edit Form -->
 
                                         </div>
 
@@ -147,7 +292,7 @@ if(isset($_SESSION['login'])){
                 <!-- /.container-fluid -->
 
             </div>
-            <?php include"segment/footer.php"; ?>
+            <?php include "segment/footer.php";?>
         </div>
 
     </div>
@@ -166,7 +311,7 @@ if(isset($_SESSION['login'])){
 </body>
 
 </html>
-<?php }else{
-     header("Location: login.php");
-     exit();
+<?php } else {
+    header("Location: login.php");
+    exit();
 }?>
