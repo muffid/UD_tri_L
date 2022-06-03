@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Bulan Mei 2022 pada 06.56
+-- Waktu pembuatan: 03 Jun 2022 pada 04.32
 -- Versi server: 10.1.33-MariaDB
 -- Versi PHP: 7.2.6
 
@@ -68,6 +68,13 @@ CREATE TABLE `data_pupuk` (
   `Harga` int(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `data_pupuk`
+--
+
+INSERT INTO `data_pupuk` (`ID_PK`, `Jenis_Pupuk`, `Satuan`, `Harga`) VALUES
+(1, 'Urea', NULL, 5000);
+
 -- --------------------------------------------------------
 
 --
@@ -113,15 +120,20 @@ CREATE TABLE `user` (
   `User_Name` varchar(20) NOT NULL,
   `Password` varchar(50) NOT NULL,
   `Status` int(2) NOT NULL,
-  `Gambar` varchar(50) NOT NULL
+  `Gambar` varchar(50) NOT NULL,
+  `Alamat` varchar(100) DEFAULT NULL,
+  `Perusahaan` varchar(50) DEFAULT NULL,
+  `Job` varchar(50) DEFAULT NULL,
+  `Tentang` varchar(500) DEFAULT NULL,
+  `No_telp` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`Id`, `Nama`, `User_Name`, `Password`, `Status`, `Gambar`) VALUES
-(1, 'admin', 'admin', 'admin123', 1, '');
+INSERT INTO `user` (`Id`, `Nama`, `User_Name`, `Password`, `Status`, `Gambar`, `Alamat`, `Perusahaan`, `Job`, `Tentang`, `No_telp`) VALUES
+(1, 'admin', 'admin', 'admin123', 1, 'jun.jpeg', 'Dampit', 'UD. Tri L', 'Pemilik Perusahaan', 'UD. Tri L adalah perusahaan yang menangani penjualan pupuk dengan mendistribusikan pada masyarakat melalui Kelompok Tani pada setiap daerah', '0812334254');
 
 --
 -- Indexes for dumped tables
@@ -183,7 +195,7 @@ ALTER TABLE `data_kel_tani`
 -- AUTO_INCREMENT untuk tabel `data_pupuk`
 --
 ALTER TABLE `data_pupuk`
-  MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_keluar`
