@@ -61,8 +61,9 @@ if(isset($_SESSION['login'])){
 
                     <div class="row">
                         
-                        <!-- Area Chart -->
+                       
                         <div class="col-xl-8 col-lg-6">
+                             <!-- Alert -->
                         <?php
                             @session_start();
                             if(isset($_SESSION["info"])){
@@ -70,7 +71,7 @@ if(isset($_SESSION['login'])){
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <?php //echo $_SESSION["info"];
-                                echo ("Pupuk berhasil ditambah | klik");?>
+                                echo ($_SESSION["info"]." klik");?>
                                 <button type="button" class="btn btn-light" data-dismiss="alert"
                                     aria-label="Close"> Disini </button> untuk menutup
                             </div>
@@ -180,20 +181,21 @@ if(isset($_SESSION['login'])){
       </div>
       <div class="modal-body mx-3">
         <div class="md-form mb-2">
+            <form method="POST" action="editPupuk.php?id=<?=$all['ID_PK'];?>">
           <!--<i class="fas fa-user prefix grey-text"></i> -->
-          <input type="text" id="form3" class="form-control validate" value="<?= $all['Jenis_Pupuk']?>">
+          <input type="text" id="editnamapupuk" name="editnamapupuk" class="form-control validate" value="<?= $all['Jenis_Pupuk']?>">
           <label data-error="wrong" data-success="right" for="form3">Jenis Pupuk</label>
         </div>
 
         <div class="md-form mb-2">
           <!--<i class="fas fa-envelope prefix grey-text"></i>-->
-          <input type="number" id="form2" class="form-control validate" value="<?= $all['Harga']?>">
+          <input type="number" id="edithargapupuk" name="edithargapupuk" class="form-control validate" value="<?= $all['Harga']?>">
           <label data-error="wrong" data-success="right" for="form2">Harga / Kg</label>
         </div>
 
       </div>
       <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-primary">Simpan perubahan <i class="fas fa-paper-plane-o ml-1"></i></button>
+        <button type="submit" class="btn btn-primary">Simpan perubahan <i class="fas fa-paper-plane-o ml-1"></i></button></form>
       </div>
     </div>
   </div>
