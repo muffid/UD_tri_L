@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "connection.php";
 if(isset($_SESSION['login'])){
 ?>
 <!DOCTYPE html>
@@ -52,7 +53,7 @@ if(isset($_SESSION['login'])){
                     <!-- Page Heading -->
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
-                        <h1 class="h3 mb-3 text-gray-800">Input Kelompok Tani</h1>
+                        <h1 class="h3 pp text-gray-800">Input Kelompok Tani</h1>
 
                     </div>
 
@@ -61,7 +62,7 @@ if(isset($_SESSION['login'])){
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-6">
+                        <div class="col-xl-12 col-lg-12">
 
                         <?php
                             @session_start();
@@ -91,88 +92,114 @@ if(isset($_SESSION['login'])){
                                 <div class="card-body">
 
                                     <form method="POST" action="addKelompok.php" enctype="multipart/form-data">
-                                        <!-- Nama Kelompok -->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Nama Kelompok : </label>
-                                            <div class="col-sm-8">
+                                        
+                                        <div class="row mb-2">
+                                            <!-- Nama Kelompok -->
+                                            <label class="col-sm-2 col-form-label"> Nama Kelompok : </label>
+                                            <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="namakel" name="namakel"
                                                     required>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
-                                        </div>
-
-                                        <!-- Ketua Kelompok -->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Ketua Kelompok : </label>
-                                            <div class="col-sm-8">
+                                             <!-- Ketua Kelompok -->
+                                            <label class="col-sm-2 col-form-label"> Ketua Kelompok : </label>
+                                            <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="ketuakel" name="ketuakel"
                                                     required>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
+                                            
                                         </div>
 
-                                        <!-- NIK -->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> NIK : </label>
-                                            <div class="col-sm-8">
-                                                <input type="number" class="form-control" id="nik" name="nik" required>
-                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                            </div>
-                                        </div>
 
-                                        <!-- Alamat -->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Alamat : </label>
-                                            <div class="col-sm-8">
-                                                <textarea class="form-control" style="height: 100px" id="alamat"
-                                                    name="alamat" required></textarea>
-                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                            </div>
-                                        </div>
+                                       
+                                        <div class="row mb-2">
 
-                                        <!-- Telp -->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Telepon : </label>
-                                            <div class="col-sm-8">
+                                         <!-- Alamat -->
+
+                                         <label class="col-sm-2 col-form-label"> Telepon : </label>
+                                            <div class="col-sm-4">
                                                 <input type="number" class="form-control" id="telp" name="telp"
                                                     required>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
-                                        </div>
+
+                                        
+                                       
+
+                                             <!-- NIK -->
+                                            <label class="col-sm-2 col-form-label"> NIK : </label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" id="nik" name="nik" required>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                           
+                                            </div>
+                                        
+
+                                        <!-- Telp -->
+                                       
 
                                         <!-- IMAGE-->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"></label>
-                                            <div class="col-sm-6">
-                                                <img id="pic" width="100%">
+                                        <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label"> Alamat : </label>
+                                            <div class="col-sm-4">
+                                                <textarea class="form-control" style="height: 100px" id="alamat"
+                                                    name="alamat" required></textarea>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
-                                        </div>
 
-                                        <!-- FILE-->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Foto : </label>
-                                            <div class="col-sm-6">
+                                            <label class="col-sm-2 col-form-label"> Foto : </label>
+                                            <div class="col-sm-2">
                                             <input id="pics" type="file" name="pics" class="form-control " onchange="PreviewImage();">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
+
+                                           
+                                            <div class="col-sm-2">
+                                                <img id="pic" width="100%">
+                                            </div>
+                                            
                                         </div>
 
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> </label>
-                                            <div class="col-sm-8">
+                                        <!-- FILE-->
+                                        <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-4">
+                                            
+                                            </div>
+
+                                            
+                                           
+                                        </div>
+
+                                        <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-4">
+                                            
+                                            </div>
+                                            <label class="col-sm-2 col-form-label"> </label>
+                                            <div class="col-sm-4">
+                                                <div class="float-right">
                                                 <button type="submit" class="btn btn-primary" name="tambah"><i
                                                         class="far fa-plus-square"></i> Tambahkan </button>
+                                                </div>
                                             </div>
                                         </div>
-
+                        
                                     </form>
-
+                                    
 
 
                                 </div>
+                                
+                                
                             </div>
                         </div>
 
+
+                        
+                    
                         <!-- Pie Chart -->
                         <div class="col-xl-12 col-lg-10">
                             <div class="card shadow mb-4">
@@ -185,18 +212,21 @@ if(isset($_SESSION['login'])){
                                 <!-- Card Body -->
                                 <div class="card-body">
 
+                                
+
                                     <!--tabel -->
                                     <div class="table-responsive">
-                                        <table class="table" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">No</th>
                                                     <th scope="col">Nama Kelompok</th>
-                                                    <th scope="col">Ketua Kelompok</th>
+                                                    <th scope="col">Ketua Kel.</th>
                                                     <th scope="col">NIK</th>
                                                     <th scope="col">Alamat</th>
                                                     <th scope="col">Telp</th>
                                                     <th scope="col">Foto</th>
+                                                    
                                                     <th scope="col">Aksi</th>
 
 
@@ -204,28 +234,111 @@ if(isset($_SESSION['login'])){
                                             </thead>
 
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Tani Madjoe Group</td>
-                                                    <td>Sukarman</td>
-                                                    <td>89746754675</td>
-                                                    <td>Jl. Raya Manggoto NO 09 RT 1 RW 2</td>
-                                                    <td>08987665432</td>
-                                                    <td>pics</td>
-                                                    <td><button class="btn btn-primary">edit</button> </td>
+                                            <?php 
+                                               $no=1;
+                                               $data=mysqli_query($conn,"SELECT * FROM data_kel_tani ORDER BY ID_KT DESC");
+                                               foreach ($data as $all){
+                                                echo('<tr><td>'.$no.'</td>');
+                                                echo('<td>'.$all['NIK'].'</td>');
+                                                echo('<td>'.$all['Nama_Kel'].'</td>');
+                                                echo('<td>'.$all['Nama_Ketua'].'</td>');
+                                                echo('<td>'.$all['Alamat'].'</td>');
+                                                
+                                                echo('<td>'.$all['Telp'].'</td>');
+                                                echo('<td><a href="" data-toggle="modal" data-target="#viewFoto');echo($all['ID_KT'].'"><i class="fas fa-eye"></i></a></td>');
 
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Tani Moendoer Group</td>
-                                                    <td>Tarmidjan</td>
-                                                    <td>89746754675</td>
-                                                    <td>Jl. Raya Manggoto NO 09 RT 1 RW 2</td>
-                                                    <td>08987665432</td>
-                                                    <td>pics</td>
-                                                    <td><button class="btn btn-primary">edit</button> </td>
 
-                                                </tr>
+
+                                                
+                                                //echo('<td><img src="img/'.$all['Foto'].'" width="50%"></td>');
+                                                
+                                                echo ('<td>
+                                                
+                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');echo($all['ID_KT'].'">Edit</a>
+                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');echo($all['ID_KT'].'">Hapus</a></td></tr>
+                                              ');
+                                                $no++;
+                                               ?></tr>
+<!-- modal edit-->
+<div class="modal fade" id="modalSubscriptionForm<?=$all['ID_KT']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100">Edit Pupuk</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-2">
+            <form method="POST" action="editPupuk.php?id=<?=$all['ID_KT'];?>">
+          <!--<i class="fas fa-user prefix grey-text"></i> -->
+          <input type="text" id="editnamapupuk" name="editnamapupuk" class="form-control validate" value="<?= $all['Jenis_Pupuk']?>">
+          <label data-error="wrong" data-success="right" for="form3">Jenis Pupuk</label>
+        </div>
+
+        <div class="md-form mb-2">
+          <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+          <input type="number" id="edithargapupuk" name="edithargapupuk" class="form-control validate" value="<?= $all['Harga']?>">
+          <label data-error="wrong" data-success="right" for="form2">Harga / Kg</label>
+        </div>
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Simpan perubahan <i class="fas fa-paper-plane-o ml-1"></i></button></form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end modal edit-->
+
+<!-- Modal delete -->
+<div class="modal fade" id="exampleModalCenter<?=$all['ID_KT']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Data Pupuk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>WARNING!<br> menghapus data mungkin akan menyebabkan beberapa data tidak singkon. Pastikan data yang akan dihapus adalah 
+        data yang sudah tidak terpakai. Anda yakin akan menghapus ?</center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>" class="btn btn-danger">Ya, Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal delete -->
+
+<!-- Modal view -->
+<div class="modal fade" id="viewFoto<?=$all['ID_KT']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Data Pupuk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>WARNING!<br> menghapus data mungkin akan menyebabkan beberapa data tidak singkon. Pastikan data yang akan dihapus adalah 
+        data yang sudah tidak terpakai. Anda yakin akan menghapus ?</center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>" class="btn btn-danger">Ya, Hapus</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal view -->
+<?php } ?>
 
                                             </tbody>
                                         </table>
