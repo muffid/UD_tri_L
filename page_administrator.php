@@ -67,6 +67,22 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <?php unset($_SESSION["fail"]);endif;?>
 
+                    <?php if (isset($_SESSION["passTidakSama"])) {?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo $_SESSION["passTidakSama"]; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <?php unset($_SESSION["passTidakSama"]);}?>
+
+                    <?php if (isset($_SESSION["passSalah"])) {?>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <?php echo $_SESSION["passSalah"]; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <?php unset($_SESSION["passSalah"]);}?>
+
                     <!-- Konten -->
                     <div class="row">
                         <!-- profile -->
@@ -102,12 +118,19 @@ if (isset($_SESSION['login'])) {
                                                 href="#edit-profile" role="tab" aria-controls="edit-profile"
                                                 aria-selected="false">Edit Profil</a>
                                         </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="ganti-Pass-tab" data-toggle="pill"
+                                                href="#ganti-Pass" role="tab" aria-controls="ganti-Pass"
+                                                aria-selected="false">Ganti Username & Password</a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class=" card-body">
                                     <div class="tab-content" id="pills-tabContent">
                                         <div class="tab-pane fade show active" id="profil" role="tabpanel"
                                             aria-labelledby="profil-tab">
+                                            <h5 class="font-weight-bold text-primary text-center">Profil Lengkap</h5>
+                                            <hr class="sidebar-heading">
                                             <h6 class="font-weight-bold text-primary">Tentang
                                                 <?php echo ($_SESSION['per']); ?></h6>
                                             <P class="mt-2 mb-3"><?php echo ($_SESSION['tentang']); ?></p>
@@ -148,7 +171,7 @@ if (isset($_SESSION['login'])) {
                                         <div class="tab-pane fade" id="edit-profile" role="tabpanel"
                                             aria-labelledby="edit-profile-tab">
 
-                                            <h5 class="font-weight-bold text-primary text-center">Edit </h5>
+                                            <h5 class="font-weight-bold text-primary text-center">Edit Profil</h5>
                                             <hr class="sidebar-heading">
                                             <script>
                                             //matikan tombol
@@ -273,18 +296,51 @@ if (isset($_SESSION['login'])) {
                                                         <button id="rubahGambar" type="submit" name="rubahGambar"
                                                             class="btn btn-primary">Simpan Perubahan</button>
                                                     </div>
-
                                                 </div>
-
-
                                             </form><!-- End Profile Edit Form -->
-
                                         </div>
 
-
+                                        <!-- ganti usrname & password -->
+                                        <div class="tab-pane fade" id="ganti-Pass" role="tabpanel"
+                                            aria-labelledby="ganti-Pass-tab">
+                                            <h5 class="font-weight-bold text-primary text-center">Ganti Username &
+                                                Password
+                                            </h5>
+                                            <hr class="sidebar-heading">
+                                            <form method="POST" action="update_akun.php" enctype="multipart/form-data">
+                                                <div class="row mb-6">
+                                                    <label for="User"
+                                                        class="col-md-4 col-lg-3 col-form-label">Username</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="User" type="text" class="form-control" id="User"
+                                                            value="<?php echo ($_SESSION['UserName']); ?>"
+                                                            onkeypress="enbld()"> <br>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="PassBaru"
+                                                        class="col-md-4 col-lg-3 col-form-label">Password Baru</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="PassBaru" type="password" class="form-control"
+                                                            id="PassBaru" value="" onkeypress="enbld()"> <br>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-6">
+                                                    <label for="KonPass"
+                                                        class="col-md-4 col-lg-3 col-form-label">Konfrimasi
+                                                        Password</label>
+                                                    <div class="col-md-8 col-lg-9">
+                                                        <input name="KonPass" type="password" class="form-control"
+                                                            id="KonPass" value="" onkeypress="enbld()">
+                                                        <br>
+                                                        <button id="ubahPass" type="submit" name="ubahPass"
+                                                            class="btn btn-primary">Simpan Perubahan</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
