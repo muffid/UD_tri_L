@@ -8,7 +8,7 @@ $sql = "INSERT INTO data_pupuk (ID_PK,Jenis_Pupuk,Harga)
 	 VALUES ('','$namappk','$hargappk')";
 	 if (mysqli_query($conn, $sql)) {
 		 session_start();
-		 $_SESSION["info"] = 'ok';
+		 $_SESSION["info"] = 'Data pupuk berhasil ditambah';
 		header("Location: page_jenis_pupuk.php?m=4&n=4");
 		exit();
 	 } else {
