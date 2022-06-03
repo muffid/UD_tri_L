@@ -164,12 +164,12 @@ if(isset($_SESSION['login'])){
                                                 echo('<td>'.$all['Harga'].'</td>');
                                                 echo ('<td>
                                                 <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');echo($all['ID_PK'].'">Edit</a>
-                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#modalSubscriptionForm');echo($all['ID_PK'].'">Hapus Pupuk</a></td></tr>
+                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');echo($all['ID_PK'].'">Hapus Pupuk</a></td></tr>
                                               ');
                                                 $no++;
                                                ?></tr>
-                                                     <!-- modal input resi -->
-                                                     <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- modal edit-->
+<div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -199,7 +199,32 @@ if(isset($_SESSION['login'])){
       </div>
     </div>
   </div>
-</div><?php } ?>
+</div>
+<!-- end modal edit-->
+
+<!-- Modal delete -->
+<div class="modal fade" id="exampleModalCenter<?=$all['ID_PK']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Data Pupuk</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <center>WARNING!<br> menghapus data mungkin akan menyebabkan beberapa data tidak singkon. Pastikan data yang akan dihapus adalah 
+        data yang sudah tidak terpakai. Anda yakin akan menghapus ?</center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end Modal delete -->
+<?php } ?>
 
                                             </tbody>
                                         </table>
