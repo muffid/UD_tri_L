@@ -1,18 +1,18 @@
 <?php
 session_start();
-if(isset($_SESSION['login'])){
-    if(!isset($_GET['m'])){
-  header("Location: index.php?m=1&n=1");
-}
+if (isset($_SESSION['login'])) {
+    if (!isset($_GET['m'])) {
+        header("Location: index.php?m=1&n=1");
+    }
 
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
-  * UI framework bootstrap 
-  * php programming language 
-  * System developed by anemos.id web & application developer tema
-  * contact us +62 812-3342-2006 / +62 878-4686-7493 
+  * UI framework bootstrap
+  * php programming language
+  * System developed by anemos.id web & application developer team
+  * contact us +62 812-3342-2006 / +62 878-4686-7493
   * License: https://anemos.id/license/
   * Version control : Github
   ======================================================== -->
@@ -36,10 +36,10 @@ if(isset($_SESSION['login'])){
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="img/logo1.png" rel="icon">
-    <?php 
-    // header
-      include "segment/header.php"; 
-        //    end Header
+    <?php
+// header
+    include "segment/header.php";
+    //    end Header
     ?>
 
 </head>
@@ -48,7 +48,7 @@ if(isset($_SESSION['login'])){
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
-        <?php include "segment/sidebar.php"; ?>
+        <?php include "segment/sidebar.php";?>
         <!-- end include sidebar -->
 
         <!-- Content Wrapper -->
@@ -391,7 +391,7 @@ if(isset($_SESSION['login'])){
             </div>
             <!-- End of Main Content -->
             <!-- footer -->
-            <?php include"segment/footer.php"; ?>
+            <?php include "segment/footer.php";?>
             <!-- end footer -->
         </div>
         <!-- End of Content Wrapper -->
@@ -419,7 +419,7 @@ if(isset($_SESSION['login'])){
 </body>
 
 </html>
-<?php }else{
-     header("Location: login.php");
-     exit();
+<?php } else {
+    header("Location: login.php");
+    exit();
 }?>

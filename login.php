@@ -1,15 +1,15 @@
-<?php 
+<?php
 session_start();
-if(!isset($_SESSION['login'])){
+if (!isset($_SESSION['login'])) {
 //echo($_SESSION['login']);
-?>
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
-  * UI framework bootstrap 
-  * php programming language 
-  * System developed by anemos.id web & application developer tema
-  * contact us +62 812-3342-2006 / +62 878-4686-7493 
+  * UI framework bootstrap
+  * php programming language
+  * System developed by anemos.id web & application developer team
+  * contact us +62 812-3342-2006 / +62 878-4686-7493
   * License: https://anemos.id/license/
   * Version control : Github
   ======================================================== -->
@@ -57,11 +57,11 @@ if(!isset($_SESSION['login'])){
 
 
                                         <?php
-                            //pesan login gagal
-                            
-                            @session_start();
-                            if(isset($_SESSION["info"])){
-                              ?>
+//pesan login gagal
+
+    @session_start();
+    if (isset($_SESSION["info"])) {
+        ?>
 
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <?php echo $_SESSION["info"]; ?>
@@ -69,10 +69,10 @@ if(!isset($_SESSION['login'])){
                                         </div>
 
                                         <?php
-                                  unset($_SESSION["info"]);
-                            }
+unset($_SESSION["info"]);
+    }
 
-                            ?>
+    ?>
                                         <h1 class="h4 text-gray-900 mb-4">Sistem Distribusi Pupuk <br> UD. Tri L</h1>
                                     </div>
                                     <form class="user" action="isValidLogin.php" method="POST">
@@ -124,8 +124,8 @@ if(!isset($_SESSION['login'])){
 </body>
 
 </html>
-<?php 
-}else{
+<?php
+} else {
     header("Location: index.php?m=1&n=1");
     exit();
 }

@@ -1,15 +1,15 @@
 <?php
 session_start();
 include "connection.php";
-if(isset($_SESSION['login'])){
-?>
+if (isset($_SESSION['login'])) {
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
-  * UI framework bootstrap 
-  * php programming language 
-  * System developed by anemos.id web & application developer tema
-  * contact us +62 812-3342-2006 / +62 878-4686-7493 
+  * UI framework bootstrap
+  * php programming language
+  * System developed by anemos.id web & application developer team
+  * contact us +62 812-3342-2006 / +62 878-4686-7493
   * License: https://anemos.id/license/
   * Version control : Github
   ======================================================== -->
@@ -39,14 +39,14 @@ if(isset($_SESSION['login'])){
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
-        <?php include "segment/sidebar.php"; ?>
+        <?php include "segment/sidebar.php";?>
         <!-- end include sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <?php include "segment/header.php"; ?>
+                <?php include "segment/header.php";?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
@@ -54,33 +54,33 @@ if(isset($_SESSION['login'])){
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Master Pupuk</h1>
 
-                        
+
                     </div>
 
                     <!-- Konten -->
 
                     <div class="row">
-                        
-                       
+
+
                         <div class="col-xl-8 col-lg-6">
-                             <!-- Alert -->
-                        <?php
-                            @session_start();
-                            if(isset($_SESSION["info"])){
-                              ?>
+                            <!-- Alert -->
+                            <?php
+@session_start();
+    if (isset($_SESSION["info"])) {
+        ?>
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <?php //echo $_SESSION["info"];
-                                echo ($_SESSION["info"]." klik");?>
-                                <button type="button" class="btn btn-light" data-dismiss="alert"
-                                    aria-label="Close"> Disini </button> untuk menutup
+        echo ($_SESSION["info"] . " klik"); ?>
+                                <button type="button" class="btn btn-light" data-dismiss="alert" aria-label="Close">
+                                    Disini </button> untuk menutup
                             </div>
 
                             <?php
-                                  unset($_SESSION["info"]);
-                            }
+unset($_SESSION["info"]);
+    }
 
-                            ?>
+    ?>
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -155,76 +155,101 @@ if(isset($_SESSION['login'])){
                                             </thead>
 
                                             <tbody>
-                                               <?php 
-                                               $no=1;
-                                               $data=mysqli_query($conn,"SELECT * FROM data_pupuk ORDER BY ID_PK DESC");
-                                               foreach ($data as $all){
-                                                echo('<tr><td>'.$no.'</td>');
-                                                echo('<td>'.$all['Jenis_Pupuk'].'</td>');
-                                                echo('<td>'.$all['Harga'].'</td>');
-                                                echo ('<td>
-                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');echo($all['ID_PK'].'">Edit</a>
-                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');echo($all['ID_PK'].'">Hapus Pupuk</a></td></tr>
+                                                <?php
+$no = 1;
+    $data = mysqli_query($conn, "SELECT * FROM data_pupuk ORDER BY ID_PK DESC");
+    foreach ($data as $all) {
+        echo ('<tr><td>' . $no . '</td>');
+        echo ('<td>' . $all['Jenis_Pupuk'] . '</td>');
+        echo ('<td>' . $all['Harga'] . '</td>');
+        echo ('<td>
+                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_PK'] . '">Edit</a>
+                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_PK'] . '">Hapus Pupuk</a></td></tr>
                                               ');
-                                                $no++;
-                                               ?></tr>
-<!-- modal edit-->
-<div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100">Edit Pupuk</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-2">
-            <form method="POST" action="editPupuk.php?id=<?=$all['ID_PK'];?>">
-          <!--<i class="fas fa-user prefix grey-text"></i> -->
-          <input type="text" id="editnamapupuk" name="editnamapupuk" class="form-control validate" value="<?= $all['Jenis_Pupuk']?>">
-          <label data-error="wrong" data-success="right" for="form3">Jenis Pupuk</label>
-        </div>
+        $no++;
+        ?></tr>
+                                                <!-- modal edit-->
+                                                <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK'];?>"
+                                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header text-center">
+                                                                <h4 class="modal-title w-100">Edit Pupuk</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body mx-3">
+                                                                <div class="md-form mb-2">
+                                                                    <form method="POST"
+                                                                        action="editPupuk.php?id=<?=$all['ID_PK'];?>">
+                                                                        <!--<i class="fas fa-user prefix grey-text"></i> -->
+                                                                        <input type="text" id="editnamapupuk"
+                                                                            name="editnamapupuk"
+                                                                            class="form-control validate"
+                                                                            value="<?=$all['Jenis_Pupuk']?>">
+                                                                        <label data-error="wrong" data-success="right"
+                                                                            for="form3">Jenis Pupuk</label>
+                                                                </div>
 
-        <div class="md-form mb-2">
-          <!--<i class="fas fa-envelope prefix grey-text"></i>-->
-          <input type="number" id="edithargapupuk" name="edithargapupuk" class="form-control validate" value="<?= $all['Harga']?>">
-          <label data-error="wrong" data-success="right" for="form2">Harga / Kg</label>
-        </div>
+                                                                <div class="md-form mb-2">
+                                                                    <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+                                                                    <input type="number" id="edithargapupuk"
+                                                                        name="edithargapupuk"
+                                                                        class="form-control validate"
+                                                                        value="<?=$all['Harga']?>">
+                                                                    <label data-error="wrong" data-success="right"
+                                                                        for="form2">Harga / Kg</label>
+                                                                </div>
 
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary">Simpan perubahan <i class="fas fa-paper-plane-o ml-1"></i></button></form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end modal edit-->
+                                                            </div>
+                                                            <div class="modal-footer d-flex justify-content-center">
+                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                    perubahan <i
+                                                                        class="fas fa-paper-plane-o ml-1"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end modal edit-->
 
-<!-- Modal delete -->
-<div class="modal fade" id="exampleModalCenter<?=$all['ID_PK']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Hapus Data Pupuk</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <center>WARNING!<br> menghapus data mungkin akan menyebabkan beberapa data tidak singkon. Pastikan data yang akan dihapus adalah 
-        data yang sudah tidak terpakai. Anda yakin akan menghapus ?</center>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>" class="btn btn-danger">Ya, Hapus</a>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end Modal delete -->
-<?php } ?>
+                                                <!-- Modal delete -->
+                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_PK'];?>"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
+                                                                    Data Pupuk</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <center>WARNING!<br> menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. Anda yakin akan
+                                                                    menghapus ?</center>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
+                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end Modal delete -->
+                                                <?php }?>
 
                                             </tbody>
                                         </table>
@@ -239,7 +264,7 @@ if(isset($_SESSION['login'])){
 
             </div>
             <!-- /.container-fluid -->
-            <?php include"segment/footer.php"; ?>
+            <?php include "segment/footer.php";?>
         </div>
         <!-- End of Main Content -->
 
@@ -272,7 +297,7 @@ if(isset($_SESSION['login'])){
 </body>
 
 </html>
-<?php }else{
-     header("Location: login.php");
-     exit();
+<?php } else {
+    header("Location: login.php");
+    exit();
 }?>

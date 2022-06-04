@@ -1,14 +1,14 @@
 <?php
 session_start();
-if(isset($_SESSION['login'])){
-?>
+if (isset($_SESSION['login'])) {
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
-  * UI framework bootstrap 
-  * php programming language 
-  * System developed by anemos.id web & application developer tema
-  * contact us +62 812-3342-2006 / +62 878-4686-7493 
+  * UI framework bootstrap
+  * php programming language
+  * System developed by anemos.id web & application developer team
+  * contact us +62 812-3342-2006 / +62 878-4686-7493
   * License: https://anemos.id/license/
   * Version control : Github
   ======================================================== -->
@@ -35,21 +35,21 @@ if(isset($_SESSION['login'])){
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
-        <?php include "segment/sidebar.php"; ?>
+        <?php include "segment/sidebar.php";?>
         <!-- end include sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- Main Content -->
             <div id="content">
-                <?php include "segment/header.php"; ?>
+                <?php include "segment/header.php";?>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Stok Pupuk Masuk</h1>
-                       
+
                     </div>
 
                     <!-- Konten -->
@@ -61,7 +61,7 @@ if(isset($_SESSION['login'])){
 
             </div>
             <!-- /.container-fluid -->
-            <?php include"segment/footer.php"; ?>
+            <?php include "segment/footer.php";?>
         </div>
         <!-- End of Main Content -->
 
@@ -88,7 +88,7 @@ if(isset($_SESSION['login'])){
 </body>
 
 </html>
-<?php }else{
-     header("Location: login.php");
-     exit();
+<?php } else {
+    header("Location: login.php");
+    exit();
 }?>
