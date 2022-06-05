@@ -1,15 +1,12 @@
 <?php
 session_start();
-<<<<<<< Updated upstream
 if (isset($_SESSION['login'])) {
     ?>
-=======
 
 include "connnection.php";
 
 if(isset($_SESSION['login'])){
 ?>
->>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
