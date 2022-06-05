@@ -215,7 +215,7 @@ if (isset($_SESSION['login'])) {
                                                     <div class="col-md-6 col-lg-6">
                                                         <div class="row " id="tmptgmbr">
                                                             <img class="rounded-circle" id="uploadPreview"
-                                                                style="width: 30%; height: 30%;">
+                                                                style="height: 100px;">
                                                         </div>
                                                         <div class="row">
                                                             <div class="col col-sm-10" id="tmptSRC">

@@ -53,7 +53,7 @@ if (isset($_SESSION['login'])) {
                     <!-- Page Heading -->
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
-                        <h1 class="h3 pp text-gray-800">Input Kelompok Tani</h1>
+                        <h1 id="hu" class="h3 pp text-gray-800">Input Kelompok Tani</h1>
 
                     </div>
 
@@ -95,14 +95,16 @@ unset($_SESSION["info"]);
 
                                         <div class="row mb-2">
                                             <!-- Nama Kelompok -->
-                                            <label class="col-sm-2 col-form-label"> Nama Kelompok : </label>
+                                            <label for="namakel" class="col-sm-2 col-form-label"> Nama Kelompok :
+                                            </label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="namakel" name="namakel"
                                                     required>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                             <!-- Ketua Kelompok -->
-                                            <label class="col-sm-2 col-form-label"> Ketua Kelompok : </label>
+                                            <label for="ketuakel" class="col-sm-2 col-form-label"> Ketua Kelompok :
+                                            </label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="ketuakel" name="ketuakel"
                                                     required>
@@ -117,18 +119,15 @@ unset($_SESSION["info"]);
 
                                             <!-- Alamat -->
 
-                                            <label class="col-sm-2 col-form-label"> Telepon : </label>
+                                            <label for="telp" class="col-sm-2 col-form-label"> Telepon : </label>
                                             <div class="col-sm-4">
                                                 <input type="number" class="form-control" id="telp" name="telp"
                                                     required>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
 
-
-
-
                                             <!-- NIK -->
-                                            <label class="col-sm-2 col-form-label"> NIK : </label>
+                                            <label for="nik" class="col-sm-2 col-form-label"> NIK : </label>
                                             <div class="col-sm-4">
                                                 <input type="number" class="form-control" id="nik" name="nik" required>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
@@ -142,7 +141,7 @@ unset($_SESSION["info"]);
 
                                         <!-- IMAGE-->
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label"> Alamat : </label>
+                                            <label for="alamat" class="col-sm-2 col-form-label"> Alamat : </label>
                                             <div class="col-sm-4">
                                                 <textarea class="form-control" style="height: 100px" id="alamat"
                                                     name="alamat" required></textarea>
@@ -150,28 +149,30 @@ unset($_SESSION["info"]);
                                             </div>
 
                                             <label class="col-sm-2 col-form-label"> Foto : </label>
-                                            <div class="col-sm-2">
-                                                <input id="pics" type="file" name="pics" class="form-control "
-                                                    onchange="PreviewImage();">
-                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+
+                                            <div class="col-sm-4">
+
+                                                <div class="input-group mb-3">
+
+                                                    <input type="file" id="pics" name="pics"
+                                                        class="form-control btn btn-outline-primary btn-sm "
+                                                        onchange="PreviewImage();">
+
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-danger btn-sm" type="button"
+                                                            id="button-addon2" onclick="hapus();">Hapus </button>
+                                                    </div>
+                                                </div>
+                                                <img class=" float-right mt-1" id="pic">
                                             </div>
-
-
-                                            <div class="col-sm-2">
-                                                <img id="pic" width="100%">
-                                            </div>
-
                                         </div>
 
                                         <!-- FILE-->
                                         <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label"></label>
-                                            <div class="col-sm-4">
+                                            <label class="col-sm-8 col-form-label"></label>
+                                            <div class="col-sm-2">
 
                                             </div>
-
-
-
                                         </div>
 
                                         <div class="row mb-2">
@@ -189,18 +190,9 @@ unset($_SESSION["info"]);
                                         </div>
 
                                     </form>
-
-
-
                                 </div>
-
-
                             </div>
                         </div>
-
-
-
-
                         <!-- Pie Chart -->
                         <div class="col-xl-12 col-lg-10">
                             <div class="card shadow mb-4">
@@ -212,9 +204,6 @@ unset($_SESSION["info"]);
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-
-
-
                                     <!--tabel -->
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -227,10 +216,7 @@ unset($_SESSION["info"]);
                                                     <th scope="col">Alamat</th>
                                                     <th scope="col">Telp</th>
                                                     <th scope="col">Foto</th>
-
                                                     <th scope="col">Aksi</th>
-
-
                                                 </tr>
                                             </thead>
 
@@ -251,13 +237,9 @@ $no = 1;
 
         //echo('<td><img src="img/'.$all['Foto'].'" width="50%"></td>');
 
-        echo ('<td>
-
-                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_KT'] . '">Edit</a>
-                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_KT'] . '">Hapus</a></td></tr>
-                                              ');
+        echo ('<td><a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_KT'] . '">Edit</a> <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_KT'] . '">Hapus</a></td></tr>');
         $no++;
         ?></tr>
                                                 <!-- modal edit-->
@@ -341,31 +323,37 @@ $no = 1;
                                                 <!-- end Modal delete -->
 
                                                 <!-- Modal view -->
+                                                <?php
+$gambar = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT =" . $all['ID_KT']);
+        foreach ($gambar as $key) {
+            $nama = $key['Nama_Ketua'];
+            $foto = $key['Foto'];
+
+        }
+        ?>
                                                 <div class="modal fade" id="viewFoto<?=$all['ID_KT'];?>" tabindex="-1"
                                                     role="dialog" aria-labelledby="exampleModalCenterTitle"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
-                                                                    Data Pupuk</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Foto
+                                                                    KTP <?=$nama;?></h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <center>WARNING!<br> menghapus data mungkin akan
-                                                                    menyebabkan beberapa data tidak singkon. Pastikan
-                                                                    data yang akan dihapus adalah
-                                                                    data yang sudah tidak terpakai. Anda yakin akan
-                                                                    menghapus ?</center>
+                                                                <center>KTP<br>
+                                                                    <img style="height: 200px "
+                                                                        src="img/<?php echo $foto; ?>" alt="">
+
+                                                                </center>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
-                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                                <button type="button" class="btn btn-secondary mr-2"
+                                                                    data-dismiss="modal">Close </button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -410,14 +398,31 @@ $no = 1;
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     <script>
+    // menggambil gambar dari library
     function PreviewImage() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("pics").files[0]);
         oFReader.onload = function(oFREvent) {
             document.getElementById("pic").src = oFREvent.target.result;
+            document.getElementById("pic").style.height = '200px';
+
             // document.getElementById("rubahGambar").disabled=false;
+
+            // document.getElementById("tmptgmbr").innerHTML =
+            //'<img class=" float-right mt-1" id="pic" >';
         };
     };
+
+    function hapus() {
+
+        document.getElementById("pic").src = '';
+        document.getElementById("pic").style.height = '0px';
+        //     '<img class=" float-right mt-1" id="pic" style="height: 200px;">';
+        document.getElementById("pics").value = '';
+
+        //     '<input class="custom-file-input" id="pics" type="file" name="pics" onchange="PreviewImage();"></div>'
+
+    }
     </script>
 
 </body>
