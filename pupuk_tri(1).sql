@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jun 2022 pada 04.32
--- Versi server: 10.1.33-MariaDB
--- Versi PHP: 7.2.6
+-- Generation Time: Jun 05, 2022 at 04:05 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `anggota_kel_tani`
+-- Table structure for table `anggota_kel_tani`
 --
 
 CREATE TABLE `anggota_kel_tani` (
@@ -41,24 +40,31 @@ CREATE TABLE `anggota_kel_tani` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_kel_tani`
+-- Table structure for table `data_kel_tani`
 --
 
 CREATE TABLE `data_kel_tani` (
   `ID_KT` int(50) NOT NULL,
-  `NIK` int(50) DEFAULT NULL,
+  `NIK` varchar(50) DEFAULT NULL,
   `Nama_Kel` varchar(100) DEFAULT NULL,
   `Nama_Ketua` varchar(50) DEFAULT NULL,
   `Alamat` varchar(100) DEFAULT NULL,
   `Telp` varchar(50) DEFAULT NULL,
-  `Foto` varchar(50) DEFAULT NULL,
-  `Status` varchar(50) DEFAULT NULL
+  `Foto` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data_kel_tani`
+--
+
+INSERT INTO `data_kel_tani` (`ID_KT`, `NIK`, `Nama_Kel`, `Nama_Ketua`, `Alamat`, `Telp`, `Foto`) VALUES
+(3, 'Madjoe Djaya Tani', 'Mahmud Badar', '0989898989', 'kjkhkjhkjh', '0989897987', '6299c4c87967c.jpeg'),
+(4, 'Tani Mundur Tanam Padi', 'Muslimin', '098765', 'dghkjiuytresfghj', '09876543', '6299c8f95f2d8.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `data_pupuk`
+-- Table structure for table `data_pupuk`
 --
 
 CREATE TABLE `data_pupuk` (
@@ -69,16 +75,17 @@ CREATE TABLE `data_pupuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `data_pupuk`
+-- Dumping data for table `data_pupuk`
 --
 
 INSERT INTO `data_pupuk` (`ID_PK`, `Jenis_Pupuk`, `Satuan`, `Harga`) VALUES
-(1, 'Urea', NULL, 5000);
+(1, 'UREANIUM', NULL, 5000),
+(2, 'PHONSKA', NULL, 75000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok_keluar`
+-- Table structure for table `stok_keluar`
 --
 
 CREATE TABLE `stok_keluar` (
@@ -95,7 +102,7 @@ CREATE TABLE `stok_keluar` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `stok_masuk`
+-- Table structure for table `stok_masuk`
 --
 
 CREATE TABLE `stok_masuk` (
@@ -111,7 +118,7 @@ CREATE TABLE `stok_masuk` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -129,7 +136,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`Id`, `Nama`, `User_Name`, `Password`, `Status`, `Gambar`, `Alamat`, `Perusahaan`, `Job`, `Tentang`, `No_telp`) VALUES
@@ -140,71 +147,71 @@ INSERT INTO `user` (`Id`, `Nama`, `User_Name`, `Password`, `Status`, `Gambar`, `
 --
 
 --
--- Indeks untuk tabel `anggota_kel_tani`
+-- Indexes for table `anggota_kel_tani`
 --
 ALTER TABLE `anggota_kel_tani`
   ADD PRIMARY KEY (`ID_AKT`);
 
 --
--- Indeks untuk tabel `data_kel_tani`
+-- Indexes for table `data_kel_tani`
 --
 ALTER TABLE `data_kel_tani`
   ADD PRIMARY KEY (`ID_KT`) USING BTREE;
 
 --
--- Indeks untuk tabel `data_pupuk`
+-- Indexes for table `data_pupuk`
 --
 ALTER TABLE `data_pupuk`
   ADD PRIMARY KEY (`ID_PK`);
 
 --
--- Indeks untuk tabel `stok_keluar`
+-- Indexes for table `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
   ADD PRIMARY KEY (`ID_SK`);
 
 --
--- Indeks untuk tabel `stok_masuk`
+-- Indexes for table `stok_masuk`
 --
 ALTER TABLE `stok_masuk`
   ADD PRIMARY KEY (`ID_SM`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`Id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `anggota_kel_tani`
+-- AUTO_INCREMENT for table `anggota_kel_tani`
 --
 ALTER TABLE `anggota_kel_tani`
   MODIFY `ID_AKT` int(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `data_kel_tani`
+-- AUTO_INCREMENT for table `data_kel_tani`
 --
 ALTER TABLE `data_kel_tani`
-  MODIFY `ID_KT` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_KT` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `data_pupuk`
+-- AUTO_INCREMENT for table `data_pupuk`
 --
 ALTER TABLE `data_pupuk`
-  MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `stok_keluar`
+-- AUTO_INCREMENT for table `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
   MODIFY `ID_SK` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `stok_masuk`
+-- AUTO_INCREMENT for table `stok_masuk`
 --
 ALTER TABLE `stok_masuk`
   MODIFY `ID_SM` int(20) NOT NULL AUTO_INCREMENT;
