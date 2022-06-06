@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "connection.php";
 if (isset($_SESSION['login'])) {
     ?>
 
@@ -111,14 +112,22 @@ if(isset($_SESSION['login'])){
                     <!-- Nama Pengirim -->
                     <label class="col-sm-4 col-form-label"> Jenis Pupuk : </label>
                     <div class="col-sm-8">
-                        <select class="custom-select">
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="custom-select" id="selectpupuk" onclick="pupukControl()">
+                        <option  selected="true" disabled="disabled">-- pilih jenis pupuk --</option>
+                            <?php 
+                                 $data = mysqli_query($conn, "SELECT Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
+                                 foreach ($data as $all) {
+                                     echo(' <option value="'.$all['Harga'].'">'.$all['Jenis_Pupuk'].'</option>');
+                                 }
+                            ?>
+                           
                         </select>
                     </div>   
                 </div>
 
+              
+                
+                
                 <div class="row mb-2">
                     <!-- Nama Pengirim -->
                     <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
@@ -128,8 +137,16 @@ if(isset($_SESSION['login'])){
                         <p style="color:red; font-size:12px;" id="username_hint"></p>
                     </div>   
                 </div>
-                
 
+                
+                <div class="row mb-4">
+                    <!-- Nama Pengirim -->
+                    <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="harga" name="harga"
+                            required>
+                    </div>
+                </div>
 
                 </div>
             </form>
@@ -188,6 +205,7 @@ if(isset($_SESSION['login'])){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+   
 
 </body>
 

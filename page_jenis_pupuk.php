@@ -104,10 +104,10 @@ unset($_SESSION["info"]);
 
                                         <!-- Harga Pupuk -->
                                         <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Harga Pupuk : </label>
+                                            <label class="col-sm-3 col-form-label"> Harga Jual : </label>
                                             <div class="col-sm-8">
                                                 <input type="number" class="form-control" id="hargapupuk"
-                                                    name="hargapupuk" required placeholder="harga pupuk per Kg">
+                                                    name="hargapupuk" required placeholder="harga pupuk per Karung">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -148,7 +148,7 @@ unset($_SESSION["info"]);
                                                 <tr>
                                                     <th scope="col">No</th>
                                                     <th scope="col">Pupuk</th>
-                                                    <th scope="col">Harga/Kg</th>
+                                                    <th scope="col">Harga jual / Karung</th>
                                                     <th scope="col">Aksi</th>
 
                                                 </tr>
