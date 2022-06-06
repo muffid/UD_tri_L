@@ -237,8 +237,8 @@ $no = 1;
 
         //echo('<td><img src="img/'.$all['Foto'].'" width="50%"></td>');
 
-        echo ('<td><a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_KT'] . '">Edit</a> <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ('<td><a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_KT'] . '">Edit</a> <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter');
         echo ($all['ID_KT'] . '">Hapus</a></td></tr>');
         $no++;
         ?></tr>
