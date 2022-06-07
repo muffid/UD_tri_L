@@ -96,7 +96,7 @@ if(isset($_SESSION['login'])){
         <!-- Card Body -->
         <div class="card-body">
 
-            <form method="POST" action="addKelompok.php" enctype="multipart/form-data">
+            <form method="POST" action="addStokMasuk.php" enctype="multipart/form-data">
                 
                 <div class="row mb-2">
                     <!-- Nama Pengirim -->
@@ -104,6 +104,9 @@ if(isset($_SESSION['login'])){
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="pengirim" name="pengirim"
                             required>
+
+                            <input type="text" class="form-control" id="idppk" name="idppk"
+                            required hidden>
                         <p style="color:red; font-size:12px;" id="username_hint"></p>
                     </div>   
                 </div>
@@ -112,12 +115,14 @@ if(isset($_SESSION['login'])){
                     <!-- Nama Pengirim -->
                     <label class="col-sm-4 col-form-label"> Jenis Pupuk : </label>
                     <div class="col-sm-8">
-                        <select class="custom-select" id="selectpupuk" onclick="pupukControl()">
+                        <select class="custom-select" id="selectpupuk" onchange="pupukControl()">
                         <option  selected="true" disabled="disabled">-- pilih jenis pupuk --</option>
+                        
                             <?php 
-                                 $data = mysqli_query($conn, "SELECT Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
+                                 $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
                                  foreach ($data as $all) {
-                                     echo(' <option value="'.$all['Harga'].'">'.$all['Jenis_Pupuk'].'</option>');
+                                     echo(' <option id="'.$all['ID_PK'].'" value="'.$all['Harga'].'">'.$all['Jenis_Pupuk'].'</option>');
+                                   
                                  }
                             ?>
                            
@@ -133,18 +138,18 @@ if(isset($_SESSION['login'])){
                     <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="jumlah" name="jumlah"
-                            required onkeyup="countPerKarung()">
+                            required onkeyup="countPerKarung(this)">
                         <p style="color:red; font-size:12px;" id="username_hint"></p>
                     </div>   
                 </div>
 
-                
+               
                 <div class="row mb-4">
                     <!-- Nama Pengirim -->
                     <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="harga" name="harga"
-                            required onkeyup="countPerKarung()">
+                            required onkeyup="countPerKarung(this)">
                     </div>
                 </div>
 
@@ -177,26 +182,172 @@ if(isset($_SESSION['login'])){
         </div>
         <!-- Card Body -->
         <div class="card-body">
-        <div class="row mb-2">
-                    <!-- Nama Pengirim -->
-                    <label class="col-sm-5 col-form-label"> Harga beli / karung : </label>
-                   
-                    <label class="col-sm-8 col-form-label" id="perkarung" style="font-size:20px; font-weight:bold; color:green"> </label>
-                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                   
-                </div>
+            <div class="row mb-2">
+                        <!-- Nama Pengirim -->
+                        <label class="col-sm-5 col-form-label"> Harga beli / karung : </label>
+                    
+                        <label class="col-sm-8 col-form-label" id="perkarung" style="font-size:20px; font-weight:bold; color:green"> </label>
+                            <p style="color:red; font-size:12px;" id="username_hint"></p>
+                    
+            </div>
+
+            <div class="row mb-2">
+                        <!-- Nama Pengirim -->
+                        <label class="col-sm-5 col-form-label"> Tanggal : </label>
+                    
+                        <label class="col-sm-8 col-form-label" id="perkarung" style="font-size:20px; font-weight:bold; color:green"><?php
+                        date_default_timezone_set('Asia/Jakarta');
+                        $tanggal= date("D, j M Y "); echo($tanggal)?> </label>
+                            <p style="color:red; font-size:12px;" id="username_hint"></p>
+                    
+            </div>
         </div>
+
+
+        
+    
     </div>
 </div> 
-
-
-
-
+</div>
+    <!---------------->
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+            
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
 
                 </div>
+        
+            <div class="card-body">
+            <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Tanggal</th>
+                                                    <th scope="col">Pengirim</th>
+                                                    <th scope="col">Jenis Pupuk</th>
+                                                    <th scope="col">Jumlah Pupuk</th>
+                                                    <th scope="col">Total</th>
+                                                    <th scope="col">Aksi</th>
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php
+$no = 1;
+    $data = mysqli_query($conn, "SELECT * FROM stok_masuk ORDER BY ID_SM DESC");
+    foreach ($data as $all) {
+        echo ('<tr><td>' . $no . '</td>');
+        echo ('<td>' . $all['Tanggal'] . '</td>');
+        echo ('<td>' . $all['Nama_Pengirim'] . '</td>');
+        echo ('<td>' . $all['ID_PK'] . '</td>');
+        echo ('<td>' . $all['Jumlah_Masuk'] . '</td>');
+        echo ('<td>' . $all['Nominal'] . '</td>');
+        echo ('<td>
+                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_PK'] . '">Edit</a>
+                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_PK'] . '">Hapus Pupuk</a></td></tr>
+                                              ');
+        $no++;
+        ?></tr>
+                                                <!-- modal edit-->
+                                                <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK'];?>"
+                                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header text-center">
+                                                                <h4 class="modal-title w-100">Edit Pupuk</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body mx-3">
+                                                                <div class="md-form mb-2">
+                                                                    <form method="POST"
+                                                                        action="editPupuk.php?id=<?=$all['ID_PK'];?>">
+                                                                        <!--<i class="fas fa-user prefix grey-text"></i> -->
+                                                                        <input type="text" id="editnamapupuk"
+                                                                            name="editnamapupuk"
+                                                                            class="form-control validate"
+                                                                            value="<?=$all['Jenis_Pupuk']?>">
+                                                                        <label data-error="wrong" data-success="right"
+                                                                            for="form3">Jenis Pupuk</label>
+                                                                </div>
+
+                                                                <div class="md-form mb-2">
+                                                                    <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+                                                                    <input type="number" id="edithargapupuk"
+                                                                        name="edithargapupuk"
+                                                                        class="form-control validate"
+                                                                        value="<?=$all['Harga']?>">
+                                                                    <label data-error="wrong" data-success="right"
+                                                                        for="form2">Harga / Kg</label>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="modal-footer d-flex justify-content-center">
+                                                                <button type="submit" class="btn btn-primary">Simpan
+                                                                    perubahan <i
+                                                                        class="fas fa-paper-plane-o ml-1"></i></button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end modal edit-->
+
+                                                <!-- Modal delete -->
+                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_PK'];?>"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
+                                                                    Data Pupuk</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <center>WARNING!<br> menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. Anda yakin akan
+                                                                    menghapus ?</center>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
+                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end Modal delete -->
+                                                <?php }?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+        </div>
+    </div>
+
+   <!---------------->
+   
+    </div>
+</div>
 
             </div>
-            <!-- /.container-fluid -->
+         
             <?php include "segment/footer.php";?>
         </div>
         <!-- End of Main Content -->
@@ -222,13 +373,20 @@ if(isset($_SESSION['login'])){
     <script src="js/sb-admin-2.min.js"></script>
     <script>
 
-        function countPerKarung(){
-
+        function countPerKarung(sel){
+           
             var totalKarung=document.getElementById("jumlah").value;
             var totalHarga=document.getElementById("harga").value;
             var result=totalHarga/totalKarung;
             result= result.toFixed(1);
             document.getElementById("perkarung").innerHTML=result;
+
+        }
+
+        function pupukControl(){
+            var sel = document.getElementById("selectpupuk");
+            var text= sel.options[sel.selectedIndex].id;
+            document.getElementById("idppk").value=text;
         }
     </script>
    
