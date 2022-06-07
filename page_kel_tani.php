@@ -148,7 +148,7 @@ unset($_SESSION["info"]);
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
 
-                                            <label class="col-sm-2 col-form-label"> Foto KTP: </label>
+                                            <label class="col-sm-2 col-form-label"> Foto KTP : </label>
 
                                             <div class="col-sm-4">
 
@@ -162,29 +162,12 @@ unset($_SESSION["info"]);
                                                     </div>
                                                 </div>
                                                 <img class=" float-right mt-1" id="pic">
-                                            </div>
-                                        </div>
-
-                                        <!-- FILE-->
-                                        <div class="row mb-2">
-                                            <label class="col-sm-8 col-form-label"></label>
-                                            <div class="col-sm-2">
-
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-2">
-                                            <label class="col-sm-2 col-form-label"></label>
-                                            <div class="col-sm-4">
-
-                                            </div>
-                                            <label class="col-sm-2 col-form-label"> </label>
-                                            <div class="col-sm-4">
-                                                <div class="float-right">
+                                                <div class="float-right mt-2">
                                                     <button type="submit" class="btn btn-primary" name="tambah"><i
                                                             class="far fa-plus-square"></i> Tambahkan </button>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                     </form>
@@ -303,23 +286,28 @@ $no = 1;
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLongTitle">Hapus
-                                                                    Data Pupuk</h5>
+                                                                    Data Kelompok Tani</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <center>WARNING!<br> menghapus data mungkin akan
-                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                <center>
+                                                                    <h3 class="text-danger">PERINGATAN!</h3>
+                                                                    Menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkron. Pastikan
                                                                     data yang akan dihapus adalah
-                                                                    data yang sudah tidak terpakai. Anda yakin akan
-                                                                    menghapus ?</center>
+                                                                    data yang sudah tidak terpakai. <strong
+                                                                        class="text-danger">Anda yakin
+                                                                        akan
+                                                                        menghapus ?</strong>
+                                                                </center>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
+                                                                    data-dismiss="modal">Kembali</button>
+                                                                <a href="deleteKelTani.php?id=<?=$all['ID_KT'];?>"
                                                                     class="btn btn-danger">Ya, Hapus</a>
                                                             </div>
                                                         </div>

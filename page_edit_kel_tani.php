@@ -54,7 +54,8 @@ if (isset($_SESSION['login'])) {
                     </div>
                     <?php if (isset($_SESSION["ok"])): ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong><?php echo $_SESSION["ok"]; ?></strong>
+                        <strong><?php echo $_SESSION["ok"]; ?></strong> | Kembali ke Halaman<button type="button"
+                            href="page_kel_tani.php?m=4&n=2"> Kelompok Tani</button>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
                     </div>

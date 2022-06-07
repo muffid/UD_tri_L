@@ -23,7 +23,7 @@ if (isset($_POST['fungsitombol'])) {
     if ($errorFile === 4) {
 
         // menyimpan tanpa gambar baru
-        $sql = "UPDATE data_kel_tani SET ID_KT='" . $idkel . "', NIK='" . $nik . "', Nama_Kel='" . $namaKel . "', Nama_Ketua='" . $namaKet . "', Alamat='" . $alamat . "', Telp='" . $no . "', Foto='" . $foto . "'  WHERE ID_KT=" . $idkel;
+        $sql = "UPDATE data_kel_tani SET ID_KT='" . $idkel . "', NIK='" . $nik . "', Nama_Kel='" . $namaKel . "', Nama_Ketua='" . $namaKet . "', Alamat='" . $alamat . "', Telp='" . $no . "'  WHERE ID_KT=" . $idkel;
         //disimpan
         if (mysqli_query($conn, $sql)) {
 

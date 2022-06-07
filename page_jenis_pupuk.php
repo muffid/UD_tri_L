@@ -103,7 +103,7 @@ unset($_SESSION["info"]);
                                         </div>
 
                                         <!-- Harga Pupuk -->
-                                       
+
 
                                         <div class="row mb-3">
                                             <label class="col-sm-3 col-form-label"> </label>
@@ -225,11 +225,16 @@ $no = 1;
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <center>WARNING!<br> menghapus data mungkin akan
-                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                <center>
+                                                                    <h3 class="text-danger">PERINGATAN!</h3>Menghapus
+                                                                    data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkron. Pastikan
                                                                     data yang akan dihapus adalah
-                                                                    data yang sudah tidak terpakai. Anda yakin akan
-                                                                    menghapus ?</center>
+                                                                    data yang sudah tidak terpakai. <strong
+                                                                        class="text-danger">Anda yakin
+                                                                        akan
+                                                                        menghapus ?</strong>
+                                                                </center>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
