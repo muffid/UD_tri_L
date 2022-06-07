@@ -2,10 +2,10 @@
 include "connection.php";
 
 $namappk=$_POST['namapupuk'];
-$hargappk=$_POST['hargapupuk'];
+
 
 $sql = "INSERT INTO data_pupuk (ID_PK,Jenis_Pupuk,Harga)
-	 VALUES ('','$namappk','$hargappk')";
+	 VALUES ('','$namappk','')";
 	 if (mysqli_query($conn, $sql)) {
 		 session_start();
 		 $_SESSION["info"] = 'Data pupuk berhasil ditambah';
