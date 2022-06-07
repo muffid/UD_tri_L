@@ -30,6 +30,7 @@ if (isset($_SESSION['login'])) {
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.css" rel="stylesheet">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="img/logo1.png" rel="icon">
 </head>
 
 <body id="page-top">
