@@ -148,16 +148,14 @@ unset($_SESSION["info"]);
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
 
-                                            <label class="col-sm-2 col-form-label"> Foto : </label>
+                                            <label class="col-sm-2 col-form-label"> Foto KTP: </label>
 
                                             <div class="col-sm-4">
 
                                                 <div class="input-group mb-3">
-
                                                     <input type="file" id="pics" name="pics"
                                                         class="form-control btn btn-outline-primary btn-sm "
                                                         onchange="PreviewImage();">
-
                                                     <div class="input-group-append">
                                                         <button class="btn btn-danger btn-sm" type="button"
                                                             id="button-addon2" onclick="hapus();">Hapus </button>
@@ -233,15 +231,22 @@ $no = 1;
 
         echo ('<td>' . $all['Telp'] . '</td>');
         echo ('<td><a href="" data-toggle="modal" data-target="#viewFoto');
-        echo ($all['ID_KT'] . '"><i class="fas fa-eye"></i></a></td>');
+        echo ($all['ID_KT'] . '"><center><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Foto"></i> </center>  </i></a></td>');
 
         //echo('<td><img src="img/'.$all['Foto'].'" width="50%"></td>');
 
-        echo ('<td><a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_KT'] . '">Edit</a> <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_KT'] . '">Hapus</a></td></tr>');
+        echo ('<td><center><a href=page_edit_kel_tani.php?m=4&n=2&id=');
+        echo ($all['ID_KT'] . '><span class="btn-icon-split text-warning"
+                                                    data-toggle="tooltip" data-placement="top" title="Edit Data"><i
+                                                        class="fas fa-edit"></i></span></a>
+                                                <text> | </text><a href="" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_KT'] . '"><span class="btn-icon-split text-danger" data-toggle="tooltip" data-placement="left"
+                                                        title="Hapus Data"><i class="fas fa-trash"></i></span></a></td>
+                                                </center>
+                                                </tr>');
         $no++;
         ?></tr>
+
                                                 <!-- modal edit-->
                                                 <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_KT'];?>"
                                                     tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
