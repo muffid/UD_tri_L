@@ -133,7 +133,7 @@ if(isset($_SESSION['login'])){
                     <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="jumlah" name="jumlah"
-                            required>
+                            required onkeyup="countPerKarung()">
                         <p style="color:red; font-size:12px;" id="username_hint"></p>
                     </div>   
                 </div>
@@ -144,8 +144,16 @@ if(isset($_SESSION['login'])){
                     <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="harga" name="harga"
-                            required>
+                            required onkeyup="countPerKarung()">
                     </div>
+                </div>
+
+                <div class="row mb-4">
+                    <label class="col-sm-4 col-form-label"> </label>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary" name="tambah"><i
+                                class="far fa-plus-square"></i> Tambahkan </button>
+                        </div>
                 </div>
 
                 </div>
@@ -169,7 +177,14 @@ if(isset($_SESSION['login'])){
         </div>
         <!-- Card Body -->
         <div class="card-body">
-                RINGKASAN
+        <div class="row mb-2">
+                    <!-- Nama Pengirim -->
+                    <label class="col-sm-5 col-form-label"> Harga beli / karung : </label>
+                   
+                    <label class="col-sm-8 col-form-label" id="perkarung" style="font-size:20px; font-weight:bold; color:green"> </label>
+                        <p style="color:red; font-size:12px;" id="username_hint"></p>
+                   
+                </div>
         </div>
     </div>
 </div> 
@@ -205,6 +220,17 @@ if(isset($_SESSION['login'])){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script>
+
+        function countPerKarung(){
+
+            var totalKarung=document.getElementById("jumlah").value;
+            var totalHarga=document.getElementById("harga").value;
+            var result=totalHarga/totalKarung;
+            result= result.toFixed(1);
+            document.getElementById("perkarung").innerHTML=result;
+        }
+    </script>
    
 
 </body>

@@ -103,15 +103,7 @@ unset($_SESSION["info"]);
                                         </div>
 
                                         <!-- Harga Pupuk -->
-                                        <div class="row mb-3">
-                                            <label class="col-sm-3 col-form-label"> Harga Jual : </label>
-                                            <div class="col-sm-8">
-                                                <input type="number" class="form-control" id="hargapupuk"
-                                                    name="hargapupuk" required placeholder="harga pupuk per Karung">
-                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
-                                            </div>
-                                        </div>
-
+                                       
 
                                         <div class="row mb-3">
                                             <label class="col-sm-3 col-form-label"> </label>
