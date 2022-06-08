@@ -15,7 +15,7 @@ $ket=$_POST['pembayaran'];
 
 $stokAvail=0;
 
-$data = mysqli_query($conn, "SELECT Stok FROM data_pupuk ORDER BY ID_PK DESC");
+$data = mysqli_query($conn, "SELECT Stok FROM data_pupuk WHERE ID_PK =".$idppk." ORDER BY ID_PK DESC");
     foreach ($data as $all) {
         $stokAvail=$all['Stok'];
         if($jmlppk>$all['Stok']){

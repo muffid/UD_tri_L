@@ -357,14 +357,14 @@ $no = 1;
         echo ('<td>' . $all['Nominal'] . '</td>');
         echo ('<td>' . $all['Ket'] . '</td>');
         echo ('<td><a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_PK'] . '">Batalkan</a></td></tr>
+        echo ($all['ID_SK'] . '">Batalkan</a></td></tr>
                                               ');
 
         $no++;
         ?></tr>
                                               
                                                 <!-- Modal delete -->
-                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_PK'];?>"
+                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_SK'];?>"
                                                     tabindex="-1" role="dialog"
                                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -387,7 +387,7 @@ $no = 1;
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-dismiss="modal">Close</button>
-                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
+                                                                <a href="cancelStokKeluar.php?id=<?=$all['ID_SK'];?>&n=<?=$all['Jumlah_Keluar'];?>&m=<?=$all['ID_PK'];?>"
                                                                     class="btn btn-danger">Ya, Hapus</a>
                                                             </div>
                                                         </div>
