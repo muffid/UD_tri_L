@@ -223,7 +223,7 @@ date_default_timezone_set('Asia/Jakarta');
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Stok Pupuk Masuk</h6>
 
                                 </div>
 
@@ -237,7 +237,7 @@ date_default_timezone_set('Asia/Jakarta');
                                                     <th scope="col">Pengirim</th>
                                                     <th scope="col">Jenis Pupuk</th>
                                                     <th scope="col">Jumlah Pupuk</th>
-                                                    <th scope="col">Total</th>
+                                                    <th scope="col">Total Pembelian</th>
                                                     <th scope="col">Aksi</th>
 
                                                 </tr>
@@ -252,7 +252,7 @@ $no = 1;
         echo ('<td>' . $all['Tanggal'] . '</td>');
         echo ('<td>' . $all['Nama_Pengirim'] . '</td>');
         echo ('<td>' . $all['ID_PK'] . '</td>');
-        echo ('<td>' . $all['Jumlah_Masuk'] . '</td>');
+        echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . $all['Nominal'] . '</td>');
         echo ('<td>
                                                 <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
