@@ -1,6 +1,10 @@
 <?php
 session_start();
 include "connection.php";
+
+date_default_timezone_set('Asia/Jakarta');
+$tanggal= date("D, j M Y ");
+
 if (isset($_SESSION['login'])) {
     ?>
 <!DOCTYPE html>
@@ -31,6 +35,7 @@ if (isset($_SESSION['login'])) {
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="img/logo1.png" rel="icon">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top" onload="delCace()">
@@ -66,17 +71,8 @@ if (isset($_SESSION['login'])) {
                             <?php
 @session_start();
     if (isset($_SESSION["info"])) {
-        ?>
-
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <?php //echo $_SESSION["info"];
-        echo ($_SESSION["info"] . " klik"); ?>
-                                <button type="button" class="btn btn-light" data-dismiss="alert" aria-label="Close">
-                                    Disini </button> untuk menutup
-                            </div>
-
-                            <?php
-unset($_SESSION["info"]);
+       echo($_SESSION["info"]);
+    unset($_SESSION["info"]);
     }
 
     ?>
@@ -84,19 +80,18 @@ unset($_SESSION["info"]);
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Input Penjualan Pupuk</h6>
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                    <form method="POST" action="addStokKeluar.php" enctype="multipart/form-data">
-
+                                    <form method="POST" action="addStokKeluar.php">
                                         <div class="row mb-2">
                                             <!-- Nama Pembeli -->
                                             <label class="col-sm-4 col-form-label"> Pembeli </label>
                                             <div class="col-sm-8">
-                                            <select class="custom-select" id="selectcust">
+                                            <select class="custom-select" id="selectcust" onchange="custControl()">
                                                     <option selected="true" disabled="disabled">-- pilih kelompok tani --
                                                     </option>
                                                     <?php
@@ -108,7 +103,9 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
 
                                                 </select>
                                                     <input type="text" class="form-control" id="idpupuk" name="idpupuk"
-                                                    required hidden>
+                                                     hidden>
+                                                    <input type="text" class="form-control" id="idkel" name="idkel"
+                                                     hidden>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -121,9 +118,9 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
                                                     <?php
-$data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
+$data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk ORDER BY ID_PK DESC");
     foreach ($data as $all) {
-        echo (' <option id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
+        echo (' <option class="'.$all['Stok'].'" id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
     }
     ?>
 
@@ -161,17 +158,30 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
+                                        <div class="row mb-2">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label"> Total </label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="totaluang" name="totaluang"
+                                                    required readonly>
+                                               
+                                            </div>
+                                            <div class="col-sm-3 mt-1">
+                                               
+                                               <button type="button" class="btn btn-outline-primary btn-sm" onclick="doTotal()">hitung total</buton>
+                                            </div>
+                                        </div>
                                         <div class="row mb-4">
                                             <label class="col-sm-4 col-form-label"> Pembayaran </label>
                                             <div class="custom-control custom-radio custom-control-inline mt-2 ml-2">
                                                 <input type="radio" id="customRadioInline1" name="pembayaran" value="tunai"
-                                                    class="custom-control-input">
+                                                    class="custom-control-input" onclick="tunaiControl()">
                                                 <label class="custom-control-label" for="customRadioInline1">
                                                     Tunai</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline mt-2">
                                                 <input type="radio" id="customRadioInline2" name="pembayaran" value="hutang"
-                                                    class="custom-control-input">
+                                                    class="custom-control-input" onclick="hutangControl()">
                                                 <label class="custom-control-label"
                                                     for="customRadioInline2">Hutang</label>
                                             </div>
@@ -191,7 +201,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                         </div>
 
                                 </div>
-                                </form>
+                               
 
 
 
@@ -199,6 +209,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
 
                         </div>
+                        </form>
                         <!--end of div col-->
 
                         <div class="col-xl-6 col-lg-6">
@@ -212,18 +223,192 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    RINGKASAN
+
+                                 
+                                <div class="row">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-12 col-form-label" style="font-size:12px; color:green">Sebelum melakukan transaksi harap teliti kembali
+                                            data yang akan diinput. Pastikan semua data yang dimasukan benar dan valid.
+                                        </label>
+
+                                    </div>
+                                    <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-12 col-form-label" style="font-size:12px; color:green">==============================================================
+                                        </label>
+
+                                    </div>
+
+                                <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label">Tanggal</label>
+
+                                        <label class="col-sm-5 col-form-label" id="tanggal"><?php echo(": ".$tanggal)?> </label>
+                                    </div>
+
+                                <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label">Pembeli</label>
+
+                                        <label class="col-sm-5 col-form-label" id="pembeli"> </label>
+                                    </div>
+
+                                <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label"> Jenis Pupuk </label>
+
+                                        <label class="col-sm-5 col-form-label" id="jenis"> </label>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label"> Stok tersedia</label>
+
+                                        <label class="col-sm-5 col-form-label" id="stok"
+                                        style="font-size:15px; font-weight:bold; color:green"> </label>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label"> Harga/karung</label>
+
+                                        <label class="col-sm-5 col-form-label" id="perkarung"
+                                            > </label>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label"> Jumlah Karung</label>
+
+                                        <label class="col-sm-5 col-form-label" id="jumlahkarung"
+                                            > </label>
+                                    </div>
+
+                                   
+
+                                    <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label">Total</label>
+
+                                        <label class="col-sm-5 col-form-label" id="total"
+                                            style="font-size:15px; font-weight:bold; color:green"> </label>
+                                    </div>
+
+                                    <div class="row mb-1">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-4 col-form-label">Pembayaran</label>
+
+                                        <label class="col-sm-5 col-form-label" id="pembayaran"
+                                            style="font-size:15px; font-weight:bold; color:green"> </label>
+                                    </div>
+
                                 </div>
                             </div>
+
+                            
+
                         </div>
 
-
-
-
+                            
+                        
 
                     </div>
 
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                            <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Pupuk</h6>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Tanggal</th>
+                                                    <th scope="col">Pembeli</th>
+                                                    <th scope="col">Jenis Pupuk</th>
+                                                    <th scope="col">Jumlah Pupuk</th>
+                                                    <th scope="col">Harga per Karung</th>
+                                                    <th scope="col">Total Pembelian</th>
+                                                    <th scope="col">Pembayaran</th>
+                                                    <th scope="col">Aksi</th>
+                                                    <!-- <th scope="col">Aksi</th> -->
+
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <?php
+$no = 1;
+    $data = mysqli_query($conn, "SELECT * FROM stok_keluar ORDER BY ID_SK DESC");
+    foreach ($data as $all) {
+        echo ('<tr><td>' . $no . '</td>');
+        echo ('<td>' . $all['Tanggal'] . '</td>');
+        echo ('<td>' . $all['ID_KT'] . '</td>');
+        echo ('<td>' . $all['ID_PK'] . '</td>');
+        echo ('<td>' . $all['Jumlah_Keluar'] . ' karung</td>');
+        
+        echo ('<td>' . $all['Harga'] . '</td>');
+        echo ('<td>' . $all['Nominal'] . '</td>');
+        echo ('<td>' . $all['Ket'] . '</td>');
+        echo ('<td><a href="" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_PK'] . '">Batalkan</a></td></tr>
+                                              ');
+
+        $no++;
+        ?></tr>
+                                              
+                                                <!-- Modal delete -->
+                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_PK'];?>"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
+                                                                    Data Pupuk</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <center>WARNING!<br> menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. Anda yakin akan
+                                                                    menghapus ?</center>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
+                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end Modal delete -->
+                                                <?php }?>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+
+                    
+   </div>
+
                 </div>
+                
                 <!-- /.container-fluid -->
                 <?php include "segment/footer.php";?>
             </div>
@@ -249,6 +434,13 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
+    
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
     <script>
 
     var price = 0;
@@ -260,18 +452,70 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
         document.getElementById("checkprice").checked = true;
 
         var sel = document.getElementById("selectpupuk");
-            var text= sel.options[sel.selectedIndex].id;
-            document.getElementById("idpupuk").value=text;
+        var text= sel.options[sel.selectedIndex].id;
+        var jenis= sel.options[sel.selectedIndex].text;
+        var whatClass=document.getElementById(text).className;
+        document.getElementById("stok").innerHTML=': '+whatClass+' karung';
+
+       
+        document.getElementById("jenis").innerHTML=': '+jenis;
+        document.getElementById("idpupuk").value=text;
+        
+        
+
+        document.getElementById("perkarung").innerHTML=': '+price;
+
     }
 
     function priceControl() {
         if (document.getElementById("checkprice").checked == false) {
             document.getElementById("harga").readOnly = false;
             document.getElementById("harga").value = "";
+            document.getElementById("perkarung").innerHTML='';
         } else {
             document.getElementById("harga").readOnly = true;
             document.getElementById("harga").value = price;
+            document.getElementById("perkarung").innerHTML=': '+price;
         }
+    }
+
+    function custControl(){
+        var sel = document.getElementById("selectcust");
+        var text= sel.options[sel.selectedIndex].text;
+        var idcus= sel.options[sel.selectedIndex].id;
+        document.getElementById("pembeli").innerHTML=': '+text;
+        document.getElementById("idkel").value=idcus;
+    }
+    
+
+    document.getElementsByName("harga")[0].addEventListener('change', setPrice);
+    function setPrice(){
+        document.getElementById("perkarung").innerHTML=': '+this.value;
+    }
+
+    document.getElementsByName("jumlah")[0].addEventListener('change', setJumlah);
+    function setJumlah(){
+        document.getElementById("jumlahkarung").innerHTML=': '+this.value;
+
+    }
+
+    function tunaiControl(){
+        document.getElementById("pembayaran").innerHTML=': Tunai';
+    }
+
+    function hutangControl(){
+        document.getElementById("pembayaran").innerHTML=': Hutang';
+    }
+
+    function doTotal(){
+       
+        var a=document.getElementById("jumlah").value;
+        var b=document.getElementById("harga").value;
+
+        document.getElementById("totaluang").value=a*b;
+        document.getElementById("total").innerHTML=': '+a*b;
+
+
     }
 
     function delCace() {
