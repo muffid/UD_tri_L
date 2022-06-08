@@ -47,7 +47,7 @@
         <a class='nav-link' href="#" data-toggle="collapse" data-target="#settingPage" aria-expanded="true"
             aria-controls="settingPage">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Masukkan Data</span>
+            <span>Master Data</span>
         </a>
 
         <div id="settingPage"
