@@ -141,6 +141,7 @@ unset($_SESSION["info"]);
                                                     <th scope="col">No</th>
                                                     <th scope="col">Pupuk</th>
                                                     <th scope="col">Harga jual / Karung</th>
+                                                    <th scope="col">Jumlah Stok</th>
                                                     <th scope="col">Aksi</th>
 
                                                 </tr>
@@ -154,6 +155,7 @@ $no = 1;
         echo ('<tr><td>' . $no . '</td>');
         echo ('<td>' . $all['Jenis_Pupuk'] . '</td>');
         echo ('<td>' . $all['Harga'] . '</td>');
+        echo ('<td>' . $all['Stok'] . ' karung </td>');
         echo ('<td>
                                                 <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
         echo ($all['ID_PK'] . '">Edit</a>

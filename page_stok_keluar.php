@@ -89,14 +89,25 @@ unset($_SESSION["info"]);
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                    <form method="POST" action="addKelompok.php" enctype="multipart/form-data">
+                                    <form method="POST" action="addStokKeluar.php" enctype="multipart/form-data">
 
                                         <div class="row mb-2">
                                             <!-- Nama Pembeli -->
                                             <label class="col-sm-4 col-form-label"> Pembeli </label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="pengirim" name="pengirim"
-                                                    required>
+                                            <select class="custom-select" id="selectcust">
+                                                    <option selected="true" disabled="disabled">-- pilih kelompok tani --
+                                                    </option>
+                                                    <?php
+$data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY ID_KT DESC");
+    foreach ($data as $all) {
+        echo (' <option id="'.$all['ID_KT'].'" value="'. $all['Nama_Kel'] .'">' . $all['Nama_Kel'] . '</option>');
+    }
+    ?>
+
+                                                </select>
+                                                    <input type="text" class="form-control" id="idpupuk" name="idpupuk"
+                                                    required hidden>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -109,9 +120,9 @@ unset($_SESSION["info"]);
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
                                                     <?php
-$data = mysqli_query($conn, "SELECT Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
+$data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
     foreach ($data as $all) {
-        echo (' <option value="' . $all['Harga'] . '">' . $all['Jenis_Pupuk'] . '</option>');
+        echo (' <option id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
     }
     ?>
 
@@ -149,21 +160,33 @@ $data = mysqli_query($conn, "SELECT Jenis_Pupuk,Harga FROM data_pupuk ORDER BY I
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
-                                        <div class="row mb-2">
+                                        <div class="row mb-4">
                                             <label class="col-sm-4 col-form-label"> Pembayaran </label>
                                             <div class="custom-control custom-radio custom-control-inline mt-2 ml-2">
-                                                <input type="radio" id="customRadioInline1" name="customRadioInline"
+                                                <input type="radio" id="customRadioInline1" name="pembayaran" value="tunai"
                                                     class="custom-control-input">
                                                 <label class="custom-control-label" for="customRadioInline1">
                                                     Tunai</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline mt-2">
-                                                <input type="radio" id="customRadioInline2" name="customRadioInline"
+                                                <input type="radio" id="customRadioInline2" name="pembayaran" value="hutang"
                                                     class="custom-control-input">
                                                 <label class="custom-control-label"
                                                     for="customRadioInline2">Hutang</label>
                                             </div>
 
+                                        </div>
+
+                                        
+                                        <div class="row mb-4">
+                                            <!-- Nama Pengirim -->
+                                            
+                                            <div class="col-sm-4">
+                                               
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-primary">simpan transaksi</button>
+                                            </div>
                                         </div>
 
                                 </div>
@@ -224,9 +247,10 @@ $data = mysqli_query($conn, "SELECT Jenis_Pupuk,Harga FROM data_pupuk ORDER BY I
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script>
-    var price = 0;
 
+    <script>
+
+    var price = 0;
     function pupukControl() {
         var e = document.getElementById("selectpupuk");
         price = e.value;
@@ -234,6 +258,9 @@ $data = mysqli_query($conn, "SELECT Jenis_Pupuk,Harga FROM data_pupuk ORDER BY I
         document.getElementById("harga").readOnly = true;
         document.getElementById("checkprice").checked = true;
 
+        var sel = document.getElementById("selectpupuk");
+            var text= sel.options[sel.selectedIndex].id;
+            document.getElementById("idpupuk").value=text;
     }
 
     function priceControl() {
