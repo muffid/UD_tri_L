@@ -114,7 +114,7 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Jenis Pupuk </label>
                                             <div class="col-sm-8">
-                                                <select class="custom-select" id="selectpupuk" onclick="pupukControl()">
+                                                <select class="custom-select" id="selectpupuk" onchange="pupukControl()">
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
                                                     <?php
@@ -154,7 +154,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <label class="col-sm-4 col-form-label"> Jumlah (karung) </label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="jumlah" name="jumlah"
-                                                    required>
+                                                    required onkeyup="setJumlah()">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <label class="col-sm-4 col-form-label"> Pembayaran </label>
                                             <div class="custom-control custom-radio custom-control-inline mt-2 ml-2">
                                                 <input type="radio" id="customRadioInline1" name="pembayaran" value="tunai"
-                                                    class="custom-control-input" onclick="tunaiControl()">
+                                                    class="custom-control-input" onclick="tunaiControl()" checked="checked">
                                                 <label class="custom-control-label" for="customRadioInline1">
                                                     Tunai</label>
                                             </div>
@@ -196,7 +196,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                
                                             </div>
                                             <div class="col-sm-6">
-                                                <button type="submit" class="btn btn-primary">simpan transaksi</button>
+                                                <button type="submit" id="btnOK" class="btn btn-primary">simpan transaksi</button>
                                             </div>
                                         </div>
 
@@ -456,6 +456,7 @@ $no = 1;
         var jenis= sel.options[sel.selectedIndex].text;
         var whatClass=document.getElementById(text).className;
         document.getElementById("stok").innerHTML=': '+whatClass+' karung';
+       // alert(whatClass);
 
        
         document.getElementById("jenis").innerHTML=': '+jenis;
@@ -493,10 +494,13 @@ $no = 1;
         document.getElementById("perkarung").innerHTML=': '+this.value;
     }
 
-    document.getElementsByName("jumlah")[0].addEventListener('change', setJumlah);
+    
     function setJumlah(){
-        document.getElementById("jumlahkarung").innerHTML=': '+this.value;
-
+       
+        var val= document.getElementById("jumlah").value;
+      
+        document.getElementById("jumlahkarung").innerHTML=': '+val;
+        document.getElementById("totaluang").value='';
     }
 
     function tunaiControl(){
@@ -515,11 +519,24 @@ $no = 1;
         document.getElementById("totaluang").value=a*b;
         document.getElementById("total").innerHTML=': '+a*b;
 
+        var selc = document.getElementById("selectpupuk");
+        var idselc = selc.options[selc.selectedIndex].id;
+        var stokNow = document.getElementById(idselc).className;
+
+        if(stokNow<a){
+            document.getElementById("btnOK").disabled=true;
+        }else{
+            document.getElementById("btnOK").disabled=false;
+        }
+
 
     }
 
     function delCace() {
         document.getElementById("harga").value = "";
+        document.getElementById("btnOK").disabled =true;
+        document.getElementById("pembayaran").innerHTML=': Tunai'; 
+
     }
     </script>
 
