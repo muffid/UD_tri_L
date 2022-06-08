@@ -31,6 +31,7 @@ if (isset($_SESSION['login'])) {
     <!-- Custom styles for this template-->
 
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="img/logo1.png" rel="icon">
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>

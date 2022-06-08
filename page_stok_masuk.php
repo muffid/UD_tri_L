@@ -35,6 +35,7 @@ if(isset($_SESSION['login'])){
         rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="img/logo1.png" rel="icon">
 </head>
 
 <body id="page-top">
@@ -63,163 +64,171 @@ if(isset($_SESSION['login'])){
 
                     <div class="row">
 
-<!-- Area Chart -->
+                        <!-- Area Chart -->
 
 
 
-<div class="col-xl-6 col-lg-6">
+                        <div class="col-xl-6 col-lg-6">
 
-            <?php
-                @session_start();
-                if(isset($_SESSION["info"])){
-                ?>
+                            <?php
+@session_start();
+    if (isset($_SESSION["info"])) {
+        ?>
 
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?php //echo $_SESSION["info"];
-                    echo ($_SESSION["info"]." klik");?>
-                    <button type="button" class="btn btn-light" data-dismiss="alert"
-                        aria-label="Close"> Disini </button> untuk menutup
-                </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?php //echo $_SESSION["info"];
+        echo ($_SESSION["info"] . " klik"); ?>
+                                <button type="button" class="btn btn-light" data-dismiss="alert" aria-label="Close">
+                                    Disini </button> untuk menutup
+                            </div>
 
-                <?php
-                    unset($_SESSION["info"]);
-                }
+                            <?php
+unset($_SESSION["info"]);
+    }
 
     ?>
-    <div class="card shadow mb-4">
-        <!-- Card Header - Dropdown -->
-        <div
-            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
 
-        </div>
-        <!-- Card Body -->
-        <div class="card-body">
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
 
-            <form method="POST" action="addStokMasuk.php" enctype="multipart/form-data">
-                
-                <div class="row mb-2">
-                    <!-- Nama Pengirim -->
-                    <label class="col-sm-4 col-form-label"> Pengirim : </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="pengirim" name="pengirim"
-                            required>
+                                    <form method="POST" action="addStokMasuk.php" enctype="multipart/form-data">
 
-                            <input type="text" class="form-control" id="idppk" name="idppk"
-                            required hidden>
-                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                    </div>   
-                </div>
+                                        <div class="row mb-2">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label"> Pengirim : </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="pengirim" name="pengirim"
+                                                    required>
 
-                <div class="row mb-4">
-                    <!-- Nama Pengirim -->
-                    <label class="col-sm-4 col-form-label"> Jenis Pupuk : </label>
-                    <div class="col-sm-8">
-                        <select class="custom-select" id="selectpupuk" onchange="pupukControl()">
-                        <option  selected="true" disabled="disabled">-- pilih jenis pupuk --</option>
-                        
-                            <?php 
-                                 $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
-                                 foreach ($data as $all) {
-                                     echo(' <option id="'.$all['ID_PK'].'" value="'.$all['Harga'].'">'.$all['Jenis_Pupuk'].'</option>');
-                                   
-                                 }
-                            ?>
-                           
-                        </select>
-                    </div>   
-                </div>
+                                                <input type="text" class="form-control" id="idppk" name="idppk" required
+                                                    hidden>
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
 
-              
-                
-                
-                <div class="row mb-2">
-                    <!-- Nama Pengirim -->
-                    <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="jumlah" name="jumlah"
-                            required onkeyup="countPerKarung(this)">
-                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-                    </div>   
-                </div>
+                                        <div class="row mb-4">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label"> Jenis Pupuk : </label>
+                                            <div class="col-sm-8">
+                                                <select class="custom-select" id="selectpupuk"
+                                                    onchange="pupukControl()">
+                                                    <option selected="true" disabled="disabled">-- pilih jenis pupuk --
+                                                    </option>
 
-               
-                <div class="row mb-4">
-                    <!-- Nama Pengirim -->
-                    <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="harga" name="harga"
-                            required onkeyup="countPerKarung(this)">
-                    </div>
-                </div>
+                                                    <?php
+$data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDER BY ID_PK DESC");
+    foreach ($data as $all) {
+        echo (' <option id="' . $all['ID_PK'] . '" value="' . $all['Harga'] . '">' . $all['Jenis_Pupuk'] . '</option>');
 
-                <div class="row mb-4">
-                    <label class="col-sm-4 col-form-label"> </label>
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary" name="tambah"><i
-                                class="far fa-plus-square"></i> Tambahkan </button>
+    }
+    ?>
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="row mb-2">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="jumlah" name="jumlah"
+                                                    required onkeyup="countPerKarung(this)">
+                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-4">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="harga" name="harga" required
+                                                    onkeyup="countPerKarung(this)">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <label class="col-sm-4 col-form-label"> </label>
+                                            <div class="col-sm-8">
+                                                <button type="submit" class="btn btn-primary" name="tambah"><i
+                                                        class="far fa-plus-square"></i> Tambahkan </button>
+                                            </div>
+                                        </div>
+
+                                </div>
+                                </form>
+
+
+
+                            </div>
+
+
                         </div>
-                </div>
+                        <!--end of div col-->
 
-                </div>
-            </form>
-            
+                        <div class="col-xl-6 col-lg-6">
 
+                            <div class="card shadow mb-4">
 
-        </div>
-        
-        
-    </div><!--end of div col-->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Summary</h6>
 
-    <div class="col-xl-6 col-lg-6">
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-5 col-form-label"> Harga beli / karung : </label>
 
-    <div class="card shadow mb-4">
-       
-        <div
-            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Summary</h6>
+                                        <label class="col-sm-8 col-form-label" id="perkarung"
+                                            style="font-size:20px; font-weight:bold; color:green"> </label>
+                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
 
-        </div>
-        <!-- Card Body -->
-        <div class="card-body">
-            <div class="row mb-2">
-                        <!-- Nama Pengirim -->
-                        <label class="col-sm-5 col-form-label"> Harga beli / karung : </label>
-                    
-                        <label class="col-sm-8 col-form-label" id="perkarung" style="font-size:20px; font-weight:bold; color:green"> </label>
-                            <p style="color:red; font-size:12px;" id="username_hint"></p>
-                    
-            </div>
+                                    </div>
 
-            <div class="row mb-2">
-                        <!-- Nama Pengirim -->
-                        <label class="col-sm-5 col-form-label"> Tanggal : </label>
-                    
-                        <label class="col-sm-8 col-form-label" id="perkarung" style="font-size:20px; font-weight:bold; color:green"><?php
-                        date_default_timezone_set('Asia/Jakarta');
-                        $tanggal= date("D, j M Y "); echo($tanggal)?> </label>
-                            <p style="color:red; font-size:12px;" id="username_hint"></p>
-                    
-            </div>
-        </div>
+                                    <div class="row mb-2">
+                                        <!-- Nama Pengirim -->
+                                        <label class="col-sm-5 col-form-label"> Tanggal : </label>
+
+                                        <label class="col-sm-8 col-form-label" id="perkarung"
+                                            style="font-size:20px; font-weight:bold; color:green"><?php
+date_default_timezone_set('Asia/Jakarta');
+    $tanggal = date("D, j M Y ");
+    echo ($tanggal)?> </label>
+                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
+
+                                    </div>
+                                </div>
 
 
-        
-    
-    </div>
-</div> 
-</div>
-    <!---------------->
-    <div class="row">
-        <div class="col-xl-12 col-lg-12">
-            <div class="card shadow mb-4">
-            
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between"><h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
 
-                </div>
-        
-            <div class="card-body">
-            <div class="table-responsive">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
+
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
@@ -338,26 +347,26 @@ $no = 1;
                                         </table>
                                     </div>
 
-        </div>
-    </div>
+                                </div>
+                            </div>
 
-   <!---------------->
-   
-    </div>
-</div>
+                            <!---------------->
 
+                        </div>
+                    </div>
+
+                </div>
+
+                <?php include "segment/footer.php";?>
             </div>
-         
-            <?php include "segment/footer.php";?>
+            <!-- End of Main Content -->
+
+            <!-- footer -->
+
+            <!-- end footer -->
+
         </div>
-        <!-- End of Main Content -->
-
-        <!-- footer -->
-
-        <!-- end footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
+        <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -372,24 +381,23 @@ $no = 1;
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script>
+    function countPerKarung(sel) {
 
-        function countPerKarung(sel){
-           
-            var totalKarung=document.getElementById("jumlah").value;
-            var totalHarga=document.getElementById("harga").value;
-            var result=totalHarga/totalKarung;
-            result= result.toFixed(1);
-            document.getElementById("perkarung").innerHTML=result;
+        var totalKarung = document.getElementById("jumlah").value;
+        var totalHarga = document.getElementById("harga").value;
+        var result = totalHarga / totalKarung;
+        result = result.toFixed(1);
+        document.getElementById("perkarung").innerHTML = result;
 
-        }
+    }
 
-        function pupukControl(){
-            var sel = document.getElementById("selectpupuk");
-            var text= sel.options[sel.selectedIndex].id;
-            document.getElementById("idppk").value=text;
-        }
+    function pupukControl() {
+        var sel = document.getElementById("selectpupuk");
+        var text = sel.options[sel.selectedIndex].id;
+        document.getElementById("idppk").value = text;
+    }
     </script>
-   
+
 
 </body>
 
