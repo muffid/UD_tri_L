@@ -114,7 +114,7 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Jenis Pupuk </label>
                                             <div class="col-sm-8">
-                                                <select class="custom-select" id="selectpupuk" >
+                                                <select class="custom-select" id="selectpupuk" onchange="pupukControl()" >
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
                                                     <?php
@@ -141,7 +141,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline mt-2">
                                                     <input class="form-check-input" type="checkbox" id="checkprice"
-                                                        value="option1" checked>
+                                                        value="option1" checked onclick="priceControl()">
                                                     <label class="form-check-label" for="checkprice">harga
                                                         normal</label>
                                                 </div>
@@ -383,8 +383,37 @@ $no = 1;
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
+
+    function pupukControl(){
+        var e = document.getElementById("selectpupuk");
+        price = e.value;
+        document.getElementById("harga").value = price;
+        document.getElementById("harga").readOnly = true;
+        document.getElementById("checkprice").checked = true;
+    }
+        
+    function priceControl() {
+        if (document.getElementById("checkprice").checked == false) {
+            document.getElementById("harga").readOnly = false;
+            document.getElementById("harga").value = "";
+            document.getElementById("perkarung").innerHTML = '';
+        } else {
+            document.getElementById("harga").readOnly = true;
+            document.getElementById("harga").value = price;
+            document.getElementById("perkarung").innerHTML = ': ' + price;
+        }
+    }
+
+        var name=0;
         function addFields(){
+
+         name++;
       
+         var selPupuk=document.getElementById("selectpupuk");
+         var pupuk=selPupuk.options[selPupuk.selectedIndex].text;
+         var harga=document.getElementById("harga").value;
+         var jumlah=document.getElementById("jumlah").value;
+
          const nodeTR = document.createElement("tr");
 
          const nodeTDb = document.createElement("td");
@@ -393,7 +422,8 @@ $no = 1;
                 inputb.name = "b";
                 inputb.size="2";
                 inputb.style="border:0;outline:0";
-                inputb.value="12";
+                inputb.value=jumlah;
+                inputb.name="jumlah"+name;
                 nodeTDb.appendChild(inputb);
 
          const nodeTDn = document.createElement("td");
@@ -402,7 +432,7 @@ $no = 1;
                 inputn.name = "n";
                 inputn.size="15";
                 inputn.style="border:0;outline:0";
-                inputn.value="UREA";
+                inputn.value=pupuk;
                 nodeTDn.appendChild(inputn);
 
          const nodeTDh = document.createElement("td");
@@ -411,7 +441,7 @@ $no = 1;
                 inputh.name = "b";
                 inputh.size="7";
                 inputh.style="border:0;outline:0";
-                inputh.value="50000";
+                inputh.value=harga;
                 nodeTDh.appendChild(inputh);
 
          const nodeTDt = document.createElement("td");
