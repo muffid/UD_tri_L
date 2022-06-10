@@ -523,11 +523,13 @@ $no = 1;
         var idselc = selc.options[selc.selectedIndex].id;
         var stokNow = document.getElementById(idselc).className;
 
-        if(stokNow<a){
+        if(parseInt(stokNow)<parseInt(a)){
+            alert(stokNow+' lebih kecil dari '+a);
             document.getElementById("btnOK").disabled=true;
         }else{
-            document.getElementById("btnOK").disabled=false;
-        }
+            alert(stokNow+' lebih besar dari '+a);
+             document.getElementById("btnOK").disabled=false;
+         }
 
 
     }
