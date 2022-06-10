@@ -404,10 +404,11 @@ $no = 1;
         }
     }
 
-        var name=0;
+        var name;
         function addFields(){
 
-         name++;
+            name++;
+         
       
          var selPupuk=document.getElementById("selectpupuk");
          var pupuk=selPupuk.options[selPupuk.selectedIndex].text;
@@ -423,7 +424,6 @@ $no = 1;
                 inputb.size="2";
                 inputb.style="border:0;outline:0";
                 inputb.value=jumlah;
-                inputb.name="jumlah"+name;
                 nodeTDb.appendChild(inputb);
 
          const nodeTDn = document.createElement("td");
@@ -438,7 +438,7 @@ $no = 1;
          const nodeTDh = document.createElement("td");
          var inputh = document.createElement("input");
                 inputh.type = "text";
-                inputh.name = "b";
+                inputh.name = "h";
                 inputh.size="7";
                 inputh.style="border:0;outline:0";
                 inputh.value=harga;
@@ -447,7 +447,7 @@ $no = 1;
          const nodeTDt = document.createElement("td");
          var inputt = document.createElement("input");
                 inputt.type = "text";
-                inputt.name = "b";
+                inputt.name = "t";
                 inputt.size="7";
                 inputt.style="border:0;outline:0";
                 inputt.value="500000";
