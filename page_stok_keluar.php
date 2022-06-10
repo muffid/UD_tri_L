@@ -97,7 +97,7 @@ if (isset($_SESSION['login'])) {
                                                     <?php
 $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY ID_KT DESC");
     foreach ($data as $all) {
-        echo (' <option id="'.$all['ID_KT'].'" value="'. $all['Nama_Kel'] .'">' . $all['Nama_Kel'] . '</option>');
+        echo (' <option id="kel'.$all['ID_KT'].'" value="'. $all['Nama_Kel'] .'">' . $all['Nama_Kel'] . '</option>');
     }
     ?>
 
@@ -120,7 +120,7 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                                     <?php
 $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk ORDER BY ID_PK DESC");
     foreach ($data as $all) {
-        echo (' <option class="'.$all['Stok'].'" id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
+        echo (' <option class="ppk'.$all['Stok'].'" id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
     }
     ?>
 
@@ -460,21 +460,12 @@ $no = 1;
         document.getElementById("harga").value = price;
         document.getElementById("harga").readOnly = true;
         document.getElementById("checkprice").checked = true;
-//
-        var sel = document.getElementById("selectpupuk");
-        var text= sel.options[sel.selectedIndex].id;
-        var jenis= sel.options[sel.selectedIndex].text;
-        var whatClass=document.getElementById(text).className;
-        document.getElementById("stok").innerHTML=': '+whatClass+' karung';
-       // alert(whatClass);
-
-       
-        document.getElementById("jenis").innerHTML=': '+jenis;
-        document.getElementById("idpupuk").value=text;
-        
-        
-
+        document.getElementById("idpupuk").value=idpupuk;
         document.getElementById("perkarung").innerHTML=': '+price;
+
+        var idterpilih=e.options[e.selectedIndex].id;
+        var classterpilih=document.getElementById(idterpilih).className;
+        document.getElementById("stok").innerHTML=classterpilih;
 
     }
 
@@ -491,9 +482,9 @@ $no = 1;
     }
 
     function custControl(){
-        var sel = document.getElementById("selectcust");
-        var text= sel.options[sel.selectedIndex].text;
-        var idcus= sel.options[sel.selectedIndex].id;
+        var selcus = document.getElementById("selectcust");
+        var text= selcus.options[selcus.selectedIndex].text;
+        var idcus= selcus.options[selcus.selectedIndex].id;
         document.getElementById("pembeli").innerHTML=': '+text;
         document.getElementById("idkel").value=idcus;
     }
@@ -533,6 +524,7 @@ $no = 1;
         var stokNow = document.getElementById(idselc).className;
 
         if(parseInt(stokNow)<parseInt(a)){
+            alert()
             document.getElementById("btnOK").disabled=true;
         }else{
             document.getElementById("btnOK").disabled=false;
