@@ -16,7 +16,7 @@ $sql = "INSERT INTO stok_masuk (ID_SM,Tanggal,ID_PK,Nama_Pengirim,Jumlah_Masuk,N
 if (mysqli_query($conn, $sql)) {
     session_start();
 //    tamabh stok
-    $sqlDP = mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS total_stok From stok_masuk ");
+    $sqlDP = mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS total_stok From stok_masuk where ID_PK=" . $idppk);
     foreach ($sqlDP as $key) {
         $dat = $key['total_stok'];
     }

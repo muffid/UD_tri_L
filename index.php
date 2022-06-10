@@ -1,4 +1,5 @@
 <?php
+include "connection.php";
 session_start();
 if (isset($_SESSION['login'])) {
     if (!isset($_GET['m'])) {
@@ -63,15 +64,60 @@ if (isset($_SESSION['login'])) {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mt-5">
                         <h1 class="h3 mt-5 text-gray-800">Dashboard</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i -->
+                        <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>
 
                     <!-- Content Row -->
                     <div class="row">
+                        <?php
+function getColor()
+    {
+        $numcolor = rand(1, 4);
+        switch ($numcolor) {
+            case 1:
+                $colorPick = 'primary';
+                break;
+            case 2:
+                $colorPick = 'success';
+                break;
+            case 3:
+                $colorPick = 'warning';
+                break;
+            case 4:
+                $colorPick = 'danger';
+                break;
+        }
+        return $colorPick;
+    }
 
+    $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
+    foreach ($data as $key) {
+        $detail = mysqli_query($conn, "SELECT * FROM data_pupuk WHERE ID_PK=" . $key['ID_PK']);
+        foreach ($detail as $det) {
+            $colorFix = getColor();
+            echo ('<div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-' . $colorFix . ' shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-' . $colorFix . ' text-uppercase mb-1">
+                                                    ' . $det['Jenis_Pupuk'] . '</div>
+                                                    <div class="mb-0  text-gray-800">sisa stok </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">' . $det['Stok'] . ' karung</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>');
+        }
+    }
+    ?>
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -86,10 +132,10 @@ if (isset($_SESSION['login'])) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -104,10 +150,10 @@ if (isset($_SESSION['login'])) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -133,10 +179,10 @@ if (isset($_SESSION['login'])) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -151,7 +197,8 @@ if (isset($_SESSION['login'])) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
                     </div>
 
                     <!-- Content Row -->
@@ -278,7 +325,7 @@ if (isset($_SESSION['login'])) {
                             </div>
 
                             <!-- Color System -->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-primary text-white shadow">
                                         <div class="card-body">
@@ -343,7 +390,7 @@ if (isset($_SESSION['login'])) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
 
@@ -356,20 +403,20 @@ if (isset($_SESSION['login'])) {
                                 </div>
                                 <div class="card-body">
                                     <div class="text-center">
-                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                            src="img/undraw_posting_photo.svg" alt="...">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 20rem;"
+                                            src="img/konsultasi.png" alt="...">
                                     </div>
                                     <p>Add some quality, svg illustrations to your project courtesy of <a
-                                            target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
+                                            target="_blank" rel="nofollow" href="https://anemos.id/">unDraw</a>, a
                                         constantly updated collection of beautiful svg images that you can use
                                         completely free and without attribution!</p>
-                                    <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
+                                    <a target="_blank" rel="nofollow" href="https://anemos.id/">Browse Illustrations on
                                         unDraw &rarr;</a>
                                 </div>
                             </div>
 
                             <!-- Approach -->
-                            <div class="card shadow mb-4">
+                            <!-- <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
                                 </div>
@@ -380,7 +427,7 @@ if (isset($_SESSION['login'])) {
                                     <p class="mb-0">Before working with this theme, you should become familiar with the
                                         Bootstrap framework, especially the utility classes.</p>
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>

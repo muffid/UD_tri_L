@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "connection.php";
+date_default_timezone_set('Asia/Jakarta');
+$tanggal = date("D, j M Y ");
 if (isset($_SESSION['login'])) {
     ?>
 <!DOCTYPE html>
@@ -82,7 +84,7 @@ unset($_SESSION["info"]);
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Input Kelompok Tani</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Input Pupuk Masuk</h6>
 
                                 </div>
                                 <!-- Card Body -->
@@ -95,8 +97,7 @@ unset($_SESSION["info"]);
                                             <label class="col-sm-4 col-form-label"> Pengirim : </label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="pengirim" name="pengirim"
-                                                    required>
-
+                                                    required onkeyup="SETis()">
                                                 <input type="text" class="form-control" id="idppk" name="idppk" required
                                                     hidden>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
@@ -107,8 +108,8 @@ unset($_SESSION["info"]);
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Jenis Pupuk : </label>
                                             <div class="col-sm-8">
-                                                <select class="custom-select" id="selectpupuk"
-                                                    onchange="pupukControl()">
+                                                <select class="custom-select" id="jenisPP" name="jenisPP"
+                                                    onchange="SETPP()">
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
 
@@ -129,10 +130,11 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
                                         <div class="row mb-2">
                                             <!-- Nama Pengirim -->
+
                                             <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="jumlah" name="jumlah"
-                                                    required onkeyup="countPerKarung(this)">
+                                                    required onkeyup="SETis()">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -143,7 +145,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                             <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="harga" name="harga" required
-                                                    onkeyup="countPerKarung(this)">
+                                                    onkeyup="SETis()">
                                             </div>
                                         </div>
 
@@ -172,38 +174,47 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Summary</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Preview</h6>
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="row mb-2">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-5 col-form-label"> Harga beli / karung : </label>
-
-                                        <label class="col-sm-8 col-form-label" id="perkarung"
-                                            style="font-size:20px; font-weight:bold; color:green"> </label>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-
+                                    <div class="row mb-1">
+                                        <!-- Nama tanggal -->
+                                        <label class="col-sm-4 col-form-label"> Tanggal </label>
+                                        <label class="col-sm-5 col-form-label" id="tanggal"><?=": " . ($tanggal)?>
+                                        </label>
+                                        <p style=" color:red; font-size:12px;" id="username_hint"></p>
                                     </div>
-
-                                    <div class="row mb-2">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-5 col-form-label"> Tanggal : </label>
-
-                                        <label class="col-sm-8 col-form-label" id="perkarung"
-                                            style="font-size:20px; font-weight:bold; color:green"><?php
-date_default_timezone_set('Asia/Jakarta');
-    $tanggal = date("D, j M Y ");
-    echo ($tanggal)?> </label>
-                                        <p style="color:red; font-size:12px;" id="username_hint"></p>
-
+                                    <div class="row mb-1">
+                                        <!-- Nama pengirim -->
+                                        <label class="col-sm-4 col-form-label">Pengirim</label>
+                                        <label class="col-sm-5 col-form-label" id="pengirimPP">:
+                                        </label>
+                                        <p style=" color:red; font-size:12px;" id="username_hint"></p>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <!-- Jenis Pupuk-->
+                                        <label class="col-sm-4 col-form-label">Jenis Pupuk</label>
+                                        <label class="col-sm-5 col-form-label" id="pupuk" name="pupuk">:
+                                        </label>
+                                        <p style=" color:red; font-size:12px;" id="username_hint"></p>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <!-- Jumlah Pupuk Datang -->
+                                        <label class="col-sm-4 col-form-label">Jumlah Pupuk</label>
+                                        <label class="col-sm-5 col-form-label" id="jumPP">:
+                                        </label>
+                                        <p style=" color:red; font-size:12px;" id="username_hint"></p>
+                                    </div>
+                                    <div class="row mb-1">
+                                        <!--  Harga Beli-->
+                                        <label class="col-sm-4 col-form-label">Harga Beli</label>
+                                        <label class="col-sm-5 col-form-label" id="hargaPP">:
+                                        </label>
+                                        <p style=" color:red; font-size:12px;" id="username_hint"></p>
                                     </div>
                                 </div>
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -248,11 +259,11 @@ $no = 1;
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . $all['Nominal'] . '</td>');
         echo ('<td>
-							                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+																																																																															                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
         echo ($all['ID_SM'] . '">Edit</a>
-							                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+																																																																															                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
         echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>
-							                                              ');
+																																																																															                                              ');
         $no++;
         ?></tr>
                                                 <!-- modal edit-->
@@ -385,20 +396,25 @@ $no = 1;
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-    function countPerKarung(sel) {
+    function SETis() {
+        var inputPengirim = document.getElementById("pengirim").value;
+        document.getElementById("pengirimPP").innerHTML = ': ' + inputPengirim;
 
-        var totalKarung = document.getElementById("jumlah").value;
-        var totalHarga = document.getElementById("harga").value;
-        var result = totalHarga / totalKarung;
-        result = result.toFixed(1);
-        document.getElementById("perkarung").innerHTML = result;
+        var inputJumPP = document.getElementById("jumlah").value;
+        document.getElementById("jumPP").innerHTML = ': ' + inputJumPP;
+
+        var inputHr = document.getElementById("harga").value;
+        document.getElementById("hargaPP").innerHTML = ': ' + inputHr;
 
     }
 
-    function pupukControl() {
-        var sel = document.getElementById("selectpupuk");
-        var text = sel.options[sel.selectedIndex].id;
-        document.getElementById("idppk").value = text;
+    function SETPP() {
+        var sel = document.getElementById("jenisPP");
+        var id = sel.options[sel.selectedIndex].id;
+        var text = sel.options[sel.selectedIndex].text;
+        document.getElementById("pupuk").innerHTML = ": " + text;
+        document.getElementById("idppk").value = id;
+
     }
     </script>
 
