@@ -3,11 +3,6 @@ session_start();
 include "connection.php";
 if (isset($_SESSION['login'])) {
     ?>
-
-include "connnection.php";
-
-if(isset($_SESSION['login'])){
-?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
@@ -64,28 +59,23 @@ if(isset($_SESSION['login'])){
 
 
                     <div class="row">
-
-                        <!-- Area Chart -->
-
-
-
                         <div class="col-xl-6 col-lg-6">
 
                             <?php
 @session_start();
-    if (isset($_SESSION["info"])) {
-        ?>
+    if (isset($_SESSION["info"])):
+    ?>
 
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <?php //echo $_SESSION["info"];
-        echo ($_SESSION["info"] . " klik"); ?>
+    echo ($_SESSION["info"] . " klik"); ?>
                                 <button type="button" class="btn btn-light" data-dismiss="alert" aria-label="Close">
                                     Disini </button> untuk menutup
                             </div>
 
                             <?php
 unset($_SESSION["info"]);
-    }
+    endif;
 
     ?>
                             <div class="card shadow mb-4">
@@ -247,24 +237,26 @@ date_default_timezone_set('Asia/Jakarta');
                                             <tbody>
                                                 <?php
 $no = 1;
-    $data = mysqli_query($conn, "SELECT * FROM stok_masuk ORDER BY ID_SM DESC");
-    foreach ($data as $all) {
+    $data = mysqli_query($conn, "SELECT * FROM stok_masuk
+    INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC
+    ");
+    foreach ($data as $all):
         echo ('<tr><td>' . $no . '</td>');
         echo ('<td>' . $all['Tanggal'] . '</td>');
         echo ('<td>' . $all['Nama_Pengirim'] . '</td>');
-        echo ('<td>' . $all['ID_PK'] . '</td>');
+        echo ('<td>' . $all['Jenis_Pupuk'] . '</td>');
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . $all['Nominal'] . '</td>');
         echo ('<td>
-                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_PK'] . '">Edit</a>
-                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_PK'] . '">Hapus Pupuk</a></td></tr>
-                                              ');
+							                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_SM'] . '">Edit</a>
+							                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>
+							                                              ');
         $no++;
         ?></tr>
                                                 <!-- modal edit-->
-                                                <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_PK'];?>"
+                                                <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_SM'];?>"
                                                     tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                                                     aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
@@ -279,24 +271,22 @@ $no = 1;
                                                             <div class="modal-body mx-3">
                                                                 <div class="md-form mb-2">
                                                                     <form method="POST"
-                                                                        action="editPupuk.php?id=<?=$all['ID_PK'];?>">
-                                                                        <!--<i class="fas fa-user prefix grey-text"></i> -->
+                                                                        action="editStokPukukMasuk.php?id=<?=$all['ID_SM'];?>">
+                                                                        <label data-error="wrong" data-success="right"
+                                                                            for="form3">Pengirim</label>
                                                                         <input type="text" id="editnamapupuk"
                                                                             name="editnamapupuk"
                                                                             class="form-control validate"
-                                                                            value="<?=$all['Jenis_Pupuk']?>">
-                                                                        <label data-error="wrong" data-success="right"
-                                                                            for="form3">Jenis Pupuk</label>
+                                                                            value="<?=$all['Nama_Pengirim']?>">
                                                                 </div>
-
                                                                 <div class="md-form mb-2">
-                                                                    <!--<i class="fas fa-envelope prefix grey-text"></i>-->
+                                                                    <label data-error="wrong" data-success="right"
+                                                                        for="form2">Harga / Kg</label>
                                                                     <input type="number" id="edithargapupuk"
                                                                         name="edithargapupuk"
                                                                         class="form-control validate"
                                                                         value="<?=$all['Harga']?>">
-                                                                    <label data-error="wrong" data-success="right"
-                                                                        for="form2">Harga / Kg</label>
+
                                                                 </div>
 
                                                             </div>
@@ -312,37 +302,42 @@ $no = 1;
                                                 <!-- end modal edit-->
 
                                                 <!-- Modal delete -->
-                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_PK'];?>"
+                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_SM'];?>"
                                                     tabindex="-1" role="dialog"
                                                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLongTitle">Hapus
-                                                                    Data Pupuk</h5>
+                                                                    Stok Pupuk Masuk</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <center>WARNING!<br> menghapus data mungkin akan
-                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                <center>
+                                                                    <h3 class="text-danger">PERINGATAN!</h3>
+                                                                    Menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkron. Pastikan
                                                                     data yang akan dihapus adalah
-                                                                    data yang sudah tidak terpakai. Anda yakin akan
-                                                                    menghapus ?</center>
+                                                                    data yang sudah tidak terpakai. <strong
+                                                                        class="text-danger">Anda yakin
+                                                                        akan
+                                                                        menghapus ?</strong>
+                                                                </center>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
-                                                                <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>"
+                                                                    data-dismiss="modal">Kembali</button>
+                                                                <a href="deleteDataPupuk.php?id=<?=$all['ID_SM'];?>"
                                                                     class="btn btn-danger">Ya, Hapus</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- end Modal delete -->
-                                                <?php }?>
+                                                <?php endforeach;?>
 
                                             </tbody>
                                         </table>
@@ -382,7 +377,7 @@ $no = 1;
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    
+
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
@@ -414,4 +409,5 @@ $no = 1;
 <?php } else {
     header("Location: login.php");
     exit();
-}?>
+}
+?>
