@@ -465,7 +465,7 @@ $no = 1;
 
         var idterpilih=e.options[e.selectedIndex].id;
         var classterpilih=document.getElementById(idterpilih).className;
-        document.getElementById("stok").innerHTML=classterpilih;
+        document.getElementById("stok").innerHTML=": "+classterpilih.replace("ppk","");
 
     }
 
