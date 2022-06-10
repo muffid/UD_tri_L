@@ -411,9 +411,7 @@ $no = 1;
                                 </div>
                             </div>
                         </div>
-                    </div>        
-
-                    
+                    </div>                      
    </div>
 
                 </div>
@@ -460,12 +458,13 @@ $no = 1;
         document.getElementById("harga").value = price;
         document.getElementById("harga").readOnly = true;
         document.getElementById("checkprice").checked = true;
-        document.getElementById("idpupuk").value=idpupuk;
+        
         document.getElementById("perkarung").innerHTML=': '+price;
 
         var idterpilih=e.options[e.selectedIndex].id;
         var classterpilih=document.getElementById(idterpilih).className;
         document.getElementById("stok").innerHTML=": "+classterpilih.replace("ppk","");
+        document.getElementById("idpupuk").value=idterpilih;
 
     }
 
@@ -486,7 +485,7 @@ $no = 1;
         var text= selcus.options[selcus.selectedIndex].text;
         var idcus= selcus.options[selcus.selectedIndex].id;
         document.getElementById("pembeli").innerHTML=': '+text;
-        document.getElementById("idkel").value=idcus;
+        document.getElementById("idkel").value=idcus.replace("kel","");
     }
     
 
@@ -524,13 +523,11 @@ $no = 1;
         var stokNow = document.getElementById(idselc).className;
 
         if(parseInt(stokNow)<parseInt(a)){
-            alert()
+            //alert()
             document.getElementById("btnOK").disabled=true;
         }else{
             document.getElementById("btnOK").disabled=false;
         }
-
-
     }
 
     function delCace() {

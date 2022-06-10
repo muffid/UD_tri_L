@@ -15,6 +15,8 @@ $ket=$_POST['pembayaran'];
 
 $stokAvail=0;
 
+echo($idkel);
+
 $data = mysqli_query($conn, "SELECT Stok FROM data_pupuk WHERE ID_PK =".$idppk." ORDER BY ID_PK DESC");
     foreach ($data as $all) {
         $stokAvail=$all['Stok'];
