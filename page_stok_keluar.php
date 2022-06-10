@@ -319,7 +319,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                             <div class="card shadow mb-4">
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Pupuk</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data transaksi penjualan</h6>
 
                                 </div>
 
@@ -349,8 +349,18 @@ $no = 1;
     foreach ($data as $all) {
         echo ('<tr><td>' . $no . '</td>');
         echo ('<td>' . $all['Tanggal'] . '</td>');
-        echo ('<td>' . $all['ID_KT'] . '</td>');
-        echo ('<td>' . $all['ID_PK'] . '</td>');
+
+            $nkel=mysqli_query($conn,"SELECT Nama_Kel FROM data_kel_tani WHERE ID_KT=".$all['ID_KT']);
+            foreach($nkel as $keykel){
+                echo ('<td>' . $keykel['Nama_Kel'] . '</td>');
+            }
+
+            $npuk=mysqli_query($conn,"SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK=".$all['ID_PK']);
+            foreach($npuk as $keypuk){
+                echo ('<td>' . $keypuk['Jenis_Pupuk'] . '</td>');
+            }
+
+        
         echo ('<td>' . $all['Jumlah_Keluar'] . ' karung</td>');
         
         echo ('<td>' . $all['Harga'] . '</td>');
@@ -370,25 +380,24 @@ $no = 1;
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
-                                                                    Data Pupuk</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Batalkan
+                                                                    Transkasi
+                                                                </h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <center>WARNING!<br> menghapus data mungkin akan
-                                                                    menyebabkan beberapa data tidak singkon. Pastikan
-                                                                    data yang akan dihapus adalah
-                                                                    data yang sudah tidak terpakai. Anda yakin akan
-                                                                    menghapus ?</center>
+                                                                <center><h5 style="color:red">WARNING!</h5> membatalkan transaksi berarti mengembalikan
+                                                                jumlah stok pupuk yang telah terjual dan menarik kembali uang pembayaran. Anda yakin akan
+                                                                    membatalkan transaksi ?</center>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-dismiss="modal">Close</button>
                                                                 <a href="cancelStokKeluar.php?id=<?=$all['ID_SK'];?>&n=<?=$all['Jumlah_Keluar'];?>&m=<?=$all['ID_PK'];?>"
-                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                                    class="btn btn-danger">Ya, Batalkan</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -445,12 +454,13 @@ $no = 1;
 
     var price = 0;
     function pupukControl() {
+        //
         var e = document.getElementById("selectpupuk");
         price = e.value;
         document.getElementById("harga").value = price;
         document.getElementById("harga").readOnly = true;
         document.getElementById("checkprice").checked = true;
-
+//
         var sel = document.getElementById("selectpupuk");
         var text= sel.options[sel.selectedIndex].id;
         var jenis= sel.options[sel.selectedIndex].text;
@@ -498,7 +508,6 @@ $no = 1;
     function setJumlah(){
        
         var val= document.getElementById("jumlah").value;
-      
         document.getElementById("jumlahkarung").innerHTML=': '+val;
         document.getElementById("totaluang").value='';
     }
