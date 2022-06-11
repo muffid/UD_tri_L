@@ -5,7 +5,7 @@ $namapeng = $_POST['pengirim'];
 $idppk = $_POST['idppk'];
 
 $jumlah = $_POST['jumlah'];
-$total = $_POST['harga'];
+$total = htmlspecialchars(str_replace(".", "", $_POST['harga']));
 
 date_default_timezone_set('Asia/Jakarta');
 $tanggal = date("D, j M Y ");

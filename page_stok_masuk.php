@@ -94,7 +94,7 @@ unset($_SESSION["info"]);
 
                                         <div class="row mb-2">
                                             <!-- Nama Pengirim -->
-                                            <label class="col-sm-4 col-form-label"> Pengirim : </label>
+                                            <label class="col-sm-4 col-form-label">Pengirim</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="pengirim" name="pengirim"
                                                     required onkeyup="SETis()">
@@ -106,7 +106,7 @@ unset($_SESSION["info"]);
 
                                         <div class="row mb-4">
                                             <!-- Nama Pengirim -->
-                                            <label class="col-sm-4 col-form-label"> Jenis Pupuk : </label>
+                                            <label class="col-sm-4 col-form-label">Jenis Pupuk</label>
                                             <div class="col-sm-8">
                                                 <select class="custom-select" id="jenisPP" name="jenisPP"
                                                     onchange="SETPP()">
@@ -124,54 +124,44 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                                 </select>
                                             </div>
                                         </div>
-
-
-
-
                                         <div class="row mb-2">
                                             <!-- Nama Pengirim -->
 
-                                            <label class="col-sm-4 col-form-label"> Jumlah (karung) : </label>
+                                            <label class="col-sm-4 col-form-label">Jumlah (karung)</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="jumlah" name="jumlah"
+                                                <input type="number" class="form-control" id="jumlah" name="jumlah"
                                                     required onkeyup="SETis()">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
 
-
-                                        <div class="row mb-4">
+                                        <div class="row mb-2">
                                             <!-- Nama Pengirim -->
-                                            <label class="col-sm-4 col-form-label"> Total Pembelian : </label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="harga" name="harga" required
-                                                    onkeyup="SETis()">
+                                            <label class="col-sm-4 col-form-label"> Total Pembelian</label>
+                                            <div class="input-group col-sm-8">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Rp.</span>
+                                                </div>
+                                                <input type="text" class="form-control h2 " id="harga" name="harga"
+                                                    required onkeyup="SETis()">
                                             </div>
                                         </div>
-
-                                        <div class="row mb-4">
-                                            <label class="col-sm-4 col-form-label"> </label>
-                                            <div class="col-sm-8">
-                                                <button type="submit" class="btn btn-primary" name="tambah"><i
-                                                        class="far fa-plus-square"></i> Tambahkan </button>
-                                            </div>
-                                        </div>
-
                                 </div>
-                                </form>
 
-
-
+                                <div class="row mb-4">
+                                    <label class="col-sm-4 col-form-label"> </label>
+                                    <div class="col-sm-8">
+                                        <button type="submit" class="btn btn-primary" name="tambah"><i
+                                                class="far fa-plus-square"></i> Tambahkan </button>
+                                    </div>
+                                </div>
                             </div>
+                            </form>
 
-
+                            <!--end of div col-->
                         </div>
-                        <!--end of div col-->
-
                         <div class="col-xl-6 col-lg-6">
-
                             <div class="card shadow mb-4">
-
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Preview</h6>
@@ -210,13 +200,14 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                     <div class="row mb-1">
                                         <!--  Harga Beli-->
                                         <label class="col-sm-4 col-form-label">Harga Beli</label>
-                                        <label class="col-sm-5 col-form-label" id="hargaPP">:
+                                        <label class="col-sm-5 col-form-label" id="hargaPP">: Rp.
                                         </label>
                                         <p style=" color:red; font-size:12px;" id="username_hint"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <!---------------->
                     <div class="row">
@@ -259,11 +250,11 @@ $no = 1;
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . $all['Nominal'] . '</td>');
         echo ('<td>
-																																																																															                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+																																																																																																																																												                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
         echo ($all['ID_SM'] . '">Edit</a>
-																																																																															                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+																																																																																																																																												                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
         echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>
-																																																																															                                              ');
+																																																																																																																																												                                              ');
         $no++;
         ?></tr>
                                                 <!-- modal edit-->
@@ -319,7 +310,8 @@ $no = 1;
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                                    Hapus
                                                                     Stok Pupuk Masuk</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
@@ -330,7 +322,8 @@ $no = 1;
                                                                 <center>
                                                                     <h3 class="text-danger">PERINGATAN!</h3>
                                                                     Menghapus data mungkin akan
-                                                                    menyebabkan beberapa data tidak singkron. Pastikan
+                                                                    menyebabkan beberapa data tidak singkron.
+                                                                    Pastikan
                                                                     data yang akan dihapus adalah
                                                                     data yang sudah tidak terpakai. <strong
                                                                         class="text-danger">Anda yakin
@@ -353,16 +346,16 @@ $no = 1;
                                             </tbody>
                                         </table>
                                     </div>
-
                                 </div>
                             </div>
-
-                            <!---------------->
-
                         </div>
-                    </div>
 
+                        <!---------------->
+
+                    </div>
                 </div>
+
+
 
                 <?php include "segment/footer.php";?>
             </div>
@@ -394,6 +387,8 @@ $no = 1;
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+    <!-- mata uang -->
+    <script src="matauang.js"></script>
 
     <script>
     function SETis() {
@@ -404,7 +399,7 @@ $no = 1;
         document.getElementById("jumPP").innerHTML = ': ' + inputJumPP;
 
         var inputHr = document.getElementById("harga").value;
-        document.getElementById("hargaPP").innerHTML = ': ' + inputHr;
+        document.getElementById("hargaPP").innerHTML = ': Rp. ' + inputHr;
 
     }
 
