@@ -38,7 +38,7 @@ if (isset($_SESSION['login'])) {
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<body id="page-top" onload="delCace()">
+<body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
@@ -86,18 +86,18 @@ if (isset($_SESSION['login'])) {
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                    <form method="POST" action="addStokKeluar.php">
+                                    <!-- <form method="POST" action="addStokKeluar.php"> -->
                                         <div class="row mb-2">
                                             <!-- Nama Pembeli -->
                                             <label class="col-sm-4 col-form-label"> Pembeli </label>
                                             <div class="col-sm-8">
-                                            <select class="custom-select" id="selectcust" onchange="custControl()">
+                                            <select class="custom-select" id="selectcust">
                                                     <option selected="true" disabled="disabled">-- pilih kelompok tani --
                                                     </option>
                                                     <?php
 $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY ID_KT DESC");
     foreach ($data as $all) {
-        echo (' <option id="kel'.$all['ID_KT'].'" value="'. $all['Nama_Kel'] .'">' . $all['Nama_Kel'] . '</option>');
+        echo (' <option id="'.$all['ID_KT'].'" value="'. $all['Nama_Kel'] .'">' . $all['Nama_Kel'] . '</option>');
     }
     ?>
 
@@ -114,13 +114,13 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Jenis Pupuk </label>
                                             <div class="col-sm-8">
-                                                <select class="custom-select" id="selectpupuk" onchange="pupukControl()">
+                                                <select class="custom-select" id="selectpupuk" onchange="pupukControl()" >
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
                                                     <?php
 $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk ORDER BY ID_PK DESC");
     foreach ($data as $all) {
-        echo (' <option class="ppk'.$all['Stok'].'" id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
+        echo (' <option class="'.$all['Stok'].'" id="'.$all['ID_PK'].'" value="'. $all['Harga'] .'">' . $all['Jenis_Pupuk'] . '</option>');
     }
     ?>
 
@@ -141,7 +141,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline mt-2">
                                                     <input class="form-check-input" type="checkbox" id="checkprice"
-                                                        value="option1" onclick="priceControl()" checked>
+                                                        value="option1" checked onclick="priceControl()">
                                                     <label class="form-check-label" for="checkprice">harga
                                                         normal</label>
                                                 </div>
@@ -154,62 +154,29 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <label class="col-sm-4 col-form-label"> Jumlah (karung) </label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" id="jumlah" name="jumlah"
-                                                    required onkeyup="setJumlah()">
+                                                    required)>
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
-                                        <div class="row mb-2">
-                                            <!-- Nama Pengirim -->
-                                            <label class="col-sm-4 col-form-label"> Total </label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="totaluang" name="totaluang"
-                                                    required readonly>
-                                               
-                                            </div>
-                                            <div class="col-sm-3 mt-1">
-                                               
-                                               <button type="button" class="btn btn-outline-primary btn-sm" onclick="doTotal()">hitung total</buton>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-4">
-                                            <label class="col-sm-4 col-form-label"> Pembayaran </label>
-                                            <div class="custom-control custom-radio custom-control-inline mt-2 ml-2">
-                                                <input type="radio" id="customRadioInline1" name="pembayaran" value="tunai"
-                                                    class="custom-control-input" onclick="tunaiControl()" checked="checked">
-                                                <label class="custom-control-label" for="customRadioInline1">
-                                                    Tunai</label>
-                                            </div>
-                                            <div class="custom-control custom-radio custom-control-inline mt-2">
-                                                <input type="radio" id="customRadioInline2" name="pembayaran" value="hutang"
-                                                    class="custom-control-input" onclick="hutangControl()">
-                                                <label class="custom-control-label"
-                                                    for="customRadioInline2">Hutang</label>
-                                            </div>
-
-                                        </div>
-
-                                        
-                                        <div class="row mb-4">
+                                       
+                                        <div class="row">
                                             <!-- Nama Pengirim -->
                                             
                                             <div class="col-sm-4">
                                                
                                             </div>
                                             <div class="col-sm-6">
-                                                <button type="submit" id="btnOK" class="btn btn-primary">simpan transaksi</button>
+                                                <button type="button" id="btnOK" class="btn btn-primary" onclick="addFields()">tambahkan</button>
                                             </div>
                                         </div>
 
                                 </div>
-                               
-
-
 
                             </div>
 
 
                         </div>
-                        </form>
+                        <!-- </form> -->
                         <!--end of div col-->
 
                         <div class="col-xl-6 col-lg-6">
@@ -218,93 +185,84 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Summary</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Nota Penjualan</h6>
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
 
-                                 
+                                <div class="row mb-2">
+                                            <!-- Nama Pengirim -->
+                                            <div class="col-lg-4">
+                                            <img src="img/logo1.png" width="30%">
+                                            </div>
+                                           
+                                            <div class="col-sm-8">
+                                              
+                                            </div>
+                                </div>
+
+                                <form method="POST" action="addStokKeluar.php">
                                 <div class="row">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-12 col-form-label" style="font-size:12px; color:green">Sebelum melakukan transaksi harap teliti kembali
-                                            data yang akan diinput. Pastikan semua data yang dimasukan benar dan valid.
-                                        </label>
-
+                                            <!-- Nama Pengirim -->
+                                            <div class="col-lg-6">
+                                           
+                                           <p id="notakeltani">Kepada Yth. Kelompok Tani Barokah</p>
+                                            </div>
+                                           
+                                            <div class="col-lg-6" align="right">
+                                            Senin 12 Januari 2022    
+                                            </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        ==================================================
                                     </div>
-                                    <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-12 col-form-label" style="font-size:12px; color:green">==============================================================
-                                        </label>
+                                </div>
 
-                                    </div>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <th>Qty</th>
+                                        <th>Pupuk</th>
+                                        <th>Harga</th>
+                                        <th>Total</th>
+                                        
+                                    </thead>
+                                    <tbody id="container">
+                                       
+                                    </tbody>
+                                </table>
 
-                                <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label">Tanggal</label>
-
-                                        <label class="col-sm-5 col-form-label" id="tanggal"><?php echo(": ".$tanggal)?> </label>
-                                    </div>
-
-                                <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label">Pembeli</label>
-
-                                        <label class="col-sm-5 col-form-label" id="pembeli"> </label>
-                                    </div>
-
-                                <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label"> Jenis Pupuk </label>
-
-                                        <label class="col-sm-5 col-form-label" id="jenis"> </label>
-                                    </div>
-
-                                    <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label"> Stok tersedia</label>
-
-                                        <label class="col-sm-5 col-form-label" id="stok"
-                                        style="font-size:15px; font-weight:bold; color:green"> </label>
-                                    </div>
-
-                                    <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label"> Harga/karung</label>
-
-                                        <label class="col-sm-5 col-form-label" id="perkarung"
-                                            > </label>
-                                    </div>
-
-                                    <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label"> Jumlah Karung</label>
-
-                                        <label class="col-sm-5 col-form-label" id="jumlahkarung"
-                                            > </label>
-                                    </div>
-
-                                   
-
-                                    <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label">Total</label>
-
-                                        <label class="col-sm-5 col-form-label" id="total"
-                                            style="font-size:15px; font-weight:bold; color:green"> </label>
-                                    </div>
-
-                                    <div class="row mb-1">
-                                        <!-- Nama Pengirim -->
-                                        <label class="col-sm-4 col-form-label">Pembayaran</label>
-
-                                        <label class="col-sm-5 col-form-label" id="pembayaran"
-                                            style="font-size:15px; font-weight:bold; color:green"> </label>
-                                    </div>
-
+                           
+                                <div class="row mb-3">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label"> Total Belanja </label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="notatotal" name="notatotal"
+                                                    required readonly>
+                                                    <input type="text" class="form-control" id="iterator" name="iterator"
+                                                    required readonly hidden>
+                                               
+                                            </div>
+                                            <div class="col-sm-3 mt-1">
+                                                <button type="button" class="btn btn-success btn-sm" onclick="hitungTotal()">hitung total</button>
+                                            </div>
+                                        </div>
+                                <div class="row">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label">Dibayar</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" id="jumlah" name="jumlah"
+                                                    required onkeyup="setJumlah()">
+                                               
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="submit" class="btn btn-primary btn-sm">simpan</button>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
-
+                            </form>
                             
 
                         </div>
@@ -319,7 +277,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                             <div class="card shadow mb-4">
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data transaksi penjualan</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Pupuk</h6>
 
                                 </div>
 
@@ -349,18 +307,8 @@ $no = 1;
     foreach ($data as $all) {
         echo ('<tr><td>' . $no . '</td>');
         echo ('<td>' . $all['Tanggal'] . '</td>');
-
-            $nkel=mysqli_query($conn,"SELECT Nama_Kel FROM data_kel_tani WHERE ID_KT=".$all['ID_KT']);
-            foreach($nkel as $keykel){
-                echo ('<td>' . $keykel['Nama_Kel'] . '</td>');
-            }
-
-            $npuk=mysqli_query($conn,"SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK=".$all['ID_PK']);
-            foreach($npuk as $keypuk){
-                echo ('<td>' . $keypuk['Jenis_Pupuk'] . '</td>');
-            }
-
-        
+        echo ('<td>' . $all['ID_KT'] . '</td>');
+        echo ('<td>' . $all['ID_PK'] . '</td>');
         echo ('<td>' . $all['Jumlah_Keluar'] . ' karung</td>');
         
         echo ('<td>' . $all['Harga'] . '</td>');
@@ -380,24 +328,25 @@ $no = 1;
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Batalkan
-                                                                    Transkasi
-                                                                </h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Hapus
+                                                                    Data Pupuk</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <center><h5 style="color:red">WARNING!</h5> membatalkan transaksi berarti mengembalikan
-                                                                jumlah stok pupuk yang telah terjual dan menarik kembali uang pembayaran. Anda yakin akan
-                                                                    membatalkan transaksi ?</center>
+                                                                <center>WARNING!<br> menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkon. Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. Anda yakin akan
+                                                                    menghapus ?</center>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-dismiss="modal">Close</button>
                                                                 <a href="cancelStokKeluar.php?id=<?=$all['ID_SK'];?>&n=<?=$all['Jumlah_Keluar'];?>&m=<?=$all['ID_PK'];?>"
-                                                                    class="btn btn-danger">Ya, Batalkan</a>
+                                                                    class="btn btn-danger">Ya, Hapus</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -411,7 +360,9 @@ $no = 1;
                                 </div>
                             </div>
                         </div>
-                    </div>                      
+                    </div>        
+
+                    
    </div>
 
                 </div>
@@ -450,93 +401,102 @@ $no = 1;
 
     <script>
 
-    var price = 0;
-    function pupukControl() {
-        //
+    function pupukControl(){
         var e = document.getElementById("selectpupuk");
         price = e.value;
         document.getElementById("harga").value = price;
         document.getElementById("harga").readOnly = true;
         document.getElementById("checkprice").checked = true;
-        
-        document.getElementById("perkarung").innerHTML=': '+price;
-
-        var idterpilih=e.options[e.selectedIndex].id;
-        var classterpilih=document.getElementById(idterpilih).className;
-        document.getElementById("stok").innerHTML=": "+classterpilih.replace("ppk","");
-        document.getElementById("idpupuk").value=idterpilih;
-
     }
-
+        
     function priceControl() {
         if (document.getElementById("checkprice").checked == false) {
             document.getElementById("harga").readOnly = false;
             document.getElementById("harga").value = "";
-            document.getElementById("perkarung").innerHTML='';
+            
         } else {
             document.getElementById("harga").readOnly = true;
             document.getElementById("harga").value = price;
-            document.getElementById("perkarung").innerHTML=': '+price;
+            
         }
     }
 
-    function custControl(){
-        var selcus = document.getElementById("selectcust");
-        var text= selcus.options[selcus.selectedIndex].text;
-        var idcus= selcus.options[selcus.selectedIndex].id;
-        document.getElementById("pembeli").innerHTML=': '+text;
-        document.getElementById("idkel").value=idcus.replace("kel","");
-    }
-    
+        var name=0;
+        function addFields(){
 
-    document.getElementsByName("harga")[0].addEventListener('change', setPrice);
-    function setPrice(){
-        document.getElementById("perkarung").innerHTML=': '+this.value;
-    }
+        
+        
+         var selPupuk=document.getElementById("selectpupuk");
+         var pupuk=selPupuk.options[selPupuk.selectedIndex].text;
 
-    
-    function setJumlah(){
-       
-        var val= document.getElementById("jumlah").value;
-        document.getElementById("jumlahkarung").innerHTML=': '+val;
-        document.getElementById("totaluang").value='';
-    }
+         var harga=document.getElementById("harga").value;
+         var jumlah=document.getElementById("jumlah").value;
 
-    function tunaiControl(){
-        document.getElementById("pembayaran").innerHTML=': Tunai';
-    }
+         const nodeTR = document.createElement("tr");
 
-    function hutangControl(){
-        document.getElementById("pembayaran").innerHTML=': Hutang';
-    }
+         const nodeTDb = document.createElement("td");
+         var inputb = document.createElement("input");
+                inputb.type = "text";
+                inputb.id="b"+name;
+                inputb.name = "b"+name;
+                inputb.size="2";
+                inputb.style="border:0;outline:0";
+                inputb.value=jumlah;
+                nodeTDb.appendChild(inputb);
 
-    function doTotal(){
-       
-        var a=document.getElementById("jumlah").value;
-        var b=document.getElementById("harga").value;
+         const nodeTDn = document.createElement("td");
+         var inputn = document.createElement("input");
+                inputn.type = "text";
+                inputn.id="n"+name;
+                inputn.name = "n"+name;
+                inputn.size="15";
+                inputn.style="border:0;outline:0";
+                inputn.value=pupuk;
+                nodeTDn.appendChild(inputn);
 
-        document.getElementById("totaluang").value=a*b;
-        document.getElementById("total").innerHTML=': '+a*b;
+         const nodeTDh = document.createElement("td");
+         var inputh = document.createElement("input");
+                inputh.type = "text";
+                inputh.id="h"+name;
+                inputh.name = "h"+name;
+                inputh.size="7";
+                inputh.style="border:0;outline:0";
+                inputh.value=harga;
+                nodeTDh.appendChild(inputh);
 
-        var selc = document.getElementById("selectpupuk");
-        var idselc = selc.options[selc.selectedIndex].id;
-        var stokNow = document.getElementById(idselc).className;
+         const nodeTDt = document.createElement("td");
+         var inputt = document.createElement("input");
+                inputt.type = "text";
+                inputt.id="t"+name;
+                inputt.name = "t"+name;
+                inputt.size="7";
+                inputt.style="border:0;outline:0";
+                inputt.value=parseInt(harga)*parseInt(jumlah);
+                nodeTDt.appendChild(inputt);
 
-        if(parseInt(stokNow)<parseInt(a)){
-            //alert()
-            document.getElementById("btnOK").disabled=true;
-        }else{
-            document.getElementById("btnOK").disabled=false;
+         nodeTR.appendChild(nodeTDb);
+         nodeTR.appendChild(nodeTDn);
+         nodeTR.appendChild(nodeTDh);
+         nodeTR.appendChild(nodeTDt);
+
+        
+      
+         var tbody = document.getElementById("container");
+         tbody.appendChild(nodeTR);
+         name++;
+
+         document.getElementById("iterator").value=name;
         }
-    }
 
-    function delCace() {
-        document.getElementById("harga").value = "";
-        document.getElementById("btnOK").disabled =true;
-        document.getElementById("pembayaran").innerHTML=': Tunai'; 
-
-    }
+        function hitungTotal(){
+            var totalResult=0;
+            for(let i=0; i<name; i++){
+                totalResult=totalResult+(parseInt(document.getElementById("t"+i).value));
+            }
+            document.getElementById("notatotal").value=totalResult;
+        }
     </script>
+
 
 </body>
 
