@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "connection.php";
+include 'functions.php';
 date_default_timezone_set('Asia/Jakarta');
 $tanggal = date("D, j M Y ");
 if (isset($_SESSION['login'])) {
@@ -142,8 +143,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                                                 </div>
-                                                <input type="text" class="form-control h2 " id="harga" name="harga"
-                                                    required onkeyup="SETis()">
+                                                <input type="text" class="form-control" id="harga" name="harga" required
+                                                    onkeyup="SETis()">
                                             </div>
                                         </div>
                                 </div>
@@ -200,7 +201,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                     <div class="row mb-1">
                                         <!--  Harga Beli-->
                                         <label class="col-sm-4 col-form-label">Harga Beli</label>
-                                        <label class="col-sm-5 col-form-label" id="hargaPP">: Rp.
+                                        <label class="col-sm-5 col-form-label" id="hargaPP" name="hargaPP">: Rp.
                                         </label>
                                         <p style=" color:red; font-size:12px;" id="username_hint"></p>
                                     </div>
@@ -248,13 +249,13 @@ $no = 1;
         echo ('<td>' . $all['Nama_Pengirim'] . '</td>');
         echo ('<td>' . $all['Jenis_Pupuk'] . '</td>');
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
-        echo ('<td>' . $all['Nominal'] . '</td>');
+        echo ('<td>' . rp($all["Nominal"]) . '</td>');
         echo ('<td>
-																																																																																																																																												                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+																																																																																																																																																																				                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
         echo ($all['ID_SM'] . '">Edit</a>
-																																																																																																																																												                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+																																																																																																																																																																				                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
         echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>
-																																																																																																																																												                                              ');
+																																																																																																																																																																				                                              ');
         $no++;
         ?></tr>
                                                 <!-- modal edit-->
@@ -399,8 +400,8 @@ $no = 1;
         document.getElementById("jumPP").innerHTML = ': ' + inputJumPP;
 
         var inputHr = document.getElementById("harga").value;
-        document.getElementById("hargaPP").innerHTML = ': Rp. ' + inputHr;
-
+        document.getElementById("hargaPP").innerHTML = formatRupiah(inputHr, ": Rp. ");
+        document.getElementById("harga").value = formatRupiah(inputHr);
     }
 
     function SETPP() {
