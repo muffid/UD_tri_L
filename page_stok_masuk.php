@@ -262,12 +262,12 @@ $no = 1;
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . rp($all["Nominal"]) . '</td>');
         echo ('<td>
-																																																																																																																																																																																																																																	                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_SM'] . '">Edit</a>
-																																																																																																																																																																																																																																	                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>
-																																																																																																																																																																																																																																	                                              ');
-        $no++;
+																																																																																																																																																																																																																																																																							                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_SM'] . '">Edit</a><a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+        echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>');
+        ?>
+
+                                                <?php $no++;
         ?></tr>
                                                 <!-- modal edit-->
                                                 <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_SM'];?>"
@@ -292,11 +292,11 @@ $no = 1;
                                                                     <div class="row mb-4">
                                                                         <label data-error="wrong"
                                                                             class=" col-sm-4 col-form-label"
-                                                                            data-success="right" for="form3">Nama
+                                                                            data-success="right" for="editnamapeng">Nama
                                                                             Pengirim</label>
                                                                         <div class="col-sm-8">
-                                                                            <input type="text" id="editnamapupuk"
-                                                                                name="editnamapupuk"
+                                                                            <input type="text" id="editnamapeng"
+                                                                                name="editnamapeng"
                                                                                 class="form-control validate"
                                                                                 value=" <?=$all['Nama_Pengirim']?>">
                                                                         </div>
@@ -304,7 +304,8 @@ $no = 1;
 
                                                                     <div class="row mb-4">
                                                                         <!-- Nama Pengirim -->
-                                                                        <label class="col-sm-4 col-form-label">Jenis
+                                                                        <label class="col-sm-4 col-form-label"
+                                                                            for="jenisPPE">Jenis
                                                                             Pupuk</label>
                                                                         <div class="col-sm-8">
                                                                             <select class="custom-select" id="jenisPPE"
@@ -333,26 +334,31 @@ $no = 1;
                                                                     <div class="row mb-4">
                                                                         <label data-error="wrong"
                                                                             class=" col-sm-4 col-form-label"
-                                                                            data-success="right" for="form3">Jumlah
+                                                                            data-success="right"
+                                                                            for="editjumlahpupuk">Jumlah
                                                                             Pupuk</label>
                                                                         <div class="col-sm-8">
-                                                                            <input type="text" id="editnamapupuk"
-                                                                                name="editnamapupuk"
+                                                                            <input type="text" id="editjumlahpupuk"
+                                                                                name="editjumlahpupuk"
                                                                                 class="form-control validate"
                                                                                 value=" <?=$all['Jumlah_Masuk']?>">
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="row mb-4">
-                                                                        <label data-error="wrong"
-                                                                            class=" col-sm-4 col-form-label"
-                                                                            data-success="right" for="form3">Harga Pupuk
-                                                                            / Kg</label>
-                                                                        <div class="col-sm-8">
-                                                                            <input type="text" id="editnamapupuk"
-                                                                                name="editnamapupuk"
-                                                                                class="form-control validate"
-                                                                                value=" <?=$all['Nominal']?>">
+                                                                    <div class="row mt-4 ">
+                                                                        <!-- Nama Pengirim -->
+                                                                        <label class="col-sm-4 col-form-label "
+                                                                            for="Mohargapp">Harga
+                                                                            Pupuk</label>
+                                                                        <div class="input-group col-sm-8">
+                                                                            <div class="input-group-prepend">
+                                                                                <span class="input-group-text"
+                                                                                    id="basic-addon1">Rp.</span>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                id="Mohargapp" name="Mohargapp"
+                                                                                value=" <?=rpnull($all['Nominal']);?>"
+                                                                                onkeyup="SETis()">
                                                                         </div>
                                                                     </div>
 
@@ -454,7 +460,21 @@ $no = 1;
     <!-- mata uang -->
     <script src="matauang.js"></script>
 
+
     <script>
+    var jumlahKolom = 0;
+
+    function setJumlah(n) {
+        this.jumlahKolom = n;
+    }
+    for (var i = 0; i < this.jumlahKolom; i++) {
+        $('#modalSubscriptionForm' + i).on('hidden.bs.modal',
+            function() {
+                $(this).find('form').trigger('reset');
+            })
+    }
+
+
     function SETis() {
         var inputPengirim = document.getElementById("pengirim").value;
         document.getElementById("pengirimPP").innerHTML = ': ' + inputPengirim;
@@ -464,9 +484,12 @@ $no = 1;
 
         var inputHr = document.getElementById("harga").value;
         var inputTr = document.getElementById("transport").value;
+        var MoinputTr = document.getElementById("Mohargapp").value;
         document.getElementById("hargaPP").innerHTML = formatRupiah(inputHr, ": Rp. ");
         document.getElementById("harga").value = formatRupiah(inputHr);
         document.getElementById("transport").value = formatRupiah(inputTr);
+        document.getElementById("Mohargapp").value = formatRupiah(MoinputTr);
+
     }
 
     function SETPP() {
