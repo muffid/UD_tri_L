@@ -147,6 +147,17 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                                     onkeyup="SETis()">
                                             </div>
                                         </div>
+                                        <div class="row mt-4 ">
+                                            <!-- Nama Pengirim -->
+                                            <label class="col-sm-4 col-form-label ">Biaya Transport</label>
+                                            <div class="input-group col-sm-8">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Rp.</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="transport" name="transport"
+                                                    onkeyup="SETis()">
+                                            </div>
+                                        </div>
                                 </div>
 
                                 <div class="row mb-4">
@@ -251,11 +262,11 @@ $no = 1;
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . rp($all["Nominal"]) . '</td>');
         echo ('<td>
-																																																																																																																																																																																																																											                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+																																																																																																																																																																																																																																	                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
         echo ($all['ID_SM'] . '">Edit</a>
-																																																																																																																																																																																																																											                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
+																																																																																																																																																																																																																																	                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
         echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>
-																																																																																																																																																																																																																											                                              ');
+																																																																																																																																																																																																																																	                                              ');
         $no++;
         ?></tr>
                                                 <!-- modal edit-->
@@ -452,8 +463,10 @@ $no = 1;
         document.getElementById("jumPP").innerHTML = ': ' + inputJumPP;
 
         var inputHr = document.getElementById("harga").value;
+        var inputTr = document.getElementById("transport").value;
         document.getElementById("hargaPP").innerHTML = formatRupiah(inputHr, ": Rp. ");
         document.getElementById("harga").value = formatRupiah(inputHr);
+        document.getElementById("transport").value = formatRupiah(inputTr);
     }
 
     function SETPP() {
