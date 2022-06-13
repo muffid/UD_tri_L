@@ -241,7 +241,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-bordered" id="tableMasuk" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">No</th>
@@ -361,12 +361,19 @@ $no = 1;
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    
     <!-- mata uang -->
     <script src="matauang.js"></script>
 
 
+
+
     <script>
+
+$(document).ready(function() {
+  $('#tableMasuk').DataTable();
+});
+
     function SETis() {
         var inputPengirim = document.getElementById("pengirim").value;
         document.getElementById("pengirimPP").innerHTML = ': ' + inputPengirim;
