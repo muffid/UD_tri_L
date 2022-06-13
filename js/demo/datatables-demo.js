@@ -1,4 +1,8 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-  $('#dataTable').DataTable();
+  $('#tableAng').DataTable();
+});
+
+$(document).ready(function() {
+  $('#').DataTable();
 });

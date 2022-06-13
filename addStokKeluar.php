@@ -84,11 +84,11 @@ date_default_timezone_set('Asia/Jakarta');
     //jika anggota
     if($jenisBuyer==1){
         $saveToPenjualan="INSERT INTO penjualan (ID_PJ,ID_KT,ID_AKT,ID_KEY,Tanggal,Total,Dibayar)
-        VALUES ('','','$idkel','$key','$tanggal','$total','$dibayar')";
+        VALUES ('',0,'$idkel','$key','$tanggal','$total','$dibayar')";
         mysqli_query($conn,$saveToPenjualan);
     }else{
         $saveToPenjualan="INSERT INTO penjualan (ID_PJ,ID_KT,ID_AKT,ID_KEY,Tanggal,Total,Dibayar)
-        VALUES ('','$idkel','','$key','$tanggal','$total','$dibayar')";
+        VALUES ('','$idkel','0','$key','$tanggal','$total','$dibayar')";
         mysqli_query($conn,$saveToPenjualan);
     }
   

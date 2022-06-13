@@ -56,6 +56,7 @@ if (isset($_SESSION['login'])) {
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
                         <h1 class="h3 mb-3 text-gray-800">Stok Pupuk Keluar</h1>
+                       
 
                     </div>
 
@@ -225,15 +226,10 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                                 <form method="POST" action="addStokKeluar.php">
                                 <div class="row">
-                               
-                                            <!-- Nama Pengirim -->
-                                            <div class="col-lg-6">
-                                           
-                                           <p id="notakeltani">Kepada Yth. Kelompok Tani Barokah</p>
-                                            </div>
-                                           
-                                            <div class="col-lg-6" align="right">
-                                            Senin 12 Januari 2022    
+  
+                                            <div class="col-lg-12"  align="right">
+                                            <span id="waktunota"></span>
+                                            <span id="tanggalnota"></span> 
                                             </div>
                                 </div>
                                 <div class="row">
@@ -305,22 +301,117 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                        
                                 </div>
 
+                                </div> 
+                                <!-- end of cardbody -->
+                            </div>
+                            <!-- end of card shadow -->
+                            </form>
+                        </div>
+                        <!-- end of col -->
+                    </div>
+                    <!-- end of row -->
+
+                    <div class="row">
+                        <div class="col col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Penjualan Pupuk (Anggota)</h6>    
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col col-lg-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="tableAng" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">No</th>
+                                                            <th scope="col">Tanggal</th>
+                                                            <th scope="col">Anggota</th>
+                                                            <th scope="col">Total</th>
+                                                            <th scope="col">Dibayar</th>
+                                                            <th scope="col">Aksi</th>
+                                                         </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                       $nopen=1;
+                                                       $sqlPenj=mysqli_query($conn,"SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0'");
+                                                       foreach($sqlPenj as $sp){
+                                                            echo("<tr>");
+                                                            echo("<td>".$nopen."</td>");
+                                                            echo("<td>".$sp['Tanggal']."</td>");
+                                                            echo("<td>".$sp['ID_AKT']."</td>");
+                                                            echo("<td>".$sp['Total']."</td>");
+                                                            echo("<td>".$sp['Dibayar']."</td>");
+                                                            echo('<td><button type="button" class="btn btn-danger btn-sm">batalkan</button></td>');
+                                                            echo("</tr>");
+                                                            $nopen++;
+                                                       }
+                                                    ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            </form>
-                            
-
                         </div>
+                    </div>
 
-                            
-                        <!-- nambah tabel ndel kene tambahi div siji maneh ndek ngisor e -->
+                    <div class="row">
+                        <div class="col col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Penjualan Pupuk (Kelompok)</h6>    
+                                </div>
 
+                                <div class="card-body">
+                                    <div class="row mb-2">
+                                        <div class="col col-lg-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="tableKel" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">No</th>
+                                                            <th scope="col">Tanggal</th>
+                                                            <th scope="col">Anggota</th>
+                                                            <th scope="col">Total</th>
+                                                            <th scope="col">Dibayar</th>
+                                                            <th scope="col">Aksi</th>
+                                                         </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                       $nopen=1;
+                                                       $sqlPenj=mysqli_query($conn,"SELECT ID_PJ,ID_KT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_AKT LIKE '0'");
+                                                       foreach($sqlPenj as $sp){
+                                                            echo("<tr>");
+                                                            echo("<td>".$nopen."</td>");
+                                                            echo("<td>".$sp['Tanggal']."</td>");
+                                                            $sqlNamaKel=mysqli_query($conn,"SELECT Nama_Kel FROM data_kel_tani WHERE ID_KT=".$sp['ID_KT']);
+                                                            foreach($sqlNamaKel as $snk){
+                                                                echo("<td>".$snk['Nama_Kel']."</td>");
+                                                            }
+                                                           
+                                                            echo("<td>".$sp['Total']."</td>");
+                                                            echo("<td>".$sp['Dibayar']."</td>");
+                                                            echo('<td><button type="button" class="btn btn-danger btn-sm">batalkan</button></td>');
+                                                            echo("</tr>");
+                                                            $nopen++;
+                                                       }
+                                                    ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     </div>        
-
-                    
-
 
                 </div>
                 
@@ -354,9 +445,19 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
+    
 
     <script>
+
+    $(document).ready(function() {
+        $('#tableAng').DataTable();
+    });
+
+    $(document).ready(function() {
+        $('#tableKel').DataTable();
+    });
+
+
 
     var name=0;
 
@@ -380,6 +481,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         var e = document.getElementById("selectcust");
         var idkeltani=e.options[e.selectedIndex].id;
         document.getElementById("idkel").value=idkeltani.replace("kel","");
+        
     }
         
     function priceControl() {
@@ -500,6 +602,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
             document.getElementById("divKel").hidden=true;
             document.getElementById("divAng").hidden=false;
             document.getElementById("buyer").value="1";
+            
         }
 
         function kelompokCtrl(){
@@ -513,6 +616,23 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
             document.getElementById("divKel").hidden=false;
             document.getElementById("divAng").hidden=true;
             document.getElementById("buyer").value="2";
+
+            
+          
+            var p = document.getElementById('tanggalnota');
+            let today = new Date().toISOString().slice(0, 10);
+            document.getElementById("waktunota").innerHTML=today;
+
+            function time() {
+            var d = new Date();
+            var s = d.getSeconds();
+            var m = d.getMinutes();
+            var h = d.getHours();
+            p.textContent = 
+                ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+            }
+
+            setInterval(time, 1000);
         }
 
     </script>
