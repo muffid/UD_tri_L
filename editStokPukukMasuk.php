@@ -1,11 +1,11 @@
 <?php
 include 'connection.php';
-$idpp = $_GET['id'];
-$namaPengpp = $_POST['editnamapeng'];
-$jenispp = $_POST['jenisPPE'];
-$jumlahpp = $_POST['editjumlahpupuk'];
-$hargapp = htmlspecialchars(str_replace(".", "", $_POST['Mohargapp']));
-
+echo $idpp = $_GET['id'];
+echo $namaPengpp = $_POST['editnamapeng'];
+echo $jenispp = $_POST['jenisPPE'];
+echo $jumlahpp = $_POST['editjumlahpupuk'];
+echo $hargapp = htmlspecialchars(str_replace(".", "", $_POST['Mohargapp']));
+die();
 $setidpk = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk where Jenis_Pupuk=" . $jenispp);
 foreach ($setidpk as $key) {
     $idPK = $key['ID_PK'];
