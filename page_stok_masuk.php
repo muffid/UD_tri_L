@@ -381,9 +381,10 @@ $no = 1;
         document.getElementById("harga").value = formatRupiah(inputHr);
         document.getElementById("transport").value = formatRupiah(inputTr);
         // document.getElementById("Mohargapp").value = formatRupiah(MoinputTr);
-        // var hasil = inputHr / inputJumPP;
-        //console.log(hasil);
-        // document.getElementById("Btransport").innerHTML = console.log(hasil);
+        // var x = inputHr.replace(".", "");
+        // var hasil = parseInt(x) / parseInt(inputJumPP);
+
+        // document.getElementById("Btransport").innerHTML = formatRupiah(hasil);
 
 
     }
