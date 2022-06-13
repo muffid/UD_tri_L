@@ -216,6 +216,13 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                         </label>
                                         <p style=" color:red; font-size:12px;" id="username_hint"></p>
                                     </div>
+                                    <div class="row mb-1">
+                                        <!--  Harga Beli-->
+                                        <label class="col-sm-4 col-form-label">Harga Beli/ karung</label>
+                                        <label class="col-sm-5 col-form-label" id="Btransport" name="Btransport">: Rp.
+                                        </label>
+                                        <p style=" color:red; font-size:12px;" id="username_hint"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -261,182 +268,80 @@ $no = 1;
         echo ('<td>' . $all['Jenis_Pupuk'] . '</td>');
         echo ('<td>' . $all['Jumlah_Masuk'] . ' karung</td>');
         echo ('<td>' . rp($all["Nominal"]) . '</td>');
-        echo ('<td>
-																																																																																																																																																																																																																																																																							                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_SM'] . '">Edit</a><a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_SM'] . '">Hapus Pupuk</a></td></tr>');
+        echo ('<td> <center><a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter');
+
+        echo ($all['ID_SM'] . '">Batalkan</a></td></center></tr>');
         ?>
 
                                                 <?php $no++;
         ?></tr>
-                                                <!-- modal edit-->
-                                                <div class="modal fade" id="modalSubscriptionForm<?=$all['ID_SM'];?>"
-                                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
+
+
+                                                <!-- Modal delete -->
+                                                <div class="modal fade" id="exampleModalCenter<?=$all['ID_SM'];?>"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header text-center">
-                                                                <h4 class="modal-title w-100">Edit Stok Pupuk Masuk</h4>
-                                                                <button type="button" class="close text-danger"
-                                                                    data-dismiss="modal" aria-label="Close">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                                    Batalkan
+                                                                    Stok Pupuk Masuk</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <label class="col-lg-12 col-form-label ml-4" id="tanggal">
-                                                                Pupuk Masuk pada <?=$all['Tanggal'];?>
-                                                            </label>
-                                                            <form method="POST"
-                                                                action="editStokPukukMasuk.php?id=<?=$all['ID_SM'];?>">
-                                                                <div class="modal-body mx-3">
-
-                                                                    <div class="row mb-4">
-                                                                        <label data-error="wrong"
-                                                                            class=" col-sm-4 col-form-label"
-                                                                            data-success="right" for="editnamapeng">Nama
-                                                                            Pengirim</label>
-                                                                        <div class="col-sm-8">
-                                                                            <input type="text" id="editnamapeng"
-                                                                                name="editnamapeng"
-                                                                                class="form-control validate"
-                                                                                value=" <?=$all['Nama_Pengirim']?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row mb-4">
-                                                                        <!-- Nama Pengirim -->
-                                                                        <label class="col-sm-4 col-form-label"
-                                                                            for="jenisPPE">Jenis
-                                                                            Pupuk</label>
-                                                                        <div class="col-sm-8">
-                                                                            <select class="custom-select" id="jenisPPE"
-                                                                                name="jenisPPE" onchange="SETPP()">
-                                                                                <option selected="true"
-                                                                                    disabled="disabled">-- pilih jenis
-                                                                                    pupuk --
-                                                                                </option>
-
-                                                                                <?php
-    $dataPP = mysqli_query($conn, "SELECT * FROM data_pupuk ORDER BY ID_PK DESC");
-
-        foreach ($dataPP as $allE) {
-            $PPlama = $all['Jenis_Pupuk'];
-            if ($PPlama == $allE['Jenis_Pupuk']) {
-                echo (' <option  value="' . $all['Jenis_Pupuk'] . '" selected>' . $allE['Jenis_Pupuk'] . '</option>');
-            } else {
-                echo (' <option  value="' . $all['Jenis_Pupuk'] . '" >' . $allE['Jenis_Pupuk'] . '</option>');
-            }
-        }
-        ?>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row mb-4">
-                                                                        <label data-error="wrong"
-                                                                            class=" col-sm-4 col-form-label"
-                                                                            data-success="right"
-                                                                            for="editjumlahpupuk">Jumlah
-                                                                            Pupuk</label>
-                                                                        <div class="col-sm-8">
-                                                                            <input type="text" id="editjumlahpupuk"
-                                                                                name="editjumlahpupuk"
-                                                                                class="form-control validate"
-                                                                                value=" <?=$all['Jumlah_Masuk']?>">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row mt-4 ">
-                                                                        <!-- Nama Pengirim -->
-                                                                        <label class="col-sm-4 col-form-label "
-                                                                            for="Mohargapp">Harga
-                                                                            Pupuk</label>
-                                                                        <div class="input-group col-sm-8">
-                                                                            <div class="input-group-prepend">
-                                                                                <span class="input-group-text"
-                                                                                    id="basic-addon1">Rp.</span>
-                                                                            </div>
-                                                                            <input type="text" class="form-control"
-                                                                                id="Mohargapp" name="Mohargapp"
-                                                                                value=" <?=rpnull($all['Nominal']);?>"
-                                                                                onkeyup="SETis()">
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="modal-footer d-flex justify-content-center">
-                                                                    <button type="submit" class="btn btn-primary">Simpan
-                                                                        perubahan <i
-                                                                            class="fas fa-paper-plane-o ml-1"></i></button>
-                                                            </form>
+                                                            <div class="modal-body">
+                                                                <center>
+                                                                    <h3 class="text-danger">PERINGATAN!</h3>
+                                                                    Membatalkan/ menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkron.
+                                                                    Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. <strong
+                                                                        class="text-danger">Anda
+                                                                        yakin
+                                                                        akan
+                                                                        menghapus ?</strong>
+                                                                </center>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Kembali</button>
+                                                                <a href="deleteDataPupuk.php?id=<?=$all['ID_SM'];?>"
+                                                                    class="btn btn-danger">Ya, Batalkan</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                    </div>
-                                    <!-- end modal edit-->
+                                                <!-- end Modal delete -->
+                                                <?php endforeach;?>
 
-                                    <!-- Modal delete -->
-                                    <div class="modal fade" id="exampleModalCenter<?=$all['ID_SM'];?>" tabindex="-1"
-                                        role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">
-                                                        Hapus
-                                                        Stok Pupuk Masuk</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <center>
-                                                        <h3 class="text-danger">PERINGATAN!</h3>
-                                                        Menghapus data mungkin akan
-                                                        menyebabkan beberapa data tidak singkron.
-                                                        Pastikan
-                                                        data yang akan dihapus adalah
-                                                        data yang sudah tidak terpakai. <strong class="text-danger">Anda
-                                                            yakin
-                                                            akan
-                                                            menghapus ?</strong>
-                                                    </center>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Kembali</button>
-                                                    <a href="deleteDataPupuk.php?id=<?=$all['ID_SM'];?>"
-                                                        class="btn btn-danger">Ya, Hapus</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            </tbody>
+                                        </table>
                                     </div>
-                                    <!-- end Modal delete -->
-                                    <?php endforeach;?>
-
-                                    </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
+
+                        <!---------------->
+
                     </div>
-
-                    <!---------------->
-
                 </div>
+
+
+
+                <?php include "segment/footer.php";?>
             </div>
+            <!-- End of Main Content -->
 
+            <!-- footer -->
 
+            <!-- end footer -->
 
-            <?php include "segment/footer.php";?>
         </div>
-        <!-- End of Main Content -->
-
-        <!-- footer -->
-
-        <!-- end footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
+        <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -462,19 +367,6 @@ $no = 1;
 
 
     <script>
-    var jumlahKolom = 0;
-
-    function setJumlah(n) {
-        this.jumlahKolom = n;
-    }
-    for (var i = 0; i < this.jumlahKolom; i++) {
-        $('#modalSubscriptionForm' + i).on('hidden.bs.modal',
-            function() {
-                $(this).find('form').trigger('reset');
-            })
-    }
-
-
     function SETis() {
         var inputPengirim = document.getElementById("pengirim").value;
         document.getElementById("pengirimPP").innerHTML = ': ' + inputPengirim;
@@ -484,11 +376,15 @@ $no = 1;
 
         var inputHr = document.getElementById("harga").value;
         var inputTr = document.getElementById("transport").value;
-        var MoinputTr = document.getElementById("Mohargapp").value;
+        // var Karung = document.getElementById("hargaKarung").value;
         document.getElementById("hargaPP").innerHTML = formatRupiah(inputHr, ": Rp. ");
         document.getElementById("harga").value = formatRupiah(inputHr);
         document.getElementById("transport").value = formatRupiah(inputTr);
-        document.getElementById("Mohargapp").value = formatRupiah(MoinputTr);
+        // document.getElementById("Mohargapp").value = formatRupiah(MoinputTr);
+        // var hasil = inputHr / inputJumPP;
+        //console.log(hasil);
+        // document.getElementById("Btransport").innerHTML = console.log(hasil);
+
 
     }
 
