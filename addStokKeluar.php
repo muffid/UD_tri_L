@@ -96,7 +96,7 @@ date_default_timezone_set('Asia/Jakarta');
     //simpan biaya transport ke tabel biaya_lain
     if($transport>0){
         //mengambil ID_PJ sebagai referensi foreign key
-        $getPJ=mysqli_query($conn,"SELECT ID_PJ FROM penjualan WHERE ID_KEY LIKE '".$key);
+        $getPJ=mysqli_query($conn,"SELECT ID_PJ FROM penjualan WHERE ID_KEY LIKE '".$key."'");
         foreach($getPJ as $g){
             $idPJ=$g['ID_PJ'];
         }
