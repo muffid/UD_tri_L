@@ -38,7 +38,7 @@ if (isset($_SESSION['login'])) {
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="initBuyer()">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
@@ -77,19 +77,34 @@ if (isset($_SESSION['login'])) {
 
     ?>
                             <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
+                           
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Input Penjualan Pupuk</h6>
 
                                 </div>
-                                <!-- Card Body -->
+                        
                                 <div class="card-body">
 
-                                    <!-- <form method="POST" action="addStokKeluar.php"> -->
-                                        <div class="row mb-2">
+                                <div class="row mb-2">
+                                            <!-- Jenis Pembeli -->
+                                            <label class="col-sm-4 col-form-label"> Jenis Pembeli  </label>
+                                            <div class="col-sm-8">
+                                                <div class="custom-control custom-radio custom-control-inline" onclick="kelompokCtrl()">
+                                                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked>
+                                                    <label class="custom-control-label" for="customRadioInline1">Kelompok</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline" onclick="anggotaCtrl()">
+                                                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+                                                    <label class="custom-control-label" for="customRadioInline2">Anggota</label>
+                                                </div>                                           
+                                            </div>
+                                        </div>
+
+                                      
+                                        <div class="row mb-2" id="divKel">
                                             <!-- Nama Pembeli -->
-                                            <label class="col-sm-4 col-form-label"> Pembeli </label>
+                                            <label class="col-sm-4 col-form-label"> Nama Kelompok </label>
                                             <div class="col-sm-8">
                                             <select class="custom-select" id="selectcust" onchange="custControl()">
                                                     <option selected="true" disabled="disabled">-- pilih kelompok tani --
@@ -100,12 +115,21 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
         echo (' <option id="kel'.$all['ID_KT'].'" value="'. $all['Nama_Kel'] .'">' . $all['Nama_Kel'] . '</option>');
     }
     ?>
-
                                                 </select>
                                                    
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
+
+                                        
+                                        <div class="row mb-4" id="divAng">
+                                            <!-- Nama Pembeli -->
+                                            <label class="col-sm-4 col-form-label"> Nama Anggota </label>
+                                            <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="anggota" name="anggota" onkeyup="setNamaAnggota()">
+                                            </div>
+                                        </div>
+
 
                                         <div class="row mb-4">
                                             <!-- Nama Pengirim -->
@@ -133,7 +157,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <label class="col-sm-4 col-form-label"> Harga </label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="harga" name="harga" readonly
-                                                    value="50000" required>
+                                                     required>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline mt-2">
@@ -201,6 +225,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                                 <form method="POST" action="addStokKeluar.php">
                                 <div class="row">
+                               
                                             <!-- Nama Pengirim -->
                                             <div class="col-lg-6">
                                            
@@ -247,8 +272,9 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                     required readonly hidden>
                                                     <input type="text" class="form-control" id="idpupuk" name="idpupuk"
                                                      hidden>
-                                                    <input type="text" class="form-control" id="idkel" name="idkel"
-                                                     hidden>
+                                                    <input type="text" class="form-control" id="idkel" name="idkel" hidden>
+                                                     <input type=text id="buyer" name="buyer" readonly required hidden>
+                                                     <input type=text id="namaanggota" name="namaanggota" hidden>
                                                
                                             </div>
                                             <div class="col-sm-3 mt-1">
@@ -333,6 +359,11 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
     <script>
 
     var name=0;
+
+    function setNamaAnggota(){
+        var valNama=document.getElementById("anggota").value;
+        document.getElementById("namaanggota").value=valNama;
+    }
 
     function pupukControl(){
         var e = document.getElementById("selectpupuk");
@@ -464,6 +495,26 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
             }
             document.getElementById("notatotal").value=totalResult;
         }
+
+        function anggotaCtrl(){
+            document.getElementById("divKel").hidden=true;
+            document.getElementById("divAng").hidden=false;
+            document.getElementById("buyer").value="1";
+        }
+
+        function kelompokCtrl(){
+            document.getElementById("divKel").hidden=false;
+            document.getElementById("divAng").hidden=true;
+            document.getElementById("buyer").value="2";
+
+        }
+
+        function initBuyer(){
+            document.getElementById("divKel").hidden=false;
+            document.getElementById("divAng").hidden=true;
+            document.getElementById("buyer").value="2";
+        }
+
     </script>
 
 
