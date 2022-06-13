@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jun 2022 pada 04.03
+-- Waktu pembuatan: 13 Jun 2022 pada 07.54
 -- Versi server: 10.1.33-MariaDB
 -- Versi PHP: 7.2.6
 
@@ -56,7 +56,8 @@ CREATE TABLE `biaya_lain` (
 --
 
 INSERT INTO `biaya_lain` (`ID_BL`, `ID_SM`, `ID_PJ`, `Total`) VALUES
-(1, 4, 0, 250000);
+(2, 0, 0, 100000),
+(3, 0, 3, 50000);
 
 -- --------------------------------------------------------
 
@@ -73,6 +74,13 @@ CREATE TABLE `data_kel_tani` (
   `Telp` varchar(50) DEFAULT NULL,
   `Foto` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `data_kel_tani`
+--
+
+INSERT INTO `data_kel_tani` (`ID_KT`, `NIK`, `Nama_Kel`, `Nama_Ketua`, `Alamat`, `Telp`, `Foto`) VALUES
+(4, '9998878678678', 'AKATSUKI TANI JAYA', 'SHASHORI', 'Suna ', '0899989898', '62a69eb37469b.jpg');
 
 -- --------------------------------------------------------
 
@@ -92,7 +100,7 @@ CREATE TABLE `data_pupuk` (
 --
 
 INSERT INTO `data_pupuk` (`ID_PK`, `Jenis_Pupuk`, `Stok`, `Harga`) VALUES
-(4, 'UREA', 160, 0);
+(5, 'UREANIUM', 131, 0);
 
 -- --------------------------------------------------------
 
@@ -107,8 +115,17 @@ CREATE TABLE `penjualan` (
   `ID_KEY` varchar(10) NOT NULL,
   `Tanggal` varchar(20) NOT NULL,
   `Total` int(20) NOT NULL,
-  `Hutang` int(20) NOT NULL
+  `Dibayar` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `penjualan`
+--
+
+INSERT INTO `penjualan` (`ID_PJ`, `ID_KT`, `ID_AKT`, `ID_KEY`, `Tanggal`, `Total`, `Dibayar`) VALUES
+(1, '', 'Mahrus ali', '7bY9', 'Mon, 13 Jun 2022 ', 275000, 200000),
+(2, '4', '', 'jdN1', 'Mon, 13 Jun 2022 ', 1000000, 500000),
+(3, '', 'Naruto', 'ZYSf', 'Mon, 13 Jun 2022 ', 220000, 100000);
 
 -- --------------------------------------------------------
 
@@ -124,6 +141,15 @@ CREATE TABLE `piutang` (
   `Kredit` int(20) NOT NULL,
   `Tanggal` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `piutang`
+--
+
+INSERT INTO `piutang` (`ID_PT`, `ID_KT`, `ID_AKT`, `Debit`, `Kredit`, `Tanggal`) VALUES
+(3, 0, 'Mahrus ali', 0, 75000, 'Mon, 13 Jun 2022 '),
+(4, 4, '', 0, 500000, 'Mon, 13 Jun 2022 '),
+(5, 0, 'Naruto', 0, 120000, 'Mon, 13 Jun 2022 ');
 
 -- --------------------------------------------------------
 
@@ -141,6 +167,15 @@ CREATE TABLE `stok_keluar` (
   `Jumlah_Keluar` int(100) DEFAULT NULL,
   `Harga` int(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `stok_keluar`
+--
+
+INSERT INTO `stok_keluar` (`ID_SK`, `key_transaksi`, `Tanggal`, `ID_KT`, `ID_AKT`, `ID_PK`, `Jumlah_Keluar`, `Harga`) VALUES
+(3, '7bY9', 'Mon, 13 Jun 2022 ', 0, 'Mahrus ali', 5, 5, 55000),
+(4, 'jdN1', 'Mon, 13 Jun 2022 ', 4, '', 5, 20, 50000),
+(5, 'ZYSf', 'Mon, 13 Jun 2022 ', 0, 'Naruto', 5, 4, 55000);
 
 -- --------------------------------------------------------
 
@@ -162,7 +197,7 @@ CREATE TABLE `stok_masuk` (
 --
 
 INSERT INTO `stok_masuk` (`ID_SM`, `Tanggal`, `ID_PK`, `Nama_Pengirim`, `Jumlah_Masuk`, `Nominal`) VALUES
-(4, 'Mon, 13 Jun 2022 ', 4, 'UD MAKMUR', 160, 1600000);
+(5, 'Mon, 13 Jun 2022 ', 5, 'UD MAKMUR', 160, 16000000);
 
 -- --------------------------------------------------------
 
@@ -263,43 +298,43 @@ ALTER TABLE `anggota_kel_tani`
 -- AUTO_INCREMENT untuk tabel `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
-  MODIFY `ID_BL` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID_BL` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_kel_tani`
 --
 ALTER TABLE `data_kel_tani`
-  MODIFY `ID_KT` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_KT` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `data_pupuk`
 --
 ALTER TABLE `data_pupuk`
-  MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `ID_PJ` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PJ` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `piutang`
 --
 ALTER TABLE `piutang`
-  MODIFY `ID_PT` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_PT` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
-  MODIFY `ID_SK` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_SK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok_masuk`
 --
 ALTER TABLE `stok_masuk`
-  MODIFY `ID_SM` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_SM` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
