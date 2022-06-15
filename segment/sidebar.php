@@ -27,14 +27,14 @@
     <li
         <?php if ($_GET['m'] == 2 && $_GET['n'] == 1) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
         <a class="nav-link" href="page_stok_masuk.php?m=2&n=1">
-            <i class=" fas fa-fw fa-tachometer-alt"></i>
+            <i class=" fas fa-fw fa-truck-moving"></i>
             <span>Stok Masuk</span></a>
     </li>
     <li
         <?php if ($_GET['m'] == 3 && $_GET['n'] == 1) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
         <a class="nav-link" href="page_stok_keluar.php?m=3&n=1">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Stok Keluar</span></a>
+            <i class="fas fa-fw  fa-shopping-bag"></i>
+            <span>Penjualan Pupuk</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -46,7 +46,7 @@
     <li <?php if ($_GET['m'] == 4) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
         <a class='nav-link' href="#" data-toggle="collapse" data-target="#settingPage" aria-expanded="true"
             aria-controls="settingPage">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-database"></i>
             <span>Master Data</span>
         </a>
 
@@ -74,13 +74,13 @@
     <li
         <?php if ($_GET['m'] == 5 && $_GET['n'] == 5) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
         <a class="nav-link" href="page_administrator.php?m=5&n=5">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-user"></i>
             <span>Administrator</span></a>
     </li>
     <li
         <?php if ($_GET['m'] == 7 && $_GET['n'] == 7) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
         <a class="nav-link" href="page_lap_masalah.php?m=7&n=7">
-            <i class="fas fa-cogs fa-sm fa-fw"></i>
+            <i class="fas fa-cogs fa-flag"></i>
             <span>Laporkan Masalah</span></a>
     </li>
     <!-- Heading -->

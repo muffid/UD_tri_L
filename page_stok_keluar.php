@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "connection.php";
+include "functions.php";
 
 date_default_timezone_set('Asia/Jakarta');
 $tanggal= date("D, j M Y ");
@@ -42,8 +43,10 @@ if (isset($_SESSION['login'])) {
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- include sidebar -->
+        
         <?php include "segment/sidebar.php";?>
         <!-- end include sidebar -->
+        
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -55,6 +58,7 @@ if (isset($_SESSION['login'])) {
                     <!-- Page Heading -->
                     <hr class="sidebar-divider my-0 mt-5 mb-5">
                     <div class="d-sm-flex align-items-center justify-content-between ">
+                       
                         <h1 class="h3 mb-3 text-gray-800">Stok Pupuk Keluar</h1>
                        
 
@@ -81,13 +85,13 @@ if (isset($_SESSION['login'])) {
                            
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Input Penjualan Pupuk</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-cart-plus"></i> Input Penjualan Pupuk</h6>
 
                                 </div>
                         
                                 <div class="card-body">
 
-                                <div class="row mb-2">
+                                <div class="row mb-2 mt-3">
                                             <!-- Jenis Pembeli -->
                                             <label class="col-sm-4 col-form-label"> Jenis Pembeli  </label>
                                             <div class="col-sm-8">
@@ -107,7 +111,7 @@ if (isset($_SESSION['login'])) {
                                             <!-- Nama Pembeli -->
                                             <label class="col-sm-4 col-form-label"> Nama Kelompok </label>
                                             <div class="col-sm-8">
-                                            <select class="custom-select" id="selectcust" onchange="custControl()">
+                                            <select class="custom-select" id="selectcust" onclick="custControl()">
                                                     <option selected="true" disabled="disabled">-- pilih kelompok tani --
                                                     </option>
                                                     <?php
@@ -127,7 +131,7 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                             <!-- Nama Pembeli -->
                                             <label class="col-sm-4 col-form-label"> Nama Anggota </label>
                                             <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="anggota" name="anggota" onkeyup="setNamaAnggota()">
+                                            <input type="text" class="form-control" id="anggota" name="anggota" onkeyup="setNamaAnggota()" required>
                                             </div>
                                         </div>
 
@@ -158,7 +162,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <label class="col-sm-4 col-form-label"> Harga </label>
                                             <div class="col-sm-4">
                                                 <input type="text" class="form-control" id="harga" name="harga" readonly
-                                                     required>
+                                                     required onkeyup="priceManualControl()">
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-check form-check-inline mt-2">
@@ -175,9 +179,9 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Jumlah (karung) </label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="jumlah" name="jumlah"
+                                                <input type="text" class="form-control" id="jumlah" name="jumlah" onkeyup="stokAvailCheck()"
                                                     required)>
-                                                <p style="color:red; font-size:12px;" id="username_hint"></p>
+                                                <p style="color:green; font-size:12px;" id="stok_hint"></p>
                                             </div>
                                         </div>
                                        
@@ -188,7 +192,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                
                                             </div>
                                             <div class="col-sm-6">
-                                                <button type="button" id="btnOK" class="btn btn-primary" onclick="addFields()">tambahkan</button>
+                                                <button type="button" id="btnOK" class="btn btn-primary btn-sm" onclick="addFields()"><i class="fas fa-plus-square"></i> tambahkan</button>
                                             </div>
                                         </div>
 
@@ -207,7 +211,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Nota Penjualan</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-file"></i> Nota Penjualan</h6>
 
                                 </div>
                                 <!-- Card Body -->
@@ -224,12 +228,15 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                             </div>
                                 </div>
 
-                                <form method="POST" action="addStokKeluar.php">
+                                <form method="POST" action="addStokKeluar.php" onsubmit="return confirm('Pastikan data yang akan disimpan telah benar. Klik Ok jika anda yakin, klik cancel jika ingin meneliti kembali');">
                                 <div class="row">
   
                                             <div class="col-lg-12"  align="right">
+                                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                            <span id ="notanama">Nama Pembeli : _______________________</span><br>
                                             <span id="waktunota"></span>
                                             <span id="tanggalnota"></span> 
+                                                </div>
                                             </div>
                                 </div>
                                 <div class="row">
@@ -252,13 +259,13 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                 </table>
 
                            
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                             <!-- Nama Pengirim -->
-                                            <label class="col-sm-7 col-form-label">  <button type="button" class="btn btn-danger btn-sm" onclick="decName()">batalkan item terakhir</button> </label>
+                                            <label class="col-sm-7 col-form-label">  <button type="button" class="btn btn-danger btn-sm" onclick="decName()"><i class="fas fa-undo-alt"></i></button> </label>
                                             
                                 </div>
 
-                                <div class="row mb-3">
+                                <div class="row mb-2">
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Total Belanja </label>
                                             <div class="col-sm-5">
@@ -274,29 +281,36 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                
                                             </div>
                                             <div class="col-sm-3 mt-1">
-                                                <button type="button" class="btn btn-success btn-sm" onclick="hitungTotal()">hitung total</button>
+                                                <button type="button" class="btn btn-success btn-sm" onclick="hitungTotal()"><i class="fas fa-coins"></i> totalkan</button>
                                             </div>
                                 </div>
                                 <div class="row" id="row">
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label">Dibayar</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="bayar" name="bayar">
+                                            <div class="input-group col-sm-5">
+                                           
+                                                <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon1">Rp.</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="bayar" name="bayar" onkeyup="dibayarCtrl()">
                                                
                                             </div>
                                             
                                 </div>
 
-                                <div class="row mt-3 mb-3" id="row">
+                                <div class="row mt-2 mb-2" id="row">
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label">Biaya Transport</label>
-                                            <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="transport" name="transport">
+                                            <div class="input-group col-sm-5">
+                                            <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="basic-addon1">Rp.</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="transport" name="transport" onkeyup="transportCtrl()">
                                                
                                             </div>
 
                                             <div class="col-sm-3">
-                                                <button type="submit" class="btn btn-primary btn-sm">simpan</button>
+                                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> simpan</button>
                                             </div>
                                        
                                 </div>
@@ -315,7 +329,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                         <div class="col col-lg-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Penjualan Pupuk (Anggota)</h6>    
+                                    <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-user"></i> Data Penjualan Pupuk - Anggota</h6>    
                                 </div>
 
                                 <div class="card-body">
@@ -328,6 +342,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                             <th scope="col">No</th>
                                                             <th scope="col">Tanggal</th>
                                                             <th scope="col">Anggota</th>
+                                                            <th scope="col">Lihat Item</th>
                                                             <th scope="col">Total</th>
                                                             <th scope="col">Dibayar</th>
                                                             <th scope="col">Aksi</th>
@@ -336,19 +351,87 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                     <tbody>
                                                     <?php
                                                        $nopen=1;
-                                                       $sqlPenj=mysqli_query($conn,"SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0'");
+                                                       $sqlPenj=mysqli_query($conn,"SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0' ORDER BY ID_PJ DESC");
                                                        foreach($sqlPenj as $sp){
                                                             echo("<tr>");
                                                             echo("<td>".$nopen."</td>");
                                                             echo("<td>".$sp['Tanggal']."</td>");
                                                             echo("<td>".$sp['ID_AKT']."</td>");
-                                                            echo("<td>".$sp['Total']."</td>");
-                                                            echo("<td>".$sp['Dibayar']."</td>");
-                                                            echo('<td><button type="button" class="btn btn-danger btn-sm">batalkan</button></td>');
+                                                            echo('<td><center><a href="" data-toggle="modal" data-target="#viewItem'.$sp['ID_PJ'].'"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Item Penjualan"> </i> lihat item</center> </a></td>');
+                                                            echo("<td>".rp($sp['Total'])."</td>");
+                                                            echo("<td>".rp($sp['Dibayar'])."</td>");
+                                                            echo('<td><center><button type="button" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></button>  <a href="printNota.php?KEY='.$sp['ID_KEY'].'" class="btn btn-outline-primary btn-sm"><i class="fas fa-print"></i></a></center></td>');
                                                             echo("</tr>");
+                                                            ?>
+                                                            
+                                                            <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Data Item Penjualan Anggota : <?php echo($sp['ID_AKT'].'<br>Tanggal : '.$sp['Tanggal']); ?>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="row mb-2">
+                                                                            <div class="col-sm">
+                                                                                Item
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                Qty
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                Harga / Karung
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                               Total
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- here for looop -->
+                                                                        <?php 
+                                                                            $getItem=mysqli_query($conn,"SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_keluar WHERE key_transaksi LIKE '".$sp['ID_KEY']."'");
+                                                                            foreach($getItem as $gi){
+                                                                                $nameppk="";
+                                                                                $getPupukName=mysqli_query($conn,"SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK =".$gi['ID_PK']);
+                                                                                foreach($getPupukName as $gpn){
+                                                                                    $nameppk=$gpn['Jenis_Pupuk'];
+                                                                                }
+                                                                                echo(' <div class="row">
+                                                                                <div class="col-sm">'
+                                                                                    .$nameppk.'
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                                                                                    .$gi['Jumlah_Keluar'].'
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                                                                                    .$gi['Harga'].'  
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                                                                                   .(int)$gi['Jumlah_Keluar']*(int)$gi['Harga'].'
+                                                                                </div>
+                                                                            </div>');
+                                                                            }
+                                                                        ?>
+                                                                       
+                                                                        <!-- end of loop -->
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary mr-2"
+                                                                    data-dismiss="modal">Close </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                            <?php
                                                             $nopen++;
                                                        }
                                                     ?>
+
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -363,7 +446,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                         <div class="col col-lg-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Penjualan Pupuk (Kelompok)</h6>    
+                                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Data Penjualan Pupuk - Kelompok</h6>    
                                 </div>
 
                                 <div class="card-body">
@@ -375,7 +458,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                         <tr>
                                                             <th scope="col">No</th>
                                                             <th scope="col">Tanggal</th>
-                                                            <th scope="col">Anggota</th>
+                                                            <th scope="col">Kelompok</th>
+                                                            <th scope="col">Lihat Item</th>
                                                             <th scope="col">Total</th>
                                                             <th scope="col">Dibayar</th>
                                                             <th scope="col">Aksi</th>
@@ -384,20 +468,88 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                     <tbody>
                                                     <?php
                                                        $nopen=1;
-                                                       $sqlPenj=mysqli_query($conn,"SELECT ID_PJ,ID_KT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_AKT LIKE '0'");
+                                                       $sqlPenj=mysqli_query($conn,"SELECT ID_PJ,ID_KT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_AKT LIKE '0' ORDER BY ID_PJ DESC");
                                                        foreach($sqlPenj as $sp){
                                                             echo("<tr>");
                                                             echo("<td>".$nopen."</td>");
                                                             echo("<td>".$sp['Tanggal']."</td>");
+                                                            $namakelompok="";
                                                             $sqlNamaKel=mysqli_query($conn,"SELECT Nama_Kel FROM data_kel_tani WHERE ID_KT=".$sp['ID_KT']);
                                                             foreach($sqlNamaKel as $snk){
-                                                                echo("<td>".$snk['Nama_Kel']."</td>");
+                                                                $namakelompok=$snk['Nama_Kel'];
+                                                                echo("<td>".$namakelompok."</td>");
                                                             }
-                                                           
-                                                            echo("<td>".$sp['Total']."</td>");
-                                                            echo("<td>".$sp['Dibayar']."</td>");
-                                                            echo('<td><button type="button" class="btn btn-danger btn-sm">batalkan</button></td>');
+                                                            echo('<td><center><a href="" data-toggle="modal" data-target="#viewItemK'.$sp['ID_PJ'].'"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Item Penjualan"></i> lihat item</center>  </i></a></td>');
+                                                            echo("<td>".rp($sp['Total'])."</td>");
+                                                            echo("<td>".rp($sp['Dibayar'])."</td>");
+                                                            echo('<td><center><button type="button" class="btn btn-danger btn-sm">batalkan</button></center></td>');
                                                             echo("</tr>");
+                                                            ?>
+                                                            
+                                                            <div class="modal fade" id="viewItemK<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Data Item Penjualan Kelompok : 
+                                                                <?php echo($namakelompok.'<br>Tanggal : '.$sp['Tanggal']); ?>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="row mb-2">
+                                                                            <div class="col-sm">
+                                                                                Item
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                Qty
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                Harga / Karung
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                               Total
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- here for looop -->
+                                                                        <?php 
+                                                                            $getItem=mysqli_query($conn,"SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_keluar WHERE key_transaksi LIKE '".$sp['ID_KEY']."'");
+                                                                            foreach($getItem as $gi){
+                                                                                $nameppk="";
+                                                                                $getPupukName=mysqli_query($conn,"SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK =".$gi['ID_PK']);
+                                                                                foreach($getPupukName as $gpn){
+                                                                                    $nameppk=$gpn['Jenis_Pupuk'];
+                                                                                }
+                                                                                echo(' <div class="row">
+                                                                                <div class="col-sm">'
+                                                                                    .$nameppk.'
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                                                                                    .$gi['Jumlah_Keluar'].'
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                                                                                    .$gi['Harga'].'  
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                                                                                   .(int)$gi['Jumlah_Keluar']*(int)$gi['Harga'].'
+                                                                                </div>
+                                                                            </div>');
+                                                                            }
+                                                                        ?>
+                                                                       
+                                                                        <!-- end of loop -->
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary mr-2"
+                                                                    data-dismiss="modal">Close </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                            <?php
                                                             $nopen++;
                                                        }
                                                     ?>
@@ -457,41 +609,92 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         $('#tableKel').DataTable();
     });
 
+    function dibayarCtrl(){
+        var dibayar=document.getElementById("bayar").value.split('.').join("");
+        var dibayarNoRp=dibayar.replace("Rp. ","");
 
+        document.getElementById("bayar").value=toRp(dibayarNoRp);
+    }
+
+    function transportCtrl(){
+        var dibayar=document.getElementById("transport").value.split('.').join("");
+        var dibayarNoRp=dibayar.replace("Rp. ","");
+
+        document.getElementById("transport").value=toRp(dibayarNoRp);
+    }
+
+    function stokAvailCheck(){
+        var e = document.getElementById("selectpupuk");
+        var stokpupuk=e.options[e.selectedIndex].className;
+        var inputJml=document.getElementById("jumlah").value;
+
+      
+
+        if(parseInt(stokpupuk)<parseInt(inputJml)){
+            alert("Jumlah yang dibeli melebihi stok yang tersedia");
+            document.getElementById("btnOK").disabled=true;
+        }else{
+            document.getElementById("btnOK").disabled=false;
+        }
+        if(parseInt(stokpupuk)==0){
+            alert("Stok pupuk Kosong (0)");
+            document.getElementById("btnOK").disabled=true;
+        }
+    }
 
     var name=0;
 
     function setNamaAnggota(){
         var valNama=document.getElementById("anggota").value;
         document.getElementById("namaanggota").value=valNama;
+        document.getElementById("notanama").innerHTML="Nama Pembeli : "+valNama;
     }
 
     function pupukControl(){
         var e = document.getElementById("selectpupuk");
         price = e.value;
-        document.getElementById("harga").value = price;
+        document.getElementById("harga").value = toRp(price,"Rp. ");
         document.getElementById("harga").readOnly = true;
         document.getElementById("checkprice").checked = true;
 
         var idpupuk=e.options[e.selectedIndex].id;
+        var stokpupuk=e.options[e.selectedIndex].className;
+
+        if (parseInt(stokpupuk)<=0){
+            document.getElementById("stok_hint").innerHTML="Stok Habis TIDAK DAPAT MELAKUKAN TRANSAKSI";
+            document.getElementById("btnOK").disabled=true;
+        }else{
+            document.getElementById("stok_hint").innerHTML="Stok Tersedia : "+stokpupuk+" Karung";
+        }
+       
         document.getElementById("idpupuk").value=idpupuk.replace("ppk","");
     }
 
     function custControl(){
         var e = document.getElementById("selectcust");
         var idkeltani=e.options[e.selectedIndex].id;
+        var namekeltani=e.options[e.selectedIndex].value;
         document.getElementById("idkel").value=idkeltani.replace("kel","");
+        document.getElementById("notanama").innerHTML="Nama Pembeli : "+namekeltani;
         
+    }
+
+    function priceManualControl(){
+        var dibayar=document.getElementById("harga").value.split('.').join("");
+        var dibayarNoRp=dibayar.replace("Rp. ","");
+
+        document.getElementById("harga").value=toRp(dibayarNoRp,"Rp. ");
     }
         
     function priceControl() {
+
         if (document.getElementById("checkprice").checked == false) {
             document.getElementById("harga").readOnly = false;
             document.getElementById("harga").value = "";
             
         } else {
             document.getElementById("harga").readOnly = true;
-            document.getElementById("harga").value = price;
+            document.getElementById("harga").value = toRp(price,"Rp. ");
             
         }
     }
@@ -511,12 +714,14 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
             hitungTotal();
 
         }
+        
 
         function addFields(){
          var selPupuk=document.getElementById("selectpupuk");
          var pupuk=selPupuk.options[selPupuk.selectedIndex].text;
 
-         var harga=document.getElementById("harga").value;
+         var harga=document.getElementById("harga").value.split('.').join("");
+         var hargaNoRp=harga.replace("Rp ","");
          var jumlah=document.getElementById("jumlah").value;
 
          const nodeTR = document.createElement("tr");
@@ -548,7 +753,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                 inputh.name = "h"+name;
                 inputh.size="7";
                 inputh.style="border:0;outline:0";
-                inputh.value=harga;
+                inputh.value=toRp(hargaNoRp,"Rp. ");
                 nodeTDh.appendChild(inputh);
 
          const nodeTDt = document.createElement("td");
@@ -556,9 +761,9 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                 inputt.type = "text";
                 inputt.id="t"+name;
                 inputt.name = "t"+name;
-                inputt.size="7";
+                inputt.size="12";
                 inputt.style="border:0;outline:0";
-                inputt.value=parseInt(harga)*parseInt(jumlah);
+                inputt.value=toRp((parseInt(hargaNoRp)*parseInt(jumlah)).toString(),"Rp");
                 nodeTDt.appendChild(inputt);
 
        
@@ -593,15 +798,21 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         function hitungTotal(){
             var totalResult=0;
             for(let i=0; i<name; i++){
-                totalResult=totalResult+(parseInt(document.getElementById("t"+i).value));
+                var text=document.getElementById("t"+i).value.split('.').join("");
+                var noRp=text.replace("Rp ","");
+                
+                totalResult=totalResult+(parseInt(noRp));
             }
-            document.getElementById("notatotal").value=totalResult;
+
+            document.getElementById("notatotal").value=toRp(totalResult.toString(),"Rp. ");
         }
 
         function anggotaCtrl(){
             document.getElementById("divKel").hidden=true;
             document.getElementById("divAng").hidden=false;
             document.getElementById("buyer").value="1";
+            document.getElementById("notanama").innerHTML="Nama Pembeli : __________________";
+
             
         }
 
@@ -609,6 +820,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
             document.getElementById("divKel").hidden=false;
             document.getElementById("divAng").hidden=true;
             document.getElementById("buyer").value="2";
+            document.getElementById("anggota").value="";
+            document.getElementById("notanama").innerHTML="Nama Pembeli : __________________"
 
         }
 
@@ -621,19 +834,36 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
           
             var p = document.getElementById('tanggalnota');
             let today = new Date().toISOString().slice(0, 10);
-            document.getElementById("waktunota").innerHTML=today;
+            document.getElementById("waktunota").innerHTML="Tanggal : "+today;
 
             function time() {
             var d = new Date();
             var s = d.getSeconds();
             var m = d.getMinutes();
             var h = d.getHours();
-            p.textContent = 
+            p.textContent = "Pukul : "+
                 ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
             }
 
             setInterval(time, 1000);
         }
+
+        function toRp(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, "").toString(),
+            split = number_string.split(","),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+       
+        if (ribuan) {
+            separator = sisa ? "." : "";
+            rupiah += separator + ribuan.join(".");
+        }
+
+        rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+        return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+}
 
     </script>
 

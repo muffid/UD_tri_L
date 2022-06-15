@@ -1,6 +1,12 @@
 <?php
 include "connection.php";
-//echo($_POST['pembayaran']);
+
+// yang di convert :
+// harga jual
+// total
+// dibayar
+// transport
+//include "functions.php";
 
 session_start();
 date_default_timezone_set('Asia/Jakarta');
@@ -8,12 +14,20 @@ date_default_timezone_set('Asia/Jakarta');
  $tanggal= date("D, j M Y ");
  $iterator=$_POST['iterator'];
  $key=idAcak();
- $transport=$_POST['transport'];
+ $transport=str_replace(".","",str_replace("Rp. ","",$_POST['transport']));
  $jenisBuyer=$_POST['buyer'];
-
  $dibayar=$_POST['bayar'];
- $total=$_POST['notatotal'];
+ $total=str_replace(".","",str_replace("Rp. ","",$_POST['notatotal']));
+echo($total);
+ 
+ if($dibayar>$total){
+    $dibayar=$total;
+ }else{
+    $dibayar=str_replace(".","",str_replace("Rp. ","",$_POST['bayar']));
+ }
+
  $hutang=0;
+ $PJ="";
 
  if($jenisBuyer==1){
     $idkel=$_POST['namaanggota'];
@@ -27,7 +41,7 @@ date_default_timezone_set('Asia/Jakarta');
     
     $idpupuk=$_POST['ID_PK'.$i];
     $jumlah=$_POST['b'.$i];
-    $harga=$_POST['h'.$i];
+    $harga = str_replace(".","",str_replace("Rp. ","",$_POST['h'.$i]));
 
    
     if($jenisBuyer==1){
@@ -106,7 +120,10 @@ date_default_timezone_set('Asia/Jakarta');
         mysqli_query($conn,$saveToBiayaLain);
     }
 
-    function idAcak($length = 4) {
+    header("Location: printNota.php?KEY=".$key);
+    exit();
+
+    function idAcak($length =5) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';

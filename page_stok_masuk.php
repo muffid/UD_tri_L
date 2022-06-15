@@ -235,7 +235,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Stok Pupuk Masuk</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Historis Stok Pupuk Masuk</h6>
 
                                 </div>
 
