@@ -144,7 +144,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                                     <span class="input-group-text" id="basic-addon1">Rp.</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="harga" name="harga" required
-                                                    onkeyup="SETis()">
+                                                    onkeyup="countPerKarung()">
                                             </div>
                                         </div>
                                         <div class="row mt-4 ">
@@ -219,7 +219,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                     <div class="row mb-1">
                                         <!--  Harga Beli-->
                                         <label class="col-sm-4 col-form-label">Harga Beli/ karung</label>
-                                        <label class="col-sm-5 col-form-label" id="Btransport" name="Btransport">: Rp.
+                                        <label class="col-sm-5 col-form-label" id="Btransport" name="Btransport" style="font-weight:bold; color:green;">: Rp.
                                         </label>
                                         <p style=" color:red; font-size:12px;" id="username_hint"></p>
                                     </div>
@@ -375,23 +375,21 @@ $(document).ready(function() {
 });
 
     function SETis() {
-        var inputPengirim = document.getElementById("pengirim").value;
-        document.getElementById("pengirimPP").innerHTML = ': ' + inputPengirim;
+       
 
         var inputJumPP = document.getElementById("jumlah").value;
         document.getElementById("jumPP").innerHTML = ': ' + inputJumPP;
 
-        var inputHr = document.getElementById("harga").value;
-        var inputTr = document.getElementById("transport").value;
-        // var Karung = document.getElementById("hargaKarung").value;
-        document.getElementById("hargaPP").innerHTML = formatRupiah(inputHr, ": Rp. ");
-        document.getElementById("harga").value = formatRupiah(inputHr);
-        document.getElementById("transport").value = formatRupiah(inputTr);
-        // document.getElementById("Mohargapp").value = formatRupiah(MoinputTr);
-        // var x = inputHr.replace(".", "");
-        // var hasil = parseInt(x) / parseInt(inputJumPP);
+        var text=toRp(document.getElementById("harga").value);
+        document.getElementById("harga").value=text;
 
-        // document.getElementById("Btransport").innerHTML = formatRupiah(hasil);
+        
+        var totalNoDot=document.getElementById("harga").value.split('.').join("");
+        var totalNoRp=totalNoDot.replace("Rp. ","");
+
+        var totalInt=parseInt(totalNoRp)/parseInt(document.getElementById("jumlah").value);
+
+        document.getElementById("Btransport").innerHTML="Rp. "+toRp(totalInt.toString());
 
 
     }
@@ -404,6 +402,38 @@ $(document).ready(function() {
         document.getElementById("idppk").value = id;
 
     }
+
+    function countPerKarung(){
+        
+        var text=toRp(document.getElementById("harga").value);
+        document.getElementById("harga").value=text;
+
+        
+        var totalNoDot=document.getElementById("harga").value.split('.').join("");
+        var totalNoRp=totalNoDot.replace("Rp. ","");
+
+        var totalInt=Math.round(parseInt(totalNoRp)/parseInt(document.getElementById("jumlah").value));
+
+        document.getElementById("Btransport").innerHTML="Rp. "+toRp(totalInt.toString());
+        
+    }
+
+    function toRp(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, "").toString(),
+            split = number_string.split(","),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+       
+        if (ribuan) {
+            separator = sisa ? "." : "";
+            rupiah += separator + ribuan.join(".");
+        }
+
+        rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+        return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+}
     </script>
 
 
