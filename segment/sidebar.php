@@ -39,6 +39,33 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
 
+    <!-- Keuangan-->
+    <div class="sidebar-heading">
+        Keuangan
+    </div>
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li
+        <?php if ($_GET['m'] == 8 && $_GET['n'] == 8) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
+        <a class="nav-link" href="page_pengeluaran.php?m=8&n=8">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>Pengeluaran</span></a>
+    </li>
+    <li
+        <?php if ($_GET['m'] == 9 && $_GET['n'] == 9) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
+        <a class="nav-link" href="page_pemasukan.php?m=9&n=9">
+            <i class="fas fa-money-bill-alt"></i>
+            <span>Pemasukan</span></a>
+    </li>
+    <li
+        <?php if ($_GET['m'] == 10 && $_GET['n'] == 10) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
+        <a class="nav-link" href="page_piutang.php?m=10&n=10">
+            <i class="fas fa-money-check"></i>
+            <span>Piutang</span></a>
+    </li>
+    <!-- Heading -->
+    <hr class=" sidebar-divider">
+
+    <!-- Seting Data -->
     <div class="sidebar-heading">
         Setting Data
     </div>
