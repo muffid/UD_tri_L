@@ -62,14 +62,65 @@ if (isset($_SESSION['login'])) {
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-                    <!-- konten -->
+                    <!-- Tabel Biaya Pembelian Pupuk -->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya Pembelian Pupuk
+                                    </h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
+                                        <!-- <div class="col-sm-2"> -->
+                                        <select class="col-sm-2 custom-select" id="bulan" name="bulan">
+                                            <option selected="true" disabled="disabled">-- pilih bulan --
+                                            </option>
+                                        </select>
+                                        <!-- </div> -->
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="tablePengeluaran" width="100%"
+                                            cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Tanggal</th>
+                                                    <th scope="col">Nominal</th>
+                                                    <th scope="col">Keperluan</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Tanggal</th>
+                                                    <th scope="col">Nominal</th>
+                                                    <th scope="col">Keperluan</th>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Tabel Biaya Pembelian Pupuk -->
+                    <!-- Tabel Biaya Lain -->
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya Lainnya
+                                    </h6>
                                 </div>
 
                                 <div class="card-body">
@@ -108,7 +159,7 @@ if (isset($_SESSION['login'])) {
                             </div>
                         </div>
                     </div>
-                    <!-- End Konten -->
+                    <!-- End Tabel Biaya Lainnya -->
                 </div>
             </div>
             <!-- End of Main Content -->
