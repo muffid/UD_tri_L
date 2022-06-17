@@ -1,5 +1,6 @@
 <?php
 include "connection.php";
+include "functions.php";
 
 // yang di convert :
 // harga jual
@@ -120,8 +121,15 @@ echo($total);
         mysqli_query($conn,$saveToBiayaLain);
     }
 
-    header("Location: printNota.php?KEY=".$key);
-    exit();
+    if($jenisBuyer==1){
+        header("Location: page_after_sales.php?BUYER=2&KEY=".$key);
+        exit();
+     }else{
+        header("Location: page_after_sales.php?BUYER=1&KEY=".$key);
+        exit();
+     }
+    
+   
 
     function idAcak($length =5) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

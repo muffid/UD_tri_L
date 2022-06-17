@@ -360,7 +360,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                             echo('<td><center><a href="" data-toggle="modal" data-target="#viewItem'.$sp['ID_PJ'].'"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Item Penjualan"> </i> lihat item</center> </a></td>');
                                                             echo("<td>".rp($sp['Total'])."</td>");
                                                             echo("<td>".rp($sp['Dibayar'])."</td>");
-                                                            echo('<td><center><button type="button" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></button>  <a href="printNota.php?KEY='.$sp['ID_KEY'].'" class="btn btn-outline-primary btn-sm"><i class="fas fa-print"></i></a></center></td>');
+                                                            $newKey="'".$sp['ID_KEY']."'";
+                                                            echo('<td><center><button type="button" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></button>  <a href="" class="btn btn-outline-primary btn-sm" onclick="toPrintPage('.$newKey.')"><i class="fas fa-print"></i></a></center></td>');
                                                             echo("</tr>");
                                                             ?>
                                                             
@@ -864,6 +865,10 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
         return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
+
+        function toPrintPage(key){
+            window.open("printNota.php?KEY="+key);
+        }
 
     </script>
 
