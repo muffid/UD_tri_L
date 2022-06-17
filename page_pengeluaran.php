@@ -1,5 +1,7 @@
 <?php
 session_start();
+include 'connection.php';
+include 'functions.php';
 if (isset($_SESSION['login'])) {
     ?>
 <!DOCTYPE html>
@@ -91,18 +93,36 @@ if (isset($_SESSION['login'])) {
                                                 <tr>
                                                     <th scope="col">No</th>
                                                     <th scope="col">Tanggal</th>
-                                                    <th scope="col">Nominal</th>
                                                     <th scope="col">Keperluan</th>
+                                                    <th scope="col">Nominal</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php
+$no = 1;
+    $sql = mysqli_query($conn, "SELECT * FROM stok_masuk  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC");
+    foreach ($sql as $key): ?>
                                                 <tr>
-                                                    <th scope="col">No</th>
-                                                    <th scope="col">Tanggal</th>
-                                                    <th scope="col">Nominal</th>
-                                                    <th scope="col">Keperluan</th>
+                                                    <td> <?=$no;?></td>
+                                                    <td> <?=$key['Tanggal'];?></td>
+                                                    <td> <?="Pembelian Pupuk " . $key['Jenis_Pupuk'];?></td>
+                                                    <td> <?=rp($key['Nominal']);?></td>
                                                 </tr>
 
+                                                <?php $no++;
+    endforeach;?>
+                                            <tbody>
+                                                <?php
+$total = mysqli_query($conn, "SELECT sum(Nominal) AS tot FROM stok_masuk");
+    foreach ($total as $key) {
+        $totalnya = $key['tot'];
+    }
+    ?>
+                                                <tr>
+                                                    <th colspan="3" class="text-center">Total</th>
+                                                    <th colspan="1"><?=rp($totalnya);?></th>
+                                                </tr>
+                                            </tbody>
                                             </tbody>
                                         </table>
                                     </div>
@@ -125,32 +145,32 @@ if (isset($_SESSION['login'])) {
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="tablePengeluaran" width="100%"
+                                        <table class="table table-bordered" id="tableBiayalain" width="100%"
                                             cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">No</th>
                                                     <th scope="col">Tanggal</th>
-                                                    <th scope="col">Pengirim</th>
-                                                    <th scope="col">Jenis Pupuk</th>
-                                                    <th scope="col">Jumlah Pupuk</th>
-                                                    <th scope="col">Total Pembelian</th>
-                                                    <th scope="col">Aksi</th>
-
+                                                    <th scope="col">Keperluan</th>
+                                                    <th scope="col">Nominal</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php
+$no = 1;
+    $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain ORDER BY ID_BL DESC");
+    foreach ($sqlbl as $keybl): ?>
                                                 <tr>
-                                                    <th scope="col">1</th>
-                                                    <th scope="col">22/12/20022</th>
-                                                    <th scope="col">adi</th>
-                                                    <th scope="col">Urea</th>
-                                                    <th scope="col">160</th>
-                                                    <th scope="col">60000000</th>
-                                                    <th scope="col">Edit</th>
-
+                                                    <td><?=$no;?></td>
+                                                    <td><?=$keybl['ID_SM'];?></td>
+                                                    <td>11 nop
+                                                        <?//=$keybl['ID_SM'];?>
+                                                    </td>
+                                                    <td><?=$keybl['Total'];?></td>
                                                 </tr>
 
+                                                <?php $no++;
+    endforeach;?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -197,5 +217,6 @@ if (isset($_SESSION['login'])) {
 <script>
 $(document).ready(function() {
     $('#tablePengeluaran').DataTable();
+    $('#tableBiayalain').DataTable();
 });
 </script>
