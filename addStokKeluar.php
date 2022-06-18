@@ -2,12 +2,7 @@
 include "connection.php";
 include "functions.php";
 
-// yang di convert :
-// harga jual
-// total
-// dibayar
-// transport
-//include "functions.php";
+
 
 session_start();
 date_default_timezone_set('Asia/Jakarta');
@@ -74,26 +69,7 @@ echo($total);
  }
  
 
-    if($total==$dibayar){
-        //jika pembayaran pas maka tidak perlu ada data piutang
-        $hutang=0;
-    }else{
-        $hutang=$total-$dibayar;
-        //jika pembayaran ngutang maka disimpan ke tabel piutang
-
-        //jika anggota
-        if($jenisBuyer==1){
-            $saveToPiutang="INSERT INTO piutang (ID_PT,ID_KT,ID_AKT,Debit,Kredit,Tanggal)
-            VALUES ('','','$idkel','','$hutang','$tanggal')";
-            mysqli_query($conn,$saveToPiutang);
-        }else{
-            //jika kelompok
-            $saveToPiutang="INSERT INTO piutang (ID_PT,ID_KT,ID_AKT,Debit,Kredit,Tanggal)
-            VALUES ('','$idkel','','','$hutang','$tanggal')";
-            mysqli_query($conn,$saveToPiutang);
-        }
-        
-    }
+   
     
     //simpan ke tabel penjualan
     //jika anggota
@@ -107,6 +83,27 @@ echo($total);
         mysqli_query($conn,$saveToPenjualan);
     }
   
+
+    if($total==$dibayar){
+        //jika pembayaran pas maka tidak perlu ada data piutang
+        $hutang=0;
+    }else{
+        $hutang=$total-$dibayar;
+        //jika pembayaran ngutang maka disimpan ke tabel piutang
+
+        //jika anggota
+        if($jenisBuyer==1){
+            $saveToPiutang="INSERT INTO piutang (ID_PT,ID_KT,ID_AKT,ID_KEY,Debit,Kredit,Tanggal)
+            VALUES ('','','$idkel','$key','','$hutang','$tanggal')";
+            mysqli_query($conn,$saveToPiutang);
+        }else{
+            //jika kelompok
+            $saveToPiutang="INSERT INTO piutang (ID_PT,ID_KT,ID_AKT,ID_KEY,Debit,Kredit,Tanggal)
+            VALUES ('','$idkel','','$key','','$hutang','$tanggal')";
+            mysqli_query($conn,$saveToPiutang);
+        }
+        
+    }
 
     //simpan biaya transport ke tabel biaya_lain
     if($transport>0){

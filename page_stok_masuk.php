@@ -131,7 +131,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                                             <label class="col-sm-4 col-form-label">Jumlah (karung)</label>
                                             <div class="col-sm-8">
                                                 <input type="number" class="form-control" id="jumlah" name="jumlah"
-                                                    required onkeyup="SETis()">
+                                                    required onkeyup="beliControl()">
                                                 <p style="color:red; font-size:12px;" id="username_hint"></p>
                                             </div>
                                         </div>
@@ -411,10 +411,10 @@ $(document).ready(function() {
         
         var totalNoDot=document.getElementById("harga").value.split('.').join("");
         var totalNoRp=totalNoDot.replace("Rp. ","");
-
         var totalInt=Math.round(parseInt(totalNoRp)/parseInt(document.getElementById("jumlah").value));
 
         document.getElementById("Btransport").innerHTML="Rp. "+toRp(totalInt.toString());
+        document.getElementById("hargaPP").innerHTML="Rp. "+toRp(totalNoRp);
         
     }
 

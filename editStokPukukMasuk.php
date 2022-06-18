@@ -1,4 +1,9 @@
 <?php
+
+//Transaksi hanya bisa dicancel jika :
+// - Stok Tersedia > Stok yang dicancel
+// - 
+
 include 'connection.php';
 echo $idpp = $_GET['id'];
 echo $namaPengpp = $_POST['editnamapeng'];
