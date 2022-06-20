@@ -140,7 +140,7 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                                             <!-- Nama Pengirim -->
                                             <label class="col-sm-4 col-form-label"> Jenis Pupuk </label>
                                             <div class="col-sm-8">
-                                                <select class="custom-select" id="selectpupuk" name="selectpupuk" onchange="pupukControl()" >
+                                                <select class="custom-select" id="selectpupuk" name="selectpupuk" onchange="pupukControl()" required>
                                                     <option selected="true" disabled="disabled">-- pilih jenis pupuk --
                                                     </option>
                                                     <?php
@@ -275,9 +275,9 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                     required readonly hidden>
                                                     <input type="text" class="form-control" id="idpupuk" name="idpupuk"
                                                      hidden>
-                                                    <input type="text" class="form-control" id="idkel" name="idkel" hidden>
+                                                    <input type="text" class="form-control" id="idkel" name="idkel" required hidden>
                                                      <input type=text id="buyer" name="buyer" readonly required hidden>
-                                                     <input type=text id="namaanggota" name="namaanggota" hidden>
+                                                     <input type=text id="namaanggota" name="namaanggota"  required hidden>
                                                
                                             </div>
                                             <div class="col-sm-3 mt-1">
@@ -361,11 +361,12 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                             echo("<td>".rp($sp['Total'])."</td>");
                                                             echo("<td>".rp($sp['Dibayar'])."</td>");
                                                             $newKey="'".$sp['ID_KEY']."'";
-                                                            echo('<td><center><button type="button" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></button>  <a href="" class="btn btn-outline-primary btn-sm" onclick="toPrintPage('.$newKey.')"><i class="fas fa-print"></i></a></center></td>');
+                                                           
+                                                            echo('<td><center><a href=""  data-toggle="modal" data-target="#delItem'.$sp['ID_PJ'].'" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></a>  <a href="" class="btn btn-outline-primary btn-sm" onclick="toPrintPage('.$newKey.')"><i class="fas fa-print"></i></a></center></td>');
                                                             echo("</tr>");
                                                             ?>
                                                             
-                                                            <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                        <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -427,6 +428,42 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                     </div>
                                                 </div>
 
+
+                                                <div class="modal fade" id="delItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Hapus Anggota : <?php echo($sp['ID_AKT'].'<br>Tanggal : '.$sp['Tanggal']); ?>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <div class="container"><center>
+                                                                    <h3 class="text-danger">PERINGATAN!</h3>
+                                                                    Membatalkan/ menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkron.
+                                                                    Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. <strong
+                                                                        class="text-danger">Anda
+                                                                        yakin
+                                                                        akan
+                                                                        menghapus ?</strong>
+                                                                </center>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">kembali</button>
+                                                                <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>"
+                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                             <?php
                                                             $nopen++;
                                                        }
@@ -483,7 +520,9 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                             echo('<td><center><a href="" data-toggle="modal" data-target="#viewItemK'.$sp['ID_PJ'].'"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Item Penjualan"></i> lihat item</center>  </i></a></td>');
                                                             echo("<td>".rp($sp['Total'])."</td>");
                                                             echo("<td>".rp($sp['Dibayar'])."</td>");
-                                                            echo('<td><center><button type="button" class="btn btn-danger btn-sm">batalkan</button></center></td>');
+                                                            $newBuyer="'1'";
+                                                            $newKeyAng="'".$sp['ID_KEY']."'";
+                                                            echo('<td><center><a href=""  data-toggle="modal" data-target="#delItemK'.$sp['ID_PJ'].'" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></a> <a href="" class="btn btn-outline-primary btn-sm" onclick="toPrintPage('.$newKeyAng.','.$newBuyer.')"><i class="fas fa-print"></i></a></center></td>');
                                                             echo("</tr>");
                                                             ?>
                                                             
@@ -545,6 +584,43 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary mr-2"
                                                                     data-dismiss="modal">Close </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                
+                                                <div class="modal fade" id="delItemK<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                Hapus Transaski
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                    <div class="container"><center>
+                                                                    <h3 class="text-danger">PERINGATAN!</h3>
+                                                                    Membatalkan/ menghapus data mungkin akan
+                                                                    menyebabkan beberapa data tidak singkron.
+                                                                    Pastikan
+                                                                    data yang akan dihapus adalah
+                                                                    data yang sudah tidak terpakai. <strong
+                                                                        class="text-danger">Anda
+                                                                        yakin
+                                                                        akan
+                                                                        menghapus ?</strong>
+                                                                </center>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">kembali</button>
+                                                                <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>"
+                                                                    class="btn btn-danger">Ya, Hapus</a>
+                                                              
                                                             </div>
                                                         </div>
                                                     </div>
@@ -809,6 +885,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         }
 
         function anggotaCtrl(){
+            document.getElementById("namaanggota").required=true;
+            document.getElementById("idkel").required=false;
             document.getElementById("divKel").hidden=true;
             document.getElementById("divAng").hidden=false;
             document.getElementById("buyer").value="1";
@@ -818,6 +896,9 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         }
 
         function kelompokCtrl(){
+            document.getElementById("namaanggota").required=false;
+         
+            document.getElementById("idkel").required=true;
             document.getElementById("divKel").hidden=false;
             document.getElementById("divAng").hidden=true;
             document.getElementById("buyer").value="2";
@@ -866,8 +947,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
         return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
 }
 
-        function toPrintPage(key){
-            window.open("printNota.php?KEY="+key);
+        function toPrintPage(key,buyer){
+            window.open("printNota.php?KEY="+key+"&BUYER="+buyer);
         }
 
     </script>
