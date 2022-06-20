@@ -150,21 +150,50 @@ $no = 1;
                       </thead>
                       <tbody>
                         <?php
-$noBl = 1;
+    $noBl = 1;
     $totalBl = 0;
-    $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain
-                  INNER JOIN stok_masuk ON biaya_lain.ID_SM = stok_masuk.ID_SM
-                  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_BL DESC");
-    foreach ($sqlbl as $keybl): ?>
-                        <tr>
-                          <td><?=$noBl;?></td>
-                          <td><?=$keybl['Tanggal'];?></td>
-                          <td><?="Transport Pembelian Pupuk " . $keybl['Jenis_Pupuk'];?></td>
-                          <td><?=rp($keybl['Total']);?></td>
-                        </tr>
-                        <?php $noBl++;
-    $totalBl = $totalBl + (int) $keybl['Total'];
-    endforeach;?>
+    $sqlGetAll=mysqli_query($conn,"SELECT * FROM biaya_lain");
+    foreach($sqlGetAll as $sga){
+      if($sga['ID_SM']==0){
+        //jika dari penjualan
+        $sqlGetPj=mysqli_query($conn,"SELECT ID_KT, ID_AKT,ID_KEY,Tanggal FROM penjualan WHERE ID_PJ=".$sga['ID_PJ']);
+        foreach($sqlGetPj as $sgp){
+         
+          if($sgp['ID_AKT']==0){
+             //jika kelompok
+             $sqlGetNamaKel=mysqli_query($conn,"SELECT Nama_Kel FROM data_kel_tani WHERE ID_KT=".$sgp['ID_KT']);
+             foreach($sqlGetNamaKel as $sgnk){
+              echo ('<tr><td>'.$noBl.'</td>');
+              echo ('<td>'.$sgp["Tanggal"].'</td>');
+              echo('<td> Penjualan Ke '.$sgnk['Nama_Kel'].'</td>');
+              echo('<td>'.$sga['Total'].'</td></tr>');
+             }
+          }else{
+            //jika anggota
+            echo ('<tr><td>'.$noBl.'</td>');
+            echo ('<td>'.$sgp["Tanggal"].'</td>');
+            echo('<td> Penjualan Ke '.$sgp['ID_AKT'].'</td>');
+            echo('<td>'.$sga['Total'].'</td></tr>');
+
+          }
+        }
+      }else{
+        //jika pemasukan stok
+        $sqlGetPema=mysqli_query($conn,"SELECT Tanggal,ID_PK,Nominal FROM stok_masuk WHERE ID_SM=".$sga['ID_SM']);
+        foreach($sqlGetPema as $sgpm){
+          $sqlNamaPupuk=mysqli_query($conn,"SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK=".$sgpm['ID_PK']);
+          foreach($sqlNamaPupuk as $snpk){
+            echo('<tr><td>'.$noBl.'</td>');
+            echo('<td>'.$sgpm['Tanggal'].'</td>');
+            echo('<td> Transport pembelian '.$snpk['Jenis_Pupuk'].'</td>');
+            echo('<td>'.$sgpm['Nominal'].'</td></tr>');
+          }
+        }
+
+      }
+      $noBl++;
+    }
+    ?>
                       <tbody>
                         <tr>
                           <th colspan="3" class="text-center">TOTAL</th>
