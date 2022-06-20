@@ -3,7 +3,6 @@ include "../connection.php";
 include '../functions.php';
 $key = $_POST['key'];
 $no = 1;
-
 $total = 0;
 //2022-02
 // algoritma ngganti bulan disini
