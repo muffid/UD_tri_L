@@ -2,7 +2,7 @@
 include '../connection.php';
 include '../functions.php';
 $bulan = $_GET['bulan'];
-var_dump($bulan);
+//var_dump($bulan);
 ?>
 
 <!-- <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"> -->
@@ -16,8 +16,13 @@ var_dump($bulan);
         </tr>
     </thead>
     <tbody>
-        <?php
 
+        <?php
+if (isset($bulan)) {
+    # code...
+} else {
+
+}
 $no = 1;
 $sql = mysqli_query($conn, "SELECT * FROM stok_masuk  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE '%" . $bulan . "%' ORDER BY ID_SM DESC");
 foreach ($sql as $key): ?>
@@ -32,7 +37,7 @@ foreach ($sql as $key): ?>
 endforeach;?>
     <tbody>
         <?php
-$total = mysqli_query($conn, "SELECT sum(Nominal) AS tot FROM stok_masuk");
+$total = mysqli_query($conn, "SELECT sum(Nominal) AS tot FROM stok_masuk WHERE Tanggal LIKE '%" . $bulan . "%'");
 foreach ($total as $key) {
     $totalnya = $key['tot'];
 }
