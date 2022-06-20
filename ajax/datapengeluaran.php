@@ -19,7 +19,7 @@ var_dump($bulan);
         <?php
 
 $no = 1;
-$sql = mysqli_query($conn, "SELECT * FROM stok_masuk  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE %'" . $bulan . "'% ORDER BY ID_SM DESC");
+$sql = mysqli_query($conn, "SELECT * FROM stok_masuk  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE '%" . $bulan . "%' ORDER BY ID_SM DESC");
 foreach ($sql as $key): ?>
         <tr>
             <td> <?=$no;?></td>
