@@ -186,7 +186,7 @@ $no = 1;
             echo('<tr><td>'.$noBl.'</td>');
             echo('<td>'.$sgpm['Tanggal'].'</td>');
             echo('<td> Transport pembelian '.$snpk['Jenis_Pupuk'].'</td>');
-            echo('<td>'.$sgpm['Nominal'].'</td></tr>');
+            echo('<td>'.$sga['Total'].'</td></tr>');
           }
         }
 
