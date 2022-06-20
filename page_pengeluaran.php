@@ -119,7 +119,6 @@ $no = 1;
                     </table>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -135,6 +134,10 @@ $no = 1;
                 </div>
 
                 <div class="card-body">
+                  <div class="row mb-3">
+                    <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
+                    <input id="blnBL" type="month">
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="tableBiayalain" width="100%" cellspacing="0">
                       <thead>
@@ -147,25 +150,31 @@ $no = 1;
                       </thead>
                       <tbody>
                         <?php
-$no = 1;
-    $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain ORDER BY ID_BL DESC");
+$noBl = 1;
+    $totalBl = 0;
+    $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain
+                  INNER JOIN stok_masuk ON biaya_lain.ID_SM = stok_masuk.ID_SM
+                  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_BL DESC");
     foreach ($sqlbl as $keybl): ?>
                         <tr>
-                          <td><?=$no;?></td>
-                          <td><?=$keybl['ID_SM'];?></td>
-                          <td>11 nop
-                            <?//=$keybl['ID_SM'];?>
-                          </td>
-                          <td><?=$keybl['Total'];?></td>
+                          <td><?=$noBl;?></td>
+                          <td><?=$keybl['Tanggal'];?></td>
+                          <td><?="Transport Pembelian Pupuk " . $keybl['Jenis_Pupuk'];?></td>
+                          <td><?=rp($keybl['Total']);?></td>
                         </tr>
-
-                        <?php $no++;
+                        <?php $noBl++;
+    $totalBl = $totalBl + (int) $keybl['Total'];
     endforeach;?>
+                      <tbody>
+                        <tr>
+                          <th colspan="3" class="text-center">TOTAL</th>
+                          <th><?=rp($totalBl);?></th>
+                        </tr>
+                      </tbody>
                       </tbody>
                     </table>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -196,16 +205,17 @@ $no = 1;
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <!-- <script src="js/pengeluaran.js"> </script> -->
+  //pengeluaran
   <script>
   $(document).ready(function() {
-    $('#tablePengeluaran').DataTable();
+    $('#tablePengeluaran').DataTable({
+      "searching": false
+    });
   });
   $(document).ready(function() {
     $('#bln').change(function() {
       var bulan = $(this).val();
       $.ajax({
-
         url: "ajax/ajx_dataPengeluaran.php",
         method: "POST",
         data: {
@@ -213,6 +223,30 @@ $no = 1;
         },
         success: function(data) {
           $('#tablePengeluaran').html(data);
+        }
+      });
+    });
+  });
+  </script>
+
+  //biaya lainnya
+  <script>
+  $(document).ready(function() {
+    $('#tableBiayalain').DataTable({
+      "searching": false
+    });
+  });
+  $(document).ready(function() {
+    $('#blnBL').change(function() {
+      var bulanBl = $(this).val();
+      $.ajax({
+        url: "ajax/ajx_dataPengeluaran.php",
+        method: "POST",
+        data: {
+          keyBl: bulanBl
+        },
+        success: function(data) {
+          $('#tableBiayalain').html(data);
         }
       });
     });
