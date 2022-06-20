@@ -78,15 +78,12 @@ if (isset($_SESSION['login'])) {
                                 <div class="card-body">
                                     <div class="row mb-3">
                                         <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
-                                        <!-- <div class="col-sm-2"> -->
-                                        <select class="col-sm-2 custom-select" id="bulan" name="bulan">
-                                            <option selected="true" disabled="disabled">-- pilih bulan --
-                                            </option>
-                                        </select>
-                                        <!-- </div> -->
+
+                                        <input class="col-sm-2" id="bulan" type="month">
+
                                     </div>
 
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" id="TB_peng">
                                         <table class="table table-bordered" id="tablePengeluaran" width="100%"
                                             cellspacing="0">
                                             <thead>
@@ -205,6 +202,8 @@ $no = 1;
     <script src="js/sb-admin-2.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="js/pengeluaran.js"> </script>
+
 
 </body>
 
@@ -214,9 +213,9 @@ $no = 1;
     exit();
 }?>
 
-<script>
+<!-- <script>
 $(document).ready(function() {
     $('#tablePengeluaran').DataTable();
     $('#tableBiayalain').DataTable();
 });
-</script>
+</script> -->
