@@ -3,7 +3,7 @@ include "../connection.php";
 include '../functions.php';
 $key = $_POST['key'];
 $no = 1;
-$output = "";
+
 $total = 0;
 //2022-02
 // algoritma ngganti bulan disini
@@ -48,19 +48,40 @@ switch ($bln) {
         break;
 }
 $blntahun = $bln . " " . $tahun;
+?>
+<table class="table table-bordered" id="tablePengeluaran" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Tanggal</th>
+      <th scope="col">Pembelian</th>
+      <th scope="col">Jumlah</th>
+      <th scope="col">Nominal</th>
+    </tr>
+  </thead>
+
+  <tbody id="contents">
+    <?php
+$no = 1;
+$total = 0;
 $getData = mysqli_query($conn, "SELECT *FROM stok_masuk
                         INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE '%" . $blntahun . "%' ORDER BY ID_SM DESC");
-foreach ($getData as $gd) {
-    $output .=
-    '<tr>
-                            <td>' . $no . '</td>
-                            <td>' . $gd['Tanggal'] . '</td>
-                            <td>' . "Pupuk " . $gd['Jenis_Pupuk'] . '</td>
-                            <td>' . $gd['Jumlah_Masuk'] . " Karung" . '</td>
-                            <td>' . rp($gd['Nominal']) . '</td>
-                          </tr>';
-    $total = $total + (int) $gd['Nominal'];
-    $no++;
-}
-$output .= '<tr><td colspan="4" class="text-center">TOTAL</td><td>' . $total . '</td></tr>';
-echo ($output);
+foreach ($getData as $gd): ?>
+    <tr>
+      <td><?=$no;?></td>
+      <td><?=$gd['Tanggal'];?></td>
+      <td><?="Pupuk " . $gd['Jenis_Pupuk'];?></td>
+      <td><?=$gd['Jumlah_Masuk'] . " Karung";?></td>
+      <td><?=rp($gd['Nominal']);?></td>
+    </tr>
+    <?php $no++;
+$total = $total + (int) $gd['Nominal'];
+endforeach;?>
+  <tbody>
+    <tr>
+      <th colspan="4" class="text-center">TOTAL</th>
+      <th><?=rp($total);?></th>
+    </tr>
+  </tbody>
+  </tbody>
+</table>
