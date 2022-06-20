@@ -79,7 +79,9 @@ if (isset($_SESSION['login'])) {
                                     <div class="row mb-3">
                                         <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
 
-                                        <input class="col-sm-2" id="bulan" type="month">
+                                        <input id="bln" type="month">
+                                            
+                                       
 
                                     </div>
 
@@ -90,37 +92,21 @@ if (isset($_SESSION['login'])) {
                                                 <tr>
                                                     <th scope="col">No</th>
                                                     <th scope="col">Tanggal</th>
-                                                    <th scope="col">Keperluan</th>
+                                                    <th scope="col">Jumlah</th>
                                                     <th scope="col">Nominal</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <?php
-$no = 1;
-    $sql = mysqli_query($conn, "SELECT * FROM stok_masuk  INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC");
-    foreach ($sql as $key): ?>
-                                                <tr>
-                                                    <td> <?=$no;?></td>
-                                                    <td> <?=$key['Tanggal'];?></td>
-                                                    <td> <?="Pembelian Pupuk " . $key['Jenis_Pupuk'];?></td>
-                                                    <td> <?=rp($key['Nominal']);?></td>
-                                                </tr>
-
-                                                <?php $no++;
-    endforeach;?>
-                                            <tbody>
-                                                <?php
-$total = mysqli_query($conn, "SELECT sum(Nominal) AS tot FROM stok_masuk");
-    foreach ($total as $key) {
-        $totalnya = $key['tot'];
-    }
-    ?>
-                                                <tr>
-                                                    <th colspan="3" class="text-center">Total</th>
-                                                    <th colspan="1"><?=rp($totalnya);?></th>
-                                                </tr>
+                                            <tbody id="contents">
+                                            <?php 
+                                            $no=1;$total=0;$getData=mysqli_query($conn,"SELECT Tanggal,ID_PK,Jumlah_Masuk,Nominal FROM stok_masuk");
+foreach($getData as $gd){
+    echo('<tr><td>'.$no.'</td><td>'.$gd['Tanggal'].'</td><td>'.$gd['Jumlah_Masuk'].'</td><td>'.$gd['Nominal'].'</td></tr>');
+    $no++;
+    $total=$total+(int)$gd['Nominal'];
+    
+}echo('<tbody><tr><td colspan="3" class="text-center">TOTAL</td><td>'.$total.'</td></tr>');?>
                                             </tbody>
-                                            </tbody>
+</tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -202,7 +188,27 @@ $no = 1;
     <script src="js/sb-admin-2.min.js"></script>
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="js/pengeluaran.js"> </script>
+
+    <!-- <script src="js/pengeluaran.js"> </script> -->
+    <script>
+
+$(document).ready(function() {
+        $('#tablePengeluaran').DataTable();
+    });
+        $(document).ready(function(){  
+      $('#bln').change(function(){  
+           var bulan = $(this).val();  
+           $.ajax({  
+                url:"fetch_data.php",  
+                method:"POST",  
+                data:{key:bulan},  
+                success:function(data){  
+                     $('#contents').html(data);  
+                }  
+           });  
+      });  
+ });  
+    </script>
 
 
 </body>
