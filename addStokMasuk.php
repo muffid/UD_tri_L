@@ -20,7 +20,7 @@ if (mysqli_query($conn, $sql)) {
         $idstpp = $idslc['ID_SM'];
     }
     //input biaya lain
-    $tran = "INSERT INTO biaya_lain (ID_BL, ID_SM, ID_PJ, Total) VALUES ('','$idstpp','','$trans')";
+    $tran = "INSERT INTO biaya_lain (ID_BL, Tanggal, ID_SM, ID_PJ, Total) VALUES ('','$tanggal','$idstpp','','$trans')";
     mysqli_query($conn, $tran);
 
 //    tamabh stok
