@@ -305,11 +305,12 @@ $no = 1;
                               <div class="modal-body">
                                 <center>
                                   <h3 class="text-danger">PERINGATAN!</h3>
-                                  Membatalkan/ menghapus data mungkin akan
+                                  Membatalkan/ menghapus data pupuk masuk mungkin akan
                                   menyebabkan beberapa data tidak singkron.
                                   Pastikan
-                                  data yang akan dihapus adalah
-                                  data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                  data pupuk masuk yang akan dihapus adalah
+                                  data yang belum dilakukan penjualan pada kelompok tani sama sekali. <strong
+                                    class="text-danger">Anda
                                     yakin
                                     akan
                                     menghapus ?</strong>
