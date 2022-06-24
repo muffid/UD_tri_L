@@ -113,8 +113,8 @@ echo($total);
             $idPJ=$g['ID_PJ'];
         }
         //baru disimpan ke biaya lain
-        $saveToBiayaLain="INSERT INTO biaya_lain (ID_BL,ID_SM,ID_PJ,Total)
-        VALUES ('','','$idPJ','$transport')";
+        $saveToBiayaLain="INSERT INTO biaya_lain (ID_BL,Tanggal,ID_SM,ID_PJ,Total)
+        VALUES ('','$tanggal','','$idPJ','$transport')";
         mysqli_query($conn,$saveToBiayaLain);
     }
 

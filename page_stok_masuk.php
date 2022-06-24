@@ -127,8 +127,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
                       <label class="col-sm-4 col-form-label">Jumlah (karung)</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="jumlah" name="jumlah" required
-                          onkeyup="beliControl()">
+                        <input type="number" class="form-control" id="jumlah" name="jumlah" required onkeyup="SETis()">
                         <p style="color:red; font-size:12px;" id="username_hint"></p>
                       </div>
                     </div>
@@ -151,7 +150,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="basic-addon1">Rp.</span>
                         </div>
-                        <input type="text" class="form-control" id="transport" name="transport" onkeyup="SETis()">
+                        <input type="text" class="form-control" id="transport" name="transport"
+                          onkeyup="totalKeseluruhan()">
                       </div>
                     </div>
                 </div>
@@ -206,15 +206,32 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
                   </div>
                   <div class="row mb-1">
                     <!--  Harga Beli-->
-                    <label class="col-sm-4 col-form-label">Harga Beli</label>
-                    <label class="col-sm-5 col-form-label" id="hargaPP" name="hargaPP">: Rp.
+                    <label class="col-sm-4 col-form-label">Harga Total Pembelian</label>
+                    <label class="col-sm-5 col-form-label" id="hargaPP" name="hargaPP"
+                      style="font-weight:bold; color:Black;">: Rp.
                     </label>
                     <p style=" color:red; font-size:12px;" id="username_hint"></p>
                   </div>
                   <div class="row mb-1">
                     <!--  Harga Beli-->
                     <label class="col-sm-4 col-form-label">Harga Beli/ karung</label>
-                    <label class="col-sm-5 col-form-label" id="Btransport" name="Btransport"
+                    <label class="col-sm-5 col-form-label" id="perkarung" name="perkarung"
+                      style="font-weight:bold; color:green;">: Rp.
+                    </label>
+                    <p style=" color:red; font-size:12px;" id="username_hint"></p>
+                  </div>
+                  <div class="row mb-1">
+                    <!--  transport-->
+                    <label class="col-sm-4 col-form-label">Biaya Transport</label>
+                    <label class="col-sm-5 col-form-label" id="biaya_transport" name="biaya_transport"
+                      style="font-weight:bold; color:BLACK;">: Rp.
+                    </label>
+                    <p style=" color:red; font-size:12px;" id="username_hint"></p>
+                  </div>
+                  <div class="row mb-1">
+                    <!-- Total-->
+                    <label class="col-sm-4 col-form-label">Total Keseluruhan</label>
+                    <label class="col-sm-5 col-form-label" id="keseluruhan" name="keseluruhan"
                       style="font-weight:bold; color:green;">: Rp.
                     </label>
                     <p style=" color:red; font-size:12px;" id="username_hint"></p>
@@ -288,11 +305,12 @@ $no = 1;
                               <div class="modal-body">
                                 <center>
                                   <h3 class="text-danger">PERINGATAN!</h3>
-                                  Membatalkan/ menghapus data mungkin akan
+                                  Membatalkan/ menghapus data pupuk masuk mungkin akan
                                   menyebabkan beberapa data tidak singkron.
                                   Pastikan
-                                  data yang akan dihapus adalah
-                                  data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                  data pupuk masuk yang akan dihapus adalah
+                                  data yang belum dilakukan penjualan pada kelompok tani sama sekali. <strong
+                                    class="text-danger">Anda
                                     yakin
                                     akan
                                     menghapus ?</strong>
@@ -356,32 +374,17 @@ $no = 1;
   <!-- mata uang -->
   <script src="matauang.js"></script>
 
-
-
-
   <script>
   $(document).ready(function() {
     $('#tableMasuk').DataTable();
   });
 
   function SETis() {
-
+    var inpeng = document.getElementById("pengirim").value;
+    document.getElementById("pengirimPP").innerHTML = ': ' + inpeng;
 
     var inputJumPP = document.getElementById("jumlah").value;
     document.getElementById("jumPP").innerHTML = ': ' + inputJumPP;
-
-    var text = toRp(document.getElementById("harga").value);
-    document.getElementById("harga").value = text;
-
-
-    var totalNoDot = document.getElementById("harga").value.split('.').join("");
-    var totalNoRp = totalNoDot.replace("Rp. ", "");
-
-    var totalInt = parseInt(totalNoRp) / parseInt(document.getElementById("jumlah").value);
-
-    document.getElementById("Btransport").innerHTML = "Rp. " + toRp(totalInt.toString());
-
-
   }
 
   function SETPP() {
@@ -390,7 +393,6 @@ $no = 1;
     var text = sel.options[sel.selectedIndex].text;
     document.getElementById("pupuk").innerHTML = ": " + text;
     document.getElementById("idppk").value = id;
-
   }
 
   function countPerKarung() {
@@ -398,14 +400,26 @@ $no = 1;
     var text = toRp(document.getElementById("harga").value);
     document.getElementById("harga").value = text;
 
-
     var totalNoDot = document.getElementById("harga").value.split('.').join("");
-    var totalNoRp = totalNoDot.replace("Rp. ", "");
+    var totalNoRp = totalNoDot.replace(": Rp. ", "");
     var totalInt = Math.round(parseInt(totalNoRp) / parseInt(document.getElementById("jumlah").value));
 
-    document.getElementById("Btransport").innerHTML = "Rp. " + toRp(totalInt.toString());
-    document.getElementById("hargaPP").innerHTML = "Rp. " + toRp(totalNoRp);
+    document.getElementById("perkarung").innerHTML = ": Rp. " + toRp(totalInt.toString());
+    document.getElementById("hargaPP").innerHTML = ": Rp. " + toRp(totalNoRp);
+  }
 
+  function totalKeseluruhan() {
+    var texttran = toRp(document.getElementById("transport").value);
+    document.getElementById("transport").value = texttran;
+    document.getElementById("biaya_transport").innerHTML = ": Rp. " + texttran;
+
+    var transNoDot = document.getElementById("transport").value.split('.').join("");
+    var transNoRp = transNoDot.replace(": Rp. ", "");
+    var hargaNoDot = document.getElementById("harga").value.split('.').join("");
+    var hargaNoRp = hargaNoDot.replace(": Rp. ", "");
+    // var totalkes = 30 + 20;
+    var totalkes = Math.round(parseInt(transNoRp) + Math.round(parseInt(hargaNoRp)));
+    document.getElementById("keseluruhan").innerHTML = ": Rp. " + toRp(totalkes.toString());
   }
 
   function toRp(angka, prefix) {

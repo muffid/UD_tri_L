@@ -152,28 +152,32 @@ $no = 1;
                         <?php
     $noBl = 1;
     $totalBl = 0;
+    $TotalBlByDate=0;
     $sqlGetAll=mysqli_query($conn,"SELECT * FROM biaya_lain");
+
     foreach($sqlGetAll as $sga){
       if($sga['ID_SM']==0){
         //jika dari penjualan
         $sqlGetPj=mysqli_query($conn,"SELECT ID_KT, ID_AKT,ID_KEY,Tanggal FROM penjualan WHERE ID_PJ=".$sga['ID_PJ']);
         foreach($sqlGetPj as $sgp){
          
-          if($sgp['ID_AKT']==0){
+          if($sgp['ID_AKT']=='0'){
              //jika kelompok
              $sqlGetNamaKel=mysqli_query($conn,"SELECT Nama_Kel FROM data_kel_tani WHERE ID_KT=".$sgp['ID_KT']);
              foreach($sqlGetNamaKel as $sgnk){
               echo ('<tr><td>'.$noBl.'</td>');
               echo ('<td>'.$sgp["Tanggal"].'</td>');
-              echo('<td> Penjualan Ke '.$sgnk['Nama_Kel'].'</td>');
+              echo('<td> Transport Penjualan Ke '.$sgnk['Nama_Kel'].'</td>');
               echo('<td>'.$sga['Total'].'</td></tr>');
+              $TotalBlByDate+=(int)$sga['Total'];
              }
           }else{
             //jika anggota
             echo ('<tr><td>'.$noBl.'</td>');
             echo ('<td>'.$sgp["Tanggal"].'</td>');
-            echo('<td> Penjualan Ke '.$sgp['ID_AKT'].'</td>');
+            echo('<td> Transport Penjualan Ke '.$sgp['ID_AKT'].'</td>');
             echo('<td>'.$sga['Total'].'</td></tr>');
+            $TotalBlByDate+=(int)$sga['Total'];
 
           }
         }
@@ -185,8 +189,9 @@ $no = 1;
           foreach($sqlNamaPupuk as $snpk){
             echo('<tr><td>'.$noBl.'</td>');
             echo('<td>'.$sgpm['Tanggal'].'</td>');
-            echo('<td> Transport pembelian '.$snpk['Jenis_Pupuk'].'</td>');
+            echo('<td> Transport pembelian Pupuk '.$snpk['Jenis_Pupuk'].'</td>');
             echo('<td>'.$sga['Total'].'</td></tr>');
+            $TotalBlByDate+=(int)$sga['Total'];
           }
         }
 
@@ -197,7 +202,7 @@ $no = 1;
                       <tbody>
                         <tr>
                           <th colspan="3" class="text-center">TOTAL</th>
-                          <th><?=rp($totalBl);?></th>
+                          <th><?=rp($TotalBlByDate);?></th>
                         </tr>
                       </tbody>
                       </tbody>
@@ -279,6 +284,8 @@ $no = 1;
         }
       });
     });
+
+    
   });
   </script>
 
