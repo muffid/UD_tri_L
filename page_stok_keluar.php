@@ -277,7 +277,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                                                      hidden>
                                                     <input type="text" class="form-control" id="idkel" name="idkel" required hidden>
                                                      <input type=text id="buyer" name="buyer" readonly required hidden>
-                                                     <input type=text id="namaanggota" name="namaanggota"  required hidden>
+                                                     <input type=text id="namaanggota" name="namaanggota" hidden>
                                                
                                             </div>
                                             <div class="col-sm-3 mt-1">
