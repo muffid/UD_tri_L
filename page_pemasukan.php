@@ -101,9 +101,9 @@ $no = 1;
                           <td> <?=$no;?></td>
                           <td> <?=$key['Tanggal'];?></td>
                           <?php if ($key['ID_KT'] == "0") {?>
-                          <td> <?="Anggota " . $key['ID_AKT'];?></td>
+                          <td style="color: #fcdb03"> <?=$key['ID_AKT'] . " (Anggota)";?></td>
                           <?php } else {?>
-                          <td><?php $kel = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT=" . $idnya);foreach ($kel as $pok) {
+                          <td style="color: black"><?php $kel = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT=" . $idnya);foreach ($kel as $pok) {
             $ambil1 = $pok['Nama_Kel'];
         }?> <?="Kelompok " . $ambil1;?></td>
                           <?php }
