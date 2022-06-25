@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "connection.php";
+
 if (isset($_SESSION['login'])) {
     ?>
 <!DOCTYPE html>
@@ -183,8 +184,8 @@ $no = 1;
                                                                     <form method="POST"
                                                                         action="editPupuk.php?id=<?=$all['ID_PK'];?>">
                                                                         <!--<i class="fas fa-user prefix grey-text"></i> -->
-                                                                        <input type="text" id="editnamapupuk"
-                                                                            name="editnamapupuk"
+                                                                        <input type="text" id="editnamapupuk<?=$all['ID_PK']?>"
+                                                                            name="editnamapupuk<?=$all['ID_PK']?>"
                                                                             class="form-control validate"
                                                                             value="<?=$all['Jenis_Pupuk']?>">
                                                                         <label data-error="wrong" data-success="right"
@@ -193,10 +194,11 @@ $no = 1;
 
                                                                 <div class="md-form mb-2">
                                                                     <!--<i class="fas fa-envelope prefix grey-text"></i>-->
-                                                                    <input type="number" id="edithargapupuk"
-                                                                        name="edithargapupuk"
+
+                                                                    <input type="text" id="edithargapupuk<?=$all['ID_PK']?>"
+                                                                        name="edithargapupuk<?=$all['ID_PK']?>"
                                                                         class="form-control validate"
-                                                                        value="<?=$all['Harga']?>">
+                                                                        value="<?=$all['Harga']?>" onkeyup="convertRP(<?=$all['ID_PK']?>)">
                                                                     <label data-error="wrong" data-success="right"
                                                                         for="form2">Harga / Kg</label>
                                                                 </div>
@@ -293,6 +295,34 @@ $no = 1;
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+
+    <script>
+        function convertRP(index){
+
+            var price = document.getElementById("edithargapupuk"+index).value;
+            document.getElementById("edithargapupuk"+index).value=toRp(price,"Rp. ");
+            //alert(price);
+
+        }
+
+
+        function toRp(angka, prefix) {
+    var number_string = angka.replace(/[^,\d]/g, "").toString(),
+      split = number_string.split(","),
+      sisa = split[0].length % 3,
+      rupiah = split[0].substr(0, sisa),
+      ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+
+    if (ribuan) {
+      separator = sisa ? "." : "";
+      rupiah += separator + ribuan.join(".");
+    }
+
+    rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+    return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+  }
+    </script>
 
 </body>
 
