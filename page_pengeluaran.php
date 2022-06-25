@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top">
+<body id="page-top"  onload="initDate()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -94,15 +94,19 @@ if (isset($_SESSION['login'])) {
 
                       <tbody id="contents">
                         <?php
-$no = 1;
+    $no = 1;
     $total = 0;
+    $getData="";
     if (isset($_GET['BT'])) {
-
+        $sqlgetData="SELECT *FROM stok_masuk
+        INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE '%".$_GET['BT']."%' ORDER BY ID_SM DESC";
+    
     } else {
-
-        $getData = mysqli_query($conn, "SELECT *FROM stok_masuk
-                        INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC");
-        foreach ($getData as $gd): ?>
+        $sqlgetData ="SELECT *FROM stok_masuk INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC";
+    }
+    
+        $getData=mysqli_query($conn,$sqlgetData);
+        foreach ($getData as $gd){ ?>
                         <tr>
                           <td><?=$no;?></td>
                           <td><?=$gd['Tanggal'];?></td>
@@ -110,11 +114,12 @@ $no = 1;
                           <td><?=$gd['Jumlah_Masuk'] . " Karung";?></td>
                           <td><?=rp($gd['Nominal']);?></td>
                         </tr>
+
                         <?php $no++;
         $total = $total + (int) $gd['Nominal'];
-        endforeach;
-    }
-    ;?>
+        };
+    
+    ?>
                       <tbody>
                         <tr>
                           <th colspan="4" class="text-center">TOTAL</th>
@@ -255,7 +260,7 @@ $no = 1;
     // $blntahun = $bln.
     // " ".$tahun;
     //alert(bulannya + " " + tahun);
-    document.getElementById("bln").value = $isibulan;
+   
   }
   </script>
 
@@ -272,4 +277,55 @@ $(document).ready(function() {
   $('#tablePengeluaran').DataTable();
   $('#tableBiayalain').DataTable();
 });
+
+function initDate(){
+  var url_string = window.location.href; //window.location.href
+  var url = new URL(url_string);
+  var BT = url.searchParams.get("BT");
+
+  var bulan = BT.substring(0, 3);
+  var tahun = BT.substring(4, 8);
+  var bulanfix="";
+  //alert(bulan+"-"+tahun);
+  switch(bulan){
+    case "Jan":
+      bulanfix="01";
+    break;
+    case "Feb":
+      bulanfix="02";
+    break;
+    case "Mar":
+      bulanfix="03";
+    break;
+    case "Apr":
+      bulanfix="04";
+    break;
+    case "May":
+      bulanfix="05";
+    break;
+    case "Jun":
+      bulanfix="06";
+    break;
+    case "Jul":
+      bulanfix="07";
+    break;
+    case "Aug":
+      bulanfix="08";
+    break;
+    case "Sep":
+      bulanfix="09";
+    break;
+    case "Oct":
+      bulanfix="10";
+    break;
+    case "Nov":
+      bulanfix="11";
+    break;
+    case "Dec":
+      bulanfix="12";
+    break;
+  }
+
+  document.getElementById("bln").value=tahun+"-"+bulanfix;
+  }
 </script>
