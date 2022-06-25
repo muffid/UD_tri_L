@@ -12,11 +12,11 @@ date_default_timezone_set('Asia/Jakarta');
  $key=idAcak();
  $transport=str_replace(".","",str_replace("Rp. ","",$_POST['transport']));
  $jenisBuyer=$_POST['buyer'];
- $dibayar=$_POST['bayar'];
+ $dibayar=str_replace(".","",str_replace("Rp. ","",$_POST['bayar']));
  $total=str_replace(".","",str_replace("Rp. ","",$_POST['notatotal']));
-echo($total);
+
  
- if($dibayar>$total){
+ if((int)$dibayar>(int)$total){
     $dibayar=$total;
  }else{
     $dibayar=str_replace(".","",str_replace("Rp. ","",$_POST['bayar']));
@@ -87,10 +87,11 @@ echo($total);
     if($total==$dibayar){
         //jika pembayaran pas maka tidak perlu ada data piutang
         $hutang=0;
+       
     }else{
         $hutang=$total-$dibayar;
         //jika pembayaran ngutang maka disimpan ke tabel piutang
-
+      
         //jika anggota
         if($jenisBuyer==1){
             $saveToPiutang="INSERT INTO piutang (ID_PT,ID_KT,ID_AKT,ID_KEY,Debit,Kredit,Tanggal)
