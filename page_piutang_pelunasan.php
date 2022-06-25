@@ -3,7 +3,7 @@
 session_start();
 include "connection.php";
 if (isset($_SESSION['login'])) {
-    if(isset($_GET['id'])){   
+    if(isset($_GET['cust'])){   
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +101,7 @@ if (isset($_SESSION['login'])) {
                                     <label class="col-sm-4 col-form-label" id="piutangaktif"></label>
                                 </div>
 
-                                <?php if((int)$_GET['id']){
+                                <?php if((int)$_GET['cust']){
                                     echo("num");
                                 }else{
                                     echo("stringp");
