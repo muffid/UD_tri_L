@@ -89,7 +89,7 @@ if (isset($_SESSION['login'])) {
                       <tbody>
                         <?php
 $no = 1;
-    //jika kelompok
+
     $sql = mysqli_query($conn, "SELECT * FROM stok_keluar  ORDER BY ID_SK DESC");
     foreach ($sql as $key):
         $idnya = $key['ID_KT'];
@@ -97,12 +97,21 @@ $no = 1;
         $hasil = $key['Jumlah_Keluar'] * $key['Harga'];
         ?>
 
+                        <?php if ($key['ID_KT'] == "0") {?>
+                        <!-- //jika Anggota -->
+                        <tr style="background-color: #f5f3f2">
+                          <?php } else {?>
+                          <!-- //jika Kelompok -->
                         <tr>
+                          <?php }
+        ;?>
                           <td> <?=$no;?></td>
                           <td> <?=$key['Tanggal'];?></td>
                           <?php if ($key['ID_KT'] == "0") {?>
-                          <td style="color: #fcdb03"> <?=$key['ID_AKT'] . " (Anggota)";?></td>
+                          <!-- //jika Anggota -->
+                          <td style="background-color: #f5f3f2"> <?=$key['ID_AKT'] . " (Anggota)";?></td>
                           <?php } else {?>
+                          <!-- //jika Kelompok -->
                           <td style="color: black"><?php $kel = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT=" . $idnya);foreach ($kel as $pok) {
             $ambil1 = $pok['Nama_Kel'];
         }?> <?="Kelompok " . $ambil1;?></td>
@@ -116,13 +125,8 @@ $no = 1;
                         </tr>
                         <?php
     $no++;
-
     endforeach;
-
     ?>
-
-
-
                       </tbody>
                     </table>
                   </div>
