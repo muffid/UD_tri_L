@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top" onload="initDate()">
+<body id="page-top" onload="initDate()+initDateBL()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -142,7 +142,7 @@ $no = 1;
                 <div class="card-body">
                   <div class="row mb-3">
                     <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
-                    <input id="blnBL" type="month">
+                    <input id="blnbl" type="month" onchange="bulanBL()">
                   </div>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="tableBiayalain" width="100%" cellspacing="0">
@@ -157,7 +157,12 @@ $no = 1;
                       <tbody>
                         <?php
 $nobl = 1;
-    $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain ORDER BY ID_BL DESC");
+    $getDataBL = "";
+    if (isset($_GET['BTBL'])) {
+        $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain WHERE Tanggal LIKE '%" . $_GET['BTBL'] . "%' ORDER BY ID_BL DESC");
+    } else {
+        $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain ORDER BY ID_BL DESC");
+    }
     foreach ($sqlbl as $key): ?>
                         <?php if ($key['ID_SM'] == 0): ?>
                         <tr style="background-color: #f5f3f2">
@@ -167,8 +172,26 @@ $nobl = 1;
                           <td><?=$nobl;?></td>
                           <td><?=$key['Tanggal'];?></td>
                           <?php
-if ($key['ID_SM'] == 0) {?>
-                          <td> <?="Transport Pengiriman Pupuk  " . $key['ID_PJ'];?> </td>
+
+    if ($key['ID_SM'] == 0) {?>
+                          <?php
+$sqljual = mysqli_query($conn, "SELECT * FROM penjualan WHERE ID_PJ=" . $key['ID_PJ']);
+        foreach ($sqljual as $keyjual) {
+            $keyjual['ID_KT'];
+        }
+        ;?>
+                          <?php if ($keyjual['ID_KT'] == 0) {;?>
+                          <td> <?="Transport Pengiriman Pupuk ke " . $keyjual['ID_AKT'] . " (anggota)";?> </td>
+                          <?php } else {;?>
+                          <?php $kel = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT=" . $keyjual['ID_KT']);
+            foreach ($kel as $keykel) {
+                $keykel['Nama_Kel'];
+            }
+            ?>
+                          <td> <?="Transport Pengiriman Pupuk ke kelompok tani " . $keykel['Nama_Kel'];?> </td>
+                          <?php }
+        ;?>
+
                           <?php } else {;?>
                           <?php $sqlpp = mysqli_query($conn, "SELECT * FROM stok_masuk
                                       INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE ID_SM=" . $key['ID_SM']);
@@ -225,7 +248,7 @@ $nobl++;
   <script src="js/sb-admin-2.min.js"></script>
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+  <!--  bulan pembelian pupuk -->
   <script>
   function bulan() {
     var isibulan = document.getElementById("bln").value;
@@ -278,18 +301,71 @@ $nobl++;
         case '12':
           bulannya = 'Dec';
           break;
-
       }
       $blntahun = bulannya + " " + tahun;
       location.replace("page_pengeluaran.php?m=8&n=8&BT=" + $blntahun);
     }
-    // $blntahun = $bln.
-    // " ".$tahun;
-    //alert(bulannya + " " + tahun);
-
   }
   </script>
+  <!-- bulan biaya lain2 -->
+  <script>
+  function bulanBL() {
+    var isibulanbl = document.getElementById("blnbl").value;
+    //alert(isibulan);
+    // //2022-02
+    // // algoritma ngganti bulan disini
+    if (isibulanbl == "") {
+      //alert('null');
+      location.replace("page_pengeluaran.php?m=8&n=8");
+    } else {
+      // location.replace("page_pengeluaran.php?m=8&n=8&BT=" + isibulan);
+      //alert('not null');
 
+      var tahunbl = isibulanbl.substring(0, 4);
+      var bulannyabl = isibulanbl.substring(5, 7);
+      switch (bulannyabl) {
+        case '01':
+          bulannyabl = 'Jan';
+          break;
+        case '02':
+          bulannyabl = 'Feb';
+          break;
+        case '03':
+          bulannyabl = 'Mar';
+          break;
+        case '04':
+          bulannyabl = 'Apr';
+          break;
+        case '05':
+          bulannyabl = 'May';
+          break;
+        case '06':
+          bulannyabl = 'Jun';
+          break;
+        case '07':
+          bulannyabl = 'Jul';
+          break;
+        case '08':
+          bulannyabl = 'Aug';
+          break;
+        case '09':
+          bulannyabl = 'Sep';
+          break;
+        case '10':
+          bulannyabl = 'Oct';
+          break;
+        case '11':
+          bulannyabl = 'Nov';
+          break;
+        case '12':
+          bulannyabl = 'Dec';
+          break;
+      }
+      $blntahunbl = bulannyabl + " " + tahunbl;
+      location.replace("page_pengeluaran.php?m=8&n=8&BTBL=" + $blntahunbl);
+    }
+  }
+  </script>
 </body>
 
 </html>
@@ -300,23 +376,20 @@ $nobl++;
 
 <script>
 $(document).ready(function() {
-  $('#tablePengeluaran').DataTable({
-    "searching": false
-  });
+  $('#tablePengeluaran').DataTable();
 
-  $('#tableBiayalain').DataTable({
-    "searching": false
-  });
+  $('#tableBiayalain').DataTable();
 });
 
 function initDate() {
   var url_string = window.location.href; //window.location.href
   var url = new URL(url_string);
   var BT = url.searchParams.get("BT");
-
+  // bulan biaya lain pupuk masuk
   var bulan = BT.substring(0, 3);
   var tahun = BT.substring(4, 8);
   var bulanfix = "";
+
   //alert(bulan+"-"+tahun);
   switch (bulan) {
     case "Jan":
@@ -356,7 +429,59 @@ function initDate() {
       bulanfix = "12";
       break;
   }
-
   document.getElementById("bln").value = tahun + "-" + bulanfix;
+
+}
+
+function initDateBL() {
+  var url_stringbl = window.location.href; //window.location.href
+  var urlbl = new URL(url_stringbl);
+
+  // bulan biaya lainnya penjualan
+  var BTBL = urlbl.searchParams.get("BTBL");
+  var bulanbl = BTBL.substring(0, 3);
+  var tahunbl = BTBL.substring(4, 8);
+  var bulanfixbl = "";
+  //alert(bulan+"-"+tahun);
+  switch (bulanbl) {
+    case "Jan":
+      bulanfixbl = "01";
+      break;
+    case "Feb":
+      bulanfixbl = "02";
+      break;
+    case "Mar":
+      bulanfixbl = "03";
+      break;
+    case "Apr":
+      bulanfixbl = "04";
+      break;
+    case "May":
+      bulanfixbl = "05";
+      break;
+    case "Jun":
+      bulanfixbl = "06";
+      break;
+    case "Jul":
+      bulanfixbl = "07";
+      break;
+    case "Aug":
+      bulanfixbl = "08";
+      break;
+    case "Sep":
+      bulanfixbl = "09";
+      break;
+    case "Oct":
+      bulanfixbl = "10";
+      break;
+    case "Nov":
+      bulanfixbl = "11";
+      break;
+    case "Dec":
+      bulanfixbl = "12";
+      break;
+  }
+
+  document.getElementById("blnbl").value = tahunbl + "-" + bulanfixbl;
 }
 </script>
