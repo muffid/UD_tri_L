@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top" onload="initDate()+initDateBL()">
+<body id="page-top" onload="PANGGIL()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -381,6 +381,7 @@ $(document).ready(function() {
   $('#tableBiayalain').DataTable();
 });
 
+
 function initDate() {
   var url_string = window.location.href; //window.location.href
   var url = new URL(url_string);
@@ -483,5 +484,15 @@ function initDateBL() {
   }
 
   document.getElementById("blnbl").value = tahunbl + "-" + bulanfixbl;
+}
+</script>
+<script>
+function PANGGIL() {
+  if (initDateBL() == true) {
+    initDateBL();
+  } else {
+    initDate();
+  }
+
 }
 </script>
