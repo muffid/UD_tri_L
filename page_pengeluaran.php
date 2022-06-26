@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top"  onload="initDate()">
+<body id="page-top" onload="initDate()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -94,32 +94,27 @@ if (isset($_SESSION['login'])) {
 
                       <tbody id="contents">
                         <?php
-    $no = 1;
+$no = 1;
     $total = 0;
-    $getData="";
+    $getData = "";
     if (isset($_GET['BT'])) {
-        $sqlgetData="SELECT *FROM stok_masuk
-        INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE '%".$_GET['BT']."%' ORDER BY ID_SM DESC";
-    
+        $sqlgetData = "SELECT *FROM stok_masuk
+        INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE Tanggal LIKE '%" . $_GET['BT'] . "%' ORDER BY ID_SM DESC";
+
     } else {
-        $sqlgetData ="SELECT *FROM stok_masuk INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC";
+        $sqlgetData = "SELECT *FROM stok_masuk INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC";
     }
-    
-        $getData=mysqli_query($conn,$sqlgetData);
-        foreach ($getData as $gd){ ?>
+    $getData = mysqli_query($conn, $sqlgetData);
+    foreach ($getData as $gd): ?>
                         <tr>
                           <td><?=$no;?></td>
                           <td><?=$gd['Tanggal'];?></td>
                           <td><?="Pupuk " . $gd['Jenis_Pupuk'];?></td>
                           <td><?=$gd['Jumlah_Masuk'] . " Karung";?></td>
                           <td><?=rp($gd['Nominal']);?></td>
-                        </tr>
-
-                        <?php $no++;
-        $total = $total + (int) $gd['Nominal'];
-        };
-    
-    ?>
+                        </tr> <?php $no++;
+    $total = $total + (int) $gd['Nominal'];
+    endforeach;?>
                       <tbody>
                         <tr>
                           <th colspan="4" class="text-center">TOTAL</th>
@@ -160,6 +155,37 @@ if (isset($_SESSION['login'])) {
                         </tr>
                       </thead>
                       <tbody>
+                        <?php
+$nobl = 1;
+    $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain ORDER BY ID_BL DESC");
+    foreach ($sqlbl as $key): ?>
+                        <?php if ($key['ID_SM'] == 0): ?>
+                        <tr style="background-color: #f5f3f2">
+                          <?php else: ?>
+                        <tr>
+                          <?php endif;?>
+                          <td><?=$nobl;?></td>
+                          <td><?=$key['Tanggal'];?></td>
+                          <?php
+if ($key['ID_SM'] == 0) {?>
+                          <td> <?="Transport Pengiriman Pupuk  " . $key['ID_PJ'];?> </td>
+                          <?php } else {;?>
+                          <?php $sqlpp = mysqli_query($conn, "SELECT * FROM stok_masuk
+                                      INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE ID_SM=" . $key['ID_SM']);
+        foreach ($sqlpp as $keypp): ?>
+                          <td>
+                            <?="Transport Pembelian Pupuk  " . $keypp['Jenis_Pupuk'] . " dari " . $keypp['Nama_Pengirim'];?>
+                          </td>
+                          <?php endforeach;?>
+
+                          <?php }
+    ;?>
+                          <td> <?=rp($key['Total']);?> </td>
+                        </tr>
+                        <?php
+$nobl++;
+    endforeach;
+    ?>
 
                       <tbody>
                         <tr>
@@ -260,7 +286,7 @@ if (isset($_SESSION['login'])) {
     // $blntahun = $bln.
     // " ".$tahun;
     //alert(bulannya + " " + tahun);
-   
+
   }
   </script>
 
@@ -274,58 +300,63 @@ if (isset($_SESSION['login'])) {
 
 <script>
 $(document).ready(function() {
-  $('#tablePengeluaran').DataTable();
-  $('#tableBiayalain').DataTable();
+  $('#tablePengeluaran').DataTable({
+    "searching": false
+  });
+
+  $('#tableBiayalain').DataTable({
+    "searching": false
+  });
 });
 
-function initDate(){
+function initDate() {
   var url_string = window.location.href; //window.location.href
   var url = new URL(url_string);
   var BT = url.searchParams.get("BT");
 
   var bulan = BT.substring(0, 3);
   var tahun = BT.substring(4, 8);
-  var bulanfix="";
+  var bulanfix = "";
   //alert(bulan+"-"+tahun);
-  switch(bulan){
+  switch (bulan) {
     case "Jan":
-      bulanfix="01";
-    break;
+      bulanfix = "01";
+      break;
     case "Feb":
-      bulanfix="02";
-    break;
+      bulanfix = "02";
+      break;
     case "Mar":
-      bulanfix="03";
-    break;
+      bulanfix = "03";
+      break;
     case "Apr":
-      bulanfix="04";
-    break;
+      bulanfix = "04";
+      break;
     case "May":
-      bulanfix="05";
-    break;
+      bulanfix = "05";
+      break;
     case "Jun":
-      bulanfix="06";
-    break;
+      bulanfix = "06";
+      break;
     case "Jul":
-      bulanfix="07";
-    break;
+      bulanfix = "07";
+      break;
     case "Aug":
-      bulanfix="08";
-    break;
+      bulanfix = "08";
+      break;
     case "Sep":
-      bulanfix="09";
-    break;
+      bulanfix = "09";
+      break;
     case "Oct":
-      bulanfix="10";
-    break;
+      bulanfix = "10";
+      break;
     case "Nov":
-      bulanfix="11";
-    break;
+      bulanfix = "11";
+      break;
     case "Dec":
-      bulanfix="12";
-    break;
+      bulanfix = "12";
+      break;
   }
 
-  document.getElementById("bln").value=tahun+"-"+bulanfix;
-  }
+  document.getElementById("bln").value = tahun + "-" + bulanfix;
+}
 </script>
