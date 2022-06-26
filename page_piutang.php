@@ -114,7 +114,7 @@ if (isset($_SESSION['login'])) {
                                                 echo('<td>'.$sd["Tanggal"].'</td>');
                                                 $sqlNamaKel=mysqli_query($conn,"select nama_kel from data_kel_tani where ID_KT=".$sd['ID_KT']);
                                                 foreach($sqlNamaKel as $snk){
-                                                    echo('<td>'.$snk["nama_kel"].'</td>');
+                                                    echo('<td><a href="page_piutang_pelunasan.php?m=10&n=10&cust='.$sd["ID_KT"].'">'.$snk['nama_kel'].'</a></td>');
                                                 }
                                                 echo('<td>'.rp($sd["Debit"]).'</td>');
                                                 echo('<td>'.rp($sd["Kredit"]).'</td></tr>');

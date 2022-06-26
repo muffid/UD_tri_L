@@ -1,9 +1,62 @@
 <?php
 
 session_start();
+include "functions.php";
 include "connection.php";
+
 if (isset($_SESSION['login'])) {
     if(isset($_GET['cust'])){   
+
+       
+        $nama="";
+        $jumlahPiutang=0;
+        $jumlahTerbayar=0;
+        $piutangAktif=0;
+        $querryPiutang="";
+
+        $key="";
+        $buyer=0;
+
+
+       if((int)$_GET['cust']){
+            //kelompok
+            $sqlgetNama=mysqli_query($conn,"select Nama_Kel from data_kel_tani where ID_KT=".$_GET['cust']);
+            foreach($sqlgetNama as $sgn){
+                $nama=$sgn['Nama_Kel'];
+            }
+            $sqlgetKredit=mysqli_query($conn,"select Kredit from piutang where ID_KT=".$_GET['cust']);
+            foreach($sqlgetKredit as $sgk){
+                $jumlahPiutang+=$sgk['Kredit'];
+            }
+            $sqlgetDebit=mysqli_query($conn,"select Debit from piutang where ID_KT=".$_GET['cust']);
+            foreach($sqlgetDebit as $sgd){
+                $jumlahTerbayar+=$sgd['Debit'];
+            }
+
+            $piutangAktif=$jumlahPiutang-$jumlahTerbayar;
+            $querryPiutang="select * from piutang where ID_KT=".$_GET['cust'];
+            $buyer=1;
+           
+        }else{
+           
+            //anggota
+            $nama=$_GET['cust'];
+
+            $sqlgetKredit=mysqli_query($conn,"select Kredit from piutang where ID_AKT LIKE '".$_GET['cust']."'");
+            foreach($sqlgetKredit as $sgk){
+                $jumlahPiutang+=$sgk['Kredit'];
+            }
+            $sqlgetDebit=mysqli_query($conn,"select Debit from piutang where ID_AKT LIKE '".$_GET['cust']."'");
+            foreach($sqlgetDebit as $sgd){
+                $jumlahTerbayar+=$sgd['Debit'];
+            }
+
+            $piutangAktif=$jumlahPiutang-$jumlahTerbayar;
+            $querryPiutang="select * from piutang where ID_AKT LIKE '".$nama."'";
+            $buyer=2;
+            
+        }
+        
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,13 +117,33 @@ if (isset($_SESSION['login'])) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mt-5">
-                        <h1 class="h3 mt-5 text-gray-800">Pengeluaran</h1>
+                        <h1 class="h3 mt-5 text-gray-800">Pelunasan</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
                     <!-- konten -->
+
+                    <?php
+@session_start();
+    if (isset($_SESSION["info"])) {
+        ?>
+
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?php //echo $_SESSION["info"];
+        echo ($_SESSION["info"] . " klik"); ?>
+                                <button type="button" class="btn btn-light" data-dismiss="alert" aria-label="Close">
+                                    Disini </button> untuk menutup
+                            </div>
+
+                            <?php
+unset($_SESSION["info"]);
+    }
+
+    ?>
                     <div class="row">
 
+                   
+                     
                         <div class="col-xl-6 col-lg-6">
                             <div class="card shadow mb-4">
 
@@ -83,30 +156,25 @@ if (isset($_SESSION['login'])) {
                    
                                 <div class="row mb-2">
                                     <label class="col-sm-4 col-form-label"> Nama </label>
-                                    <label class="col-sm-4 col-form-label" id="nama"></label>
+                                    <label class="col-sm-8 col-form-label" id="nama"><?=$nama;?></label>
                                 </div>
                                 
                                 <div class="row mb-2">
                                     <label class="col-sm-4 col-form-label"> Jumlah Piutang</label>
-                                    <label class="col-sm-4 col-form-label" id="jmlputang"></label>
+                                    <label class="col-sm-8 col-form-label" id="jmlputang"><?=rp($jumlahPiutang);?></label>
                                 </div>
 
                                 <div class="row mb-2">
                                     <label class="col-sm-4 col-form-label"> Jumlah Terbayar </label>
-                                    <label class="col-sm-4 col-form-label" id="jmlterbayar"></label>
+                                    <label class="col-sm-8 col-form-label" id="jmlterbayar"><?=rp($jumlahTerbayar);?></label>
                                 </div>
 
                                 <div class="row mb-2">
                                     <label class="col-sm-4 col-form-label"> Piutang Aktif </label>
-                                    <label class="col-sm-4 col-form-label" id="piutangaktif"></label>
+                                    <label class="col-sm-8 col-form-label" id="piutangaktif" style="font-weight:bold; color:green; font-size:20px;"><?=rp($piutangAktif);?></label>
                                 </div>
 
-                                <?php if((int)$_GET['cust']){
-                                    echo("num");
-                                }else{
-                                    echo("stringp");
-                                }
-                                ?>
+                               
 
                                 </div>
                             </div>
@@ -120,6 +188,22 @@ if (isset($_SESSION['login'])) {
                                     <h6 class="m-0 font-weight-bold text-primary">Form Pelunasan</h6>
                                 </div>
                                 <div class="card-body">
+                                <div class="row mb-2">
+                                    
+                                    <label class="col-sm-4 col-form-label"> Nominal </label>
+                                    <div class="col-sm-8">
+                                    <form method="POST" action="pelunasan.php?id=<?=$_GET['cust'];?>">
+                                        <input type="text" class="form-control" id="bayar" name="bayar" onkeyup="convertRP()">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-2">
+                                    <label class="col-sm-4 col-form-label"> </label>
+                                    <div class="col-sm-8">
+                                        <button type="submit" class="btn btn-primary btn-sm">bayar</button>
+                                    </div>
+                                    </form>
+                                </div>
                                 </div>
 
                             </div>
@@ -131,9 +215,52 @@ if (isset($_SESSION['login'])) {
                             <div class="card shadow mb-4">
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tabel Record Hutang </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Tabel Record Hutang <?=$nama;?> </h6>
                                 </div>
                                 <div class="card-body">
+                                <div class="table-responsive">
+                                        <table class="table table-bordered" id="tablePiuAnggota" width="100%"
+                                            cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No</th>
+                                                    <th scope="col">Tanggal</th>
+                                                    
+                                                    <th scope="col">Debit</th>
+                                                    <th scope="col">Kredit</th>
+                                                    <th scope="col">Nota Hutang</th>
+                                                   
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               <?php
+                                               $noA=1;
+                                               $totalHutangA=0;
+                                               $totalDibayarA=0;
+                                               $sqlData=mysqli_query($conn,$querryPiutang);
+                                               foreach($sqlData as $sd){
+                                                echo('<tr><td>'.$noA.'</td>');
+                                                echo('<td>'.$sd["Tanggal"].'</td>');
+                                                $key="'".$sd['ID_KEY']."'";
+                                                echo('<td>'.rp($sd["Debit"]).'</td>');
+                                                echo('<td>'.rp($sd["Kredit"]).'</td>');
+                                                if((int)$sd['Kredit']>0){
+                                                    echo('<td><a href="" onclick="toPrintPage('.$key.','.$buyer.')">lihat</a></td></tr>');
+                                                }else{
+                                                    echo('<td>-</td>');
+                                                }
+                                               
+
+                                                $noA++;
+                                                $totalHutangA+=(int)$sd['Kredit'];
+                                                $totalDibayarA+=(int)$sd['Debit'];
+                                                
+                                               }
+                                              
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                             </div>
@@ -177,4 +304,34 @@ if (isset($_SESSION['login'])) {
 $(document).ready(function() {
     $('#tablePengeluaran').DataTable();
 });
+
+function toPrintPage(key,buyer){
+    window.open("printNota.php?KEY="+key+"&BUYER="+buyer);
+}
+
+function convertRP(){
+
+    var num=document.getElementById("bayar").value;
+    document.getElementById("bayar").value=toRp(num,"Rp. ");
+
+
+}
+
+
+function toRp(angka, prefix) {
+var number_string = angka.replace(/[^,\d]/g, "").toString(),
+split = number_string.split(","),
+sisa = split[0].length % 3,
+rupiah = split[0].substr(0, sisa),
+ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+
+if (ribuan) {
+separator = sisa ? "." : "";
+rupiah += separator + ribuan.join(".");
+}
+
+rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+}
 </script>
