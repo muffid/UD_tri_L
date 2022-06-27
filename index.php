@@ -91,12 +91,14 @@ function getColor()
         return $colorPick;
     }
 
+
+   $no=1;
     $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
     foreach ($data as $key) {
         $detail = mysqli_query($conn, "SELECT * FROM data_pupuk WHERE ID_PK=" . $key['ID_PK']);
         foreach ($detail as $det) {
             $colorFix = getColor();
-            echo ('<div class="col-xl-3 col-md-6 mb-4">
+            echo ('<div class="col-xl-4 col-md-6 mb-4">
                                 <div class="card border-left-' . $colorFix . ' shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
@@ -113,8 +115,23 @@ function getColor()
                                     </div>
                                 </div>
                             </div>');
+
+                            $sqlGetSold=mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE ID_PK=".$key['ID_PK']);
+                            foreach($sqlGetSold as $sgs){
+                                echo('<label id="nama'.$no.'" hidden>'.$det['Jenis_Pupuk'].'</label>');
+                                echo('<label id="total'.$no.'" hidden>'.$sgs['Total'].'</label>');
+                               
+
+                            }
+
+                           
+                         
         }
+        $no++;
+      
+
     }
+    echo('<label id="totppk" hidden>'.($no-1).'</label>');
     ?>
                         <!-- Earnings (Monthly) Card Example -->
                         <!-- <div class="col-xl-3 col-md-6 mb-4">
@@ -211,12 +228,15 @@ function getColor()
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Total Penjualan Bulan ini</h6>
+
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    jkhkjhkj
+                                    <div>
+		<canvas id="myChart"></canvas>
+	</div>
                                 </div>
                             </div>
                         </div>
@@ -402,6 +422,7 @@ function getColor()
             <!-- end footer -->
         </div>
         <!-- End of Content Wrapper -->
+      
 
     </div>
     <!-- End of Page Wrapper -->
@@ -423,6 +444,68 @@ function getColor()
     <!-- <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script> -->
 
+    <script>
+
+
+        function getcolor(){
+            var prefix='rgba(';
+            var suffix=')';
+            var colorCode="";
+                for(let i=0; i<3; i++){
+                    colorCode+= Math.floor((Math.random() * 255) + 1)+",";
+                    if(i===2)
+                    {
+                        colorCode+= Math.floor((Math.random() * 255) + 1);
+                    }
+                }
+
+                return prefix+colorCode+suffix;
+        }
+
+console.log(getcolor());
+        
+        var totalJenis=document.getElementById('totppk').innerHTML;
+        const namaPupuk=[];
+        const totalSold=[];
+        const color=[];
+        for(let i=1; i<=totalJenis; i++){
+            
+            namaPupuk[i-1]=document.getElementById("nama"+i).innerHTML;
+            totalSold[i-1]=document.getElementById("total"+i).innerHTML;
+            color[i-1]=getcolor();
+            
+        }
+
+        //membuat warna random
+       // rgba(255,99,132,1)
+        
+        //console.log(getColor());
+      
+		var ctx = document.getElementById("myChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels:namaPupuk,
+				datasets: [{
+					label: 'total penjualan',
+					data:totalSold,
+					backgroundColor: color,
+					//borderColor: 'rgba(45,123,78,99)',
+					//borderWidth: 23
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+
+    </script>
 </body>
 
 </html>
