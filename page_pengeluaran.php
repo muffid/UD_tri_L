@@ -61,8 +61,7 @@ if (isset($_SESSION['login'])) {
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mt-5">
             <h1 class="h3 mt-5 text-gray-800">Pengeluaran</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+
           </div>
           <!-- Tabel Biaya Pembelian Pupuk -->
           <div class="row">
