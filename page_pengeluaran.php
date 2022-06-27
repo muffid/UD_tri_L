@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top" onload="PANGGIL()">
+<body id="page-top" onload="initDate()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -77,7 +77,7 @@ if (isset($_SESSION['login'])) {
                 <div class="card-body">
                   <div class="row mb-3">
                     <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
-                    <input id="bln" type="month" onchange="bulan()">
+                    <input id="bln" type="month" onchange="bulan('bln','BT')">
                   </div>
 
                   <div class="table-responsive" id="TB_peng">
@@ -142,7 +142,7 @@ $no = 1;
                 <div class="card-body">
                   <div class="row mb-3">
                     <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
-                    <input id="blnbl" type="month" onchange="bulanBL()">
+                    <input id="blnbl" type="month" onchange="bulan('blnbl','BTA')">
                   </div>
                   <div class="table-responsive">
                     <table class="table table-bordered" id="tableBiayalain" width="100%" cellspacing="0">
@@ -158,8 +158,8 @@ $no = 1;
                         <?php
 $nobl = 1;
     $getDataBL = "";
-    if (isset($_GET['BTBL'])) {
-        $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain WHERE Tanggal LIKE '%" . $_GET['BTBL'] . "%' ORDER BY ID_BL DESC");
+    if (isset($_GET['BTA'])) {
+        $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain WHERE Tanggal LIKE '%" . $_GET['BTA'] . "%' ORDER BY ID_BL DESC");
     } else {
         $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain ORDER BY ID_BL DESC");
     }
@@ -248,22 +248,41 @@ $nobl++;
   <script src="js/sb-admin-2.min.js"></script>
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-  <!--  bulan pembelian pupuk -->
-  <script>
-  function bulan() {
-    var isibulan = document.getElementById("bln").value;
-    //alert(isibulan);
-    // //2022-02
-    // // algoritma ngganti bulan disini
-    if (isibulan == "") {
-      //alert('null');
-      location.replace("page_pengeluaran.php?m=8&n=8");
-    } else {
-      // location.replace("page_pengeluaran.php?m=8&n=8&BT=" + isibulan);
-      //alert('not null');
 
-      var tahun = isibulan.substring(0, 4);
-      var bulannya = isibulan.substring(5, 7);
+</body>
+
+</html>
+<?php } else {
+    header("Location: login.php");
+    exit();
+}?>
+
+<script>
+$(document).ready(function() {
+  $('#tablePengeluaran').DataTable();
+
+  $('#tableBiayalain').DataTable();
+});
+
+
+function bulan(idElement,urlParam) {
+    var isibulan = document.getElementById(idElement).value;
+
+    if (isibulan == "") {
+
+      location.replace("page_pengeluaran.php?m=8&n=8");
+
+    } else {
+
+      location.replace("page_pengeluaran.php?m=8&n=8"+"&"+urlParam+"="+convertToBulan(isibulan));
+      
+  }
+}
+
+
+function convertToBulan(param){
+  var tahun = param.substring(0, 4);
+      var bulannya = param.substring(5, 7);
       switch (bulannya) {
         case '01':
           bulannya = 'Jan';
@@ -302,93 +321,15 @@ $nobl++;
           bulannya = 'Dec';
           break;
       }
-      $blntahun = bulannya + " " + tahun;
-      location.replace("page_pengeluaran.php?m=8&n=8&BT=" + $blntahun);
-    }
-  }
-  </script>
-  <!-- bulan biaya lain2 -->
-  <script>
-  function bulanBL() {
-    var isibulanbl = document.getElementById("blnbl").value;
-    //alert(isibulan);
-    // //2022-02
-    // // algoritma ngganti bulan disini
-    if (isibulanbl == "") {
-      //alert('null');
-      location.replace("page_pengeluaran.php?m=8&n=8");
-    } else {
-      // location.replace("page_pengeluaran.php?m=8&n=8&BT=" + isibulan);
-      //alert('not null');
+      blntahun = bulannya + " " + tahun;
+      return blntahun;
+    
+}
 
-      var tahunbl = isibulanbl.substring(0, 4);
-      var bulannyabl = isibulanbl.substring(5, 7);
-      switch (bulannyabl) {
-        case '01':
-          bulannyabl = 'Jan';
-          break;
-        case '02':
-          bulannyabl = 'Feb';
-          break;
-        case '03':
-          bulannyabl = 'Mar';
-          break;
-        case '04':
-          bulannyabl = 'Apr';
-          break;
-        case '05':
-          bulannyabl = 'May';
-          break;
-        case '06':
-          bulannyabl = 'Jun';
-          break;
-        case '07':
-          bulannyabl = 'Jul';
-          break;
-        case '08':
-          bulannyabl = 'Aug';
-          break;
-        case '09':
-          bulannyabl = 'Sep';
-          break;
-        case '10':
-          bulannyabl = 'Oct';
-          break;
-        case '11':
-          bulannyabl = 'Nov';
-          break;
-        case '12':
-          bulannyabl = 'Dec';
-          break;
-      }
-      $blntahunbl = bulannyabl + " " + tahunbl;
-      location.replace("page_pengeluaran.php?m=8&n=8&BTBL=" + $blntahunbl);
-    }
-  }
-  </script>
-</body>
+function doSelect(param){
 
-</html>
-<?php } else {
-    header("Location: login.php");
-    exit();
-}?>
-
-<script>
-$(document).ready(function() {
-  $('#tablePengeluaran').DataTable();
-
-  $('#tableBiayalain').DataTable();
-});
-
-
-function initDate() {
-  var url_string = window.location.href; //window.location.href
-  var url = new URL(url_string);
-  var BT = url.searchParams.get("BT");
-  // bulan biaya lain pupuk masuk
-  var bulan = BT.substring(0, 3);
-  var tahun = BT.substring(4, 8);
+  var bulan = param.substring(0, 3);
+  var tahun = param.substring(4, 8);
   var bulanfix = "";
 
   //alert(bulan+"-"+tahun);
@@ -430,69 +371,29 @@ function initDate() {
       bulanfix = "12";
       break;
   }
-  document.getElementById("bln").value = tahun + "-" + bulanfix;
-
+  return tahun+"-"+bulanfix;
 }
 
-function initDateBL() {
-  var url_stringbl = window.location.href; //window.location.href
-  var urlbl = new URL(url_stringbl);
+function initDate() {
+  var url_string = window.location.href; //window.location.href
+  var url = new URL(url_string);
+  var BT = url.searchParams.get("BT");
+  var BTA = url.searchParams.get("BTA"); 
+ 
+  if(typeof BT === 'undefined' || BT===null){
 
-  // bulan biaya lainnya penjualan
-  var BTBL = urlbl.searchParams.get("BTBL");
-  var bulanbl = BTBL.substring(0, 3);
-  var tahunbl = BTBL.substring(4, 8);
-  var bulanfixbl = "";
-  //alert(bulan+"-"+tahun);
-  switch (bulanbl) {
-    case "Jan":
-      bulanfixbl = "01";
-      break;
-    case "Feb":
-      bulanfixbl = "02";
-      break;
-    case "Mar":
-      bulanfixbl = "03";
-      break;
-    case "Apr":
-      bulanfixbl = "04";
-      break;
-    case "May":
-      bulanfixbl = "05";
-      break;
-    case "Jun":
-      bulanfixbl = "06";
-      break;
-    case "Jul":
-      bulanfixbl = "07";
-      break;
-    case "Aug":
-      bulanfixbl = "08";
-      break;
-    case "Sep":
-      bulanfixbl = "09";
-      break;
-    case "Oct":
-      bulanfixbl = "10";
-      break;
-    case "Nov":
-      bulanfixbl = "11";
-      break;
-    case "Dec":
-      bulanfixbl = "12";
-      break;
+  }else{
+    document.getElementById("bln").value =doSelect(BT);
+    //alert(doSelect(BT));
   }
 
-  document.getElementById("blnbl").value = tahunbl + "-" + bulanfixbl;
-}
-</script>
-<script>
-function PANGGIL() {
-  if (initDateBL() == true) {
-    initDateBL();
-  } else {
-    initDate();
+  if(typeof BTA === 'undefined' || BTA === null){
+
+  }else{
+    document.getElementById("blnbl").value =doSelect(BTA);
   }
 
 }
+
+
 </script>
