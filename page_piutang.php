@@ -14,7 +14,7 @@ if (isset($_SESSION['login'])) {
   * License: https://anemos.id/license/
   ======================================================== -->
 
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -56,6 +56,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -75,7 +76,7 @@ if (isset($_SESSION['login'])) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mt-5">
-                        <h1 class="h3 mt-5 text-gray-800">Piutang</h1>
+                        <h1 class="h3 mt-5 text-gray-800">Pengeluaran</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
@@ -86,12 +87,12 @@ if (isset($_SESSION['login'])) {
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Piutang Kelompok Tani</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya</h6>
                                 </div>
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="tablePengeluaran" width="100%"
+                                    <table class="table table-bordered" id="tablePengeluaran" width="100%"
                                             cellspacing="0">
                                             <thead>
                                                 <tr>
@@ -129,7 +130,9 @@ if (isset($_SESSION['login'])) {
                                             </tbody>
                                         </table>
                                     </div>
-                                </div><div class="card-footer">
+                                </div>
+
+                                <div class="card-footer">
                                 <div class="row">
                                 <div class="col-xl-4 col-md-6 mb-4">
                                 <div class="card border-left-success shadow h-100 py-2">
@@ -190,13 +193,7 @@ if (isset($_SESSION['login'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                    
 
-                            
-
-                            
-                    </div>
 
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
@@ -204,12 +201,12 @@ if (isset($_SESSION['login'])) {
 
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Data Piutang Kelompok Tani</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya</h6>
                                 </div>
 
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="tablePiuAnggota" width="100%"
+                                    <table class="table table-bordered" id="tablePiuAnggota" width="100%"
                                             cellspacing="0">
                                             <thead>
                                                 <tr>
@@ -245,9 +242,10 @@ if (isset($_SESSION['login'])) {
                                         </table>
                                     </div>
                                 </div>
+
                                 <div class="card-footer">
-                                    <div class="row">
-                                    <div class="col-xl-4 col-md-6 mb-4">
+                                <div class="row">
+                                <div class="col-xl-4 col-md-6 mb-4">
                                 <div class="card border-left-success shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
@@ -264,7 +262,6 @@ if (isset($_SESSION['login'])) {
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-xl-4 col-md-6 mb-4">
                                 <div class="card border-left-warning shadow h-100 py-2">
@@ -301,18 +298,11 @@ if (isset($_SESSION['login'])) {
                                     </div>
                                 </div>
                             </div>
-                                    </div>
+                                            </div>
                                 </div>
 
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                   
-
-                           
-
-                           
                     </div>
 
                     <!-- End Konten -->
@@ -330,7 +320,16 @@ if (isset($_SESSION['login'])) {
     </div>
     <!-- End of Page Wrapper -->
 
-   
+    <!-- Bootstrap core JavaScript-->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
 
 </body>
 
