@@ -158,6 +158,7 @@ $no = 1;
                         <?php
 $nobl = 1;
     $getDataBL = "";
+    $totalbl = 0;
     if (isset($_GET['BTA'])) {
         $sqlbl = mysqli_query($conn, "SELECT * FROM biaya_lain WHERE Tanggal LIKE '%" . $_GET['BTA'] . "%' ORDER BY ID_BL DESC");
     } else {
@@ -174,8 +175,7 @@ $nobl = 1;
                           <?php
 
     if ($key['ID_SM'] == 0) {?>
-                          <?php
-$sqljual = mysqli_query($conn, "SELECT * FROM penjualan WHERE ID_PJ=" . $key['ID_PJ']);
+                          <?php $sqljual = mysqli_query($conn, "SELECT * FROM penjualan WHERE ID_PJ=" . $key['ID_PJ']);
         foreach ($sqljual as $keyjual) {
             $keyjual['ID_KT'];
         }
@@ -204,24 +204,98 @@ $sqljual = mysqli_query($conn, "SELECT * FROM penjualan WHERE ID_PJ=" . $key['ID
                           <?php }
     ;?>
                           <td> <?=rp($key['Total']);?> </td>
+                          <?php ?>
                         </tr>
-                        <?php
-$nobl++;
-    endforeach;
-    ?>
+                        <?php $nobl++;
+    $totalbl = $totalbl + (int) $key['Total'];endforeach;?>
 
                       <tbody>
                         <tr>
-
+                          <th colspan="3" class="text-center">TOTAL</th>
+                          <th><?=rp($totalbl);?></th>
                         </tr>
                       </tbody>
                       </tbody>
                     </table>
                   </div>
                 </div>
+
+
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-success text-uppercase mb-1">
+                                Total Pengeluaran Biaya Pembelian Pupuk</div>
+                              <div class="mb-0  text-gray-800">total</div>
+                              <?php
+$toatalBeliPupuk = mysqli_query($conn, "SELECT sum(Nominal) as totalnya FROM stok_masuk");
+    foreach ($toatalBeliPupuk as $tbp) {
+        $totalnya = $tbp['totalnya'];
+    }
+    ;?>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800"><?=rp($totalnya)?></div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-coins fa-2x text-success"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-warning text-uppercase mb-1">
+                                Total Pengeluaran Biaya Transport</div>
+                              <div class="mb-0  text-gray-800">total</div>
+                              <?php
+$toatalTransport = mysqli_query($conn, "SELECT sum(Total) as totalnyatrans FROM biaya_lain");
+    foreach ($toatalTransport as $tt) {
+        $totalnyaTrans = $tt['totalnyatrans'];
+    }
+    ;?>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800"><?=rp($totalnyaTrans)?></div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-coins fa-2x text-warning"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                Total Keseluruhan Pengeluaran UD. Tri L</div>
+                              <div class="mb-0  text-gray-800">total</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800"><?=rp($totalnya + $totalnyaTrans)?>
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-money-bill-wave fa-2x text-primary"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
+
           <!-- End Tabel Biaya Lainnya -->
         </div>
       </div>
@@ -259,74 +333,78 @@ $nobl++;
 
 <script>
 $(document).ready(function() {
-  $('#tablePengeluaran').DataTable();
+  $('#tablePengeluaran').DataTable({
+    searching: false
+  });
 
-  $('#tableBiayalain').DataTable();
+  $('#tableBiayalain').DataTable({
+    searching: false
+  });
 });
 
 
-function bulan(idElement,urlParam) {
-    var isibulan = document.getElementById(idElement).value;
+function bulan(idElement, urlParam) {
+  var isibulan = document.getElementById(idElement).value;
 
-    if (isibulan == "") {
+  if (isibulan == "") {
 
-      location.replace("page_pengeluaran.php?m=8&n=8");
+    location.replace("page_pengeluaran.php?m=8&n=8");
 
-    } else {
+  } else {
 
-      location.replace("page_pengeluaran.php?m=8&n=8"+"&"+urlParam+"="+convertToBulan(isibulan));
-      
+    location.replace("page_pengeluaran.php?m=8&n=8" + "&" + urlParam + "=" + convertToBulan(isibulan));
+
   }
 }
 
 
-function convertToBulan(param){
+function convertToBulan(param) {
   var tahun = param.substring(0, 4);
-      var bulannya = param.substring(5, 7);
-      switch (bulannya) {
-        case '01':
-          bulannya = 'Jan';
-          break;
-        case '02':
-          bulannya = 'Feb';
-          break;
-        case '03':
-          bulannya = 'Mar';
-          break;
-        case '04':
-          bulannya = 'Apr';
-          break;
-        case '05':
-          bulannya = 'May';
-          break;
-        case '06':
-          bulannya = 'Jun';
-          break;
-        case '07':
-          bulannya = 'Jul';
-          break;
-        case '08':
-          bulannya = 'Aug';
-          break;
-        case '09':
-          bulannya = 'Sep';
-          break;
-        case '10':
-          bulannya = 'Oct';
-          break;
-        case '11':
-          bulannya = 'Nov';
-          break;
-        case '12':
-          bulannya = 'Dec';
-          break;
-      }
-      blntahun = bulannya + " " + tahun;
-      return blntahun;
-    
+  var bulannya = param.substring(5, 7);
+  switch (bulannya) {
+    case '01':
+      bulannya = 'Jan';
+      break;
+    case '02':
+      bulannya = 'Feb';
+      break;
+    case '03':
+      bulannya = 'Mar';
+      break;
+    case '04':
+      bulannya = 'Apr';
+      break;
+    case '05':
+      bulannya = 'May';
+      break;
+    case '06':
+      bulannya = 'Jun';
+      break;
+    case '07':
+      bulannya = 'Jul';
+      break;
+    case '08':
+      bulannya = 'Aug';
+      break;
+    case '09':
+      bulannya = 'Sep';
+      break;
+    case '10':
+      bulannya = 'Oct';
+      break;
+    case '11':
+      bulannya = 'Nov';
+      break;
+    case '12':
+      bulannya = 'Dec';
+      break;
+  }
+  blntahun = bulannya + " " + tahun;
+  return blntahun;
+
 }
 
-function doSelect(param){
+function doSelect(param) {
 
   var bulan = param.substring(0, 3);
   var tahun = param.substring(4, 8);
@@ -371,29 +449,27 @@ function doSelect(param){
       bulanfix = "12";
       break;
   }
-  return tahun+"-"+bulanfix;
+  return tahun + "-" + bulanfix;
 }
 
 function initDate() {
   var url_string = window.location.href; //window.location.href
   var url = new URL(url_string);
   var BT = url.searchParams.get("BT");
-  var BTA = url.searchParams.get("BTA"); 
- 
-  if(typeof BT === 'undefined' || BT===null){
+  var BTA = url.searchParams.get("BTA");
 
-  }else{
-    document.getElementById("bln").value =doSelect(BT);
+  if (typeof BT === 'undefined' || BT === null) {
+
+  } else {
+    document.getElementById("bln").value = doSelect(BT);
     //alert(doSelect(BT));
   }
 
-  if(typeof BTA === 'undefined' || BTA === null){
+  if (typeof BTA === 'undefined' || BTA === null) {
 
-  }else{
-    document.getElementById("blnbl").value =doSelect(BTA);
+  } else {
+    document.getElementById("blnbl").value = doSelect(BTA);
   }
 
 }
-
-
 </script>
