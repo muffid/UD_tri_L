@@ -91,8 +91,54 @@ function getColor()
         return $colorPick;
     }
 
+    date_default_timezone_set('Asia/Jakarta');
+    $tanggal = date("D, j M Y ");
 
+   
+    $blnBl = substr($tanggal, 7, 9);
+    switch ($blnBl) {
+        case '01':
+            $blnBl = 'Jan';
+            break;
+        case '02':
+            $blnBl = 'Feb';
+            break;
+        case '03':
+            $blnBl = 'Mar';
+            break;
+        case '04':
+            $blnBl = 'Apr';
+            break;
+        case '05':
+            $blnBl = 'May';
+            break;
+        case '06':
+            $blnBl = 'Jun';
+            break;
+        case '07':
+            $blnBl = 'Jul';
+            break;
+        case '08':
+            $blnBl = 'Aug';
+            break;
+        case '09':
+            $blnBl = 'Sep';
+            break;
+        case '10':
+            $blnBl = 'Oct';
+            break;
+        case '11':
+            $blnBl = 'Nov';
+            break;
+        case '12':
+            $blnBl = 'Dec';
+            break;
+    }
+    //$blntahunBl = $blnBl . " " . $tahunBl;
+    // echo($blnBl);
+    // die();
    $no=1;
+
     $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
     foreach ($data as $key) {
         $detail = mysqli_query($conn, "SELECT * FROM data_pupuk WHERE ID_PK=" . $key['ID_PK']);
@@ -116,7 +162,7 @@ function getColor()
                                 </div>
                             </div>');
 
-                            $sqlGetSold=mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE ID_PK=".$key['ID_PK']);
+                            $sqlGetSold=mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE (ID_PK=".$key['ID_PK']." AND Tanggal LIKE '%".$blnBl."%')");
                             foreach($sqlGetSold as $sgs){
                                 echo('<label id="nama'.$no.'" hidden>'.$det['Jenis_Pupuk'].'</label>');
                                 echo('<label id="total'.$no.'" hidden>'.$sgs['Total'].'</label>');
@@ -228,7 +274,7 @@ function getColor()
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Total Penjualan Bulan ini</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Total Penjualan Bulan <?=$blnBl;?></h6>
 
 
                                 </div>
