@@ -46,8 +46,7 @@
 
       <!-- Nav Item - Alerts -->
       <li class="sidebar-brand d-flex align-items-center justify-content-center text-gray-600 small">
-        <!-- <span id="waktunota2"></span>
-      <span id="tanggalnota2"></span> -->
+
         <p>
         <div id="txt"></div>
         </p>
