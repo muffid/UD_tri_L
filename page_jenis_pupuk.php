@@ -178,19 +178,20 @@ $no = 1;
                                 <div class="md-form mb-2">
                                   <form method="POST" action="editPupuk.php?id=<?=$all['ID_PK'];?>">
                                     <!--<i class="fas fa-user prefix grey-text"></i> -->
+                                    <label data-error="wrong" data-success="right" for="form3">Jenis Pupuk</label>
                                     <input type="text" id="editnamapupuk<?=$all['ID_PK']?>"
                                       name="editnamapupuk<?=$all['ID_PK']?>" class="form-control validate"
                                       value="<?=$all['Jenis_Pupuk']?>">
-                                    <label data-error="wrong" data-success="right" for="form3">Jenis Pupuk</label>
+
                                 </div>
 
                                 <div class="md-form mb-2">
                                   <!--<i class="fas fa-envelope prefix grey-text"></i>-->
-
+                                  <label data-error="wrong" data-success="right" for="form2">Harga / Karung</label>
                                   <input type="text" id="edithargapupuk<?=$all['ID_PK']?>"
                                     name="edithargapupuk<?=$all['ID_PK']?>" class="form-control validate"
                                     value="<?=$all['Harga']?>" onkeyup="convertRP(<?=$all['ID_PK']?>)">
-                                  <label data-error="wrong" data-success="right" for="form2">Harga / Kg</label>
+
                                 </div>
 
                               </div>
