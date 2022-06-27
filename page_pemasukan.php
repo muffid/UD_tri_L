@@ -41,7 +41,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="initDateBL()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -61,8 +61,7 @@ if (isset($_SESSION['login'])) {
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mt-5">
             <h1 class="h3 mt-5 text-gray-800">Pemasukan</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
-                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+
           </div>
           <!-- konten -->
           <div class="row">
@@ -74,8 +73,12 @@ if (isset($_SESSION['login'])) {
                 </div>
 
                 <div class="card-body">
+                  <div class="row mb-3">
+                    <label class="m-0 ml-2 mr-2 col-form-label">Bulan</label>
+                    <input id="blnbl" type="month" onchange="bulanBL()">
+                  </div>
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="tablePengeluaran" width="100%" cellspacing="0">
+                    <table class="table table-bordered" id="tabelPemasukan" width="100%" cellspacing="0">
                       <thead>
                         <tr>
                           <th scope="col">No</th>
@@ -89,8 +92,12 @@ if (isset($_SESSION['login'])) {
                       <tbody>
                         <?php
 $no = 1;
-
-    $sql = mysqli_query($conn, "SELECT * FROM stok_keluar  ORDER BY ID_SK DESC");
+    $total = 0;
+    if (isset($_GET['BTBL'])) {
+        $sql = mysqli_query($conn, "SELECT * FROM stok_keluar WHERE Tanggal LIKE '%" . $_GET['BTBL'] . "%' ORDER BY ID_SK DESC");
+    } else {
+        $sql = mysqli_query($conn, "SELECT * FROM stok_keluar  ORDER BY ID_SK DESC");
+    }
     foreach ($sql as $key):
         $idnya = $key['ID_KT'];
         $jns = $key['ID_PK'];
@@ -112,7 +119,7 @@ $no = 1;
                           <td style="background-color: #f5f3f2"> <?=$key['ID_AKT'] . " (Anggota)";?></td>
                           <?php } else {?>
                           <!-- //jika Kelompok -->
-                          <td style="color: black"><?php $kel = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT=" . $idnya);foreach ($kel as $pok) {
+                          <td><?php $kel = mysqli_query($conn, "SELECT * FROM data_kel_tani WHERE ID_KT=" . $idnya);foreach ($kel as $pok) {
             $ambil1 = $pok['Nama_Kel'];
         }?> <?="Kelompok " . $ambil1;?></td>
                           <?php }
@@ -125,8 +132,15 @@ $no = 1;
                         </tr>
                         <?php
     $no++;
+        $total = $total + (int) $hasil;
     endforeach;
     ?>
+                      <tbody>
+                        <tr>
+                          <th colspan="5" class="text-center">TOTAL</th>
+                          <th><?=rp($total);?></th>
+                        </tr>
+                      </tbody>
                       </tbody>
                     </table>
                   </div>
@@ -172,6 +186,128 @@ $no = 1;
 
 <script>
 $(document).ready(function() {
-  $('#tablePengeluaran').DataTable();
+  $('#tabelPemasukan').DataTable({
+    searching: false
+  });
 });
+</script>
+
+<script>
+function bulanBL() {
+  var isibulanbl = document.getElementById("blnbl").value;
+  //alert(isibulan);
+  // //2022-02
+  // // algoritma ngganti bulan disini
+  if (isibulanbl == "") {
+    //alert('null');
+    location.replace("page_pemasukan.php?m=9&n=9");
+  } else {
+    // location.replace("page_pengeluaran.php?m=8&n=8&BTBL=" + isibulanbl);
+    //alert('not null');
+
+    var tahunbl = isibulanbl.substring(0, 4);
+    var bulannyabl = isibulanbl.substring(5, 7);
+    switch (bulannyabl) {
+      case '01':
+        bulannyabl = 'Jan';
+        break;
+      case '02':
+        bulannyabl = 'Feb';
+        break;
+      case '03':
+        bulannyabl = 'Mar';
+        break;
+      case '04':
+        bulannyabl = 'Apr';
+        break;
+      case '05':
+        bulannyabl = 'May';
+        break;
+      case '06':
+        bulannyabl = 'Jun';
+        break;
+      case '07':
+        bulannyabl = 'Jul';
+        break;
+      case '08':
+        bulannyabl = 'Aug';
+        break;
+      case '09':
+        bulannyabl = 'Sep';
+        break;
+      case '10':
+        bulannyabl = 'Oct';
+        break;
+      case '11':
+        bulannyabl = 'Nov';
+        break;
+      case '12':
+        bulannyabl = 'Dec';
+        break;
+    }
+    $blntahunbl = bulannyabl + " " + tahunbl;
+    location.replace("page_pemasukan.php?m=9&n=9&n=8&BTBL=" + $blntahunbl);
+  }
+}
+
+
+
+function initDateBL() {
+  var url_stringbl = window.location.href; //window.location.href
+  var urlbl = new URL(url_stringbl);
+
+  // bulan biaya lainnya penjualan
+  var BTBL = urlbl.searchParams.get("BTBL");
+  if (typeof BTBL === 'undefined' || BTBL === null) {
+
+  } else {
+
+    var bulanbl = BTBL.substring(0, 3);
+    var tahunbl = BTBL.substring(4, 8);
+    var bulanfixbl = "";
+    //alert(bulan+"-"+tahun);
+    switch (bulanbl) {
+      case "Jan":
+        bulanfixbl = "01";
+        break;
+      case "Feb":
+        bulanfixbl = "02";
+        break;
+      case "Mar":
+        bulanfixbl = "03";
+        break;
+      case "Apr":
+        bulanfixbl = "04";
+        break;
+      case "May":
+        bulanfixbl = "05";
+        break;
+      case "Jun":
+        bulanfixbl = "06";
+        break;
+      case "Jul":
+        bulanfixbl = "07";
+        break;
+      case "Aug":
+        bulanfixbl = "08";
+        break;
+      case "Sep":
+        bulanfixbl = "09";
+        break;
+      case "Oct":
+        bulanfixbl = "10";
+        break;
+      case "Nov":
+        bulanfixbl = "11";
+        break;
+      case "Dec":
+        bulanfixbl = "12";
+        break;
+    }
+
+    document.getElementById("blnbl").value = tahunbl + "-" + bulanfixbl;
+  }
+
+
+}
 </script>
