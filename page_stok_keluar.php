@@ -223,139 +223,141 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                   <div class="row mb-2">
                     <!-- Nama Pengirim -->
-                    <div class="col-lg-4">
-                      <img src="img/logo1.png" width="30%">
+                    <<div class="">
+                      <img style="width:40px" src="img/logo1.png">
+                  </div>
+                  <div class=" font-weight-bold  mt-2 mx-3 mr-5">
+                    <h4><?php echo ($_SESSION['per']); ?> </h4>
+                  </div>
+
+                  <div class="col-sm-8">
+
+                  </div>
+                </div>
+
+                <form method="POST" action="addStokKeluar.php"
+                  onsubmit="return confirm('Pastikan data yang akan disimpan telah benar. Klik Ok jika anda yakin, klik cancel jika ingin meneliti kembali');">
+                  <div class="row">
+
+                    <div class="col-lg-12" align="right">
+                      <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                        <span id="notanama">Nama Pembeli : _______________________</span><br>
+                        <span id="waktunota"></span>
+                        <span id="tanggalnota"></span>
+                      </div>
                     </div>
-
-                    <div class="col-sm-8">
-
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      ==================================================
                     </div>
                   </div>
 
-                  <form method="POST" action="addStokKeluar.php"
-                    onsubmit="return confirm('Pastikan data yang akan disimpan telah benar. Klik Ok jika anda yakin, klik cancel jika ingin meneliti kembali');">
-                    <div class="row">
+                  <table class="table table-bordered">
+                    <thead>
+                      <th>Qty</th>
+                      <th>Pupuk</th>
+                      <th>Harga</th>
+                      <th>Total</th>
 
-                      <div class="col-lg-12" align="right">
-                        <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
-                          <span id="notanama">Nama Pembeli : _______________________</span><br>
-                          <span id="waktunota"></span>
-                          <span id="tanggalnota"></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        ==================================================
-                      </div>
-                    </div>
+                    </thead>
+                    <tbody id="container">
 
-                    <table class="table table-bordered">
-                      <thead>
-                        <th>Qty</th>
-                        <th>Pupuk</th>
-                        <th>Harga</th>
-                        <th>Total</th>
-
-                      </thead>
-                      <tbody id="container">
-
-                      </tbody>
-                    </table>
+                    </tbody>
+                  </table>
 
 
-                    <div class="row mb-2">
-                      <!-- Nama Pengirim -->
-                      <label class="col-sm-7 col-form-label"> <button type="button" class="btn btn-danger btn-sm"
-                          onclick="decName()"><i class="fas fa-undo-alt"></i></button> </label>
-
-                    </div>
-
-                    <div class="row mb-2">
-                      <!-- Nama Pengirim -->
-                      <label class="col-sm-4 col-form-label"> Total Belanja </label>
-                      <div class="col-sm-5">
-                        <input type="text" class="form-control" id="notatotal" name="notatotal" required readonly>
-                        <input type="text" class="form-control" id="iterator" name="iterator" required readonly hidden>
-                        <input type="text" class="form-control" id="idpupuk" name="idpupuk" hidden>
-                        <input type="text" class="form-control" id="idkel" name="idkel" required hidden>
-                        <input type=text id="buyer" name="buyer" readonly required hidden>
-                        <input type=text id="namaanggota" name="namaanggota" hidden>
-
-                      </div>
-                      <div class="col-sm-3 mt-1">
-                        <button type="button" class="btn btn-success btn-sm" onclick="hitungTotal()"><i
-                            class="fas fa-coins"></i> totalkan</button>
-                      </div>
-                    </div>
-                    <div class="row" id="row">
-                      <!-- Nama Pengirim -->
-                      <label class="col-sm-4 col-form-label">Dibayar</label>
-                      <div class="input-group col-sm-5">
-
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Rp.</span>
-                        </div>
-                        <input type="text" class="form-control" id="bayar" name="bayar" onkeyup="dibayarCtrl()">
-
-                      </div>
-
-                    </div>
-
-                    <div class="row mt-2 mb-2" id="row">
-                      <!-- Nama Pengirim -->
-                      <label class="col-sm-4 col-form-label">Biaya Transport</label>
-                      <div class="input-group col-sm-5">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">Rp.</span>
-                        </div>
-                        <input type="text" class="form-control" id="transport" name="transport"
-                          onkeyup="transportCtrl()">
-
-                      </div>
-
-                      <div class="col-sm-3">
-                        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> simpan</button>
-                      </div>
-
-                    </div>
-
-                </div>
-                <!-- end of cardbody -->
-              </div>
-              <!-- end of card shadow -->
-              </form>
-            </div>
-            <!-- end of col -->
-          </div>
-          <!-- end of row -->
-
-          <div class="row">
-            <div class="col col-lg-12">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-user"></i> Data Penjualan Pupuk -
-                    Anggota</h6>
-                </div>
-
-                <div class="card-body">
                   <div class="row mb-2">
-                    <div class="col col-lg-12">
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="tableAng" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th scope="col">No</th>
-                              <th scope="col">Tanggal</th>
-                              <th scope="col">Anggota</th>
-                              <th scope="col">Lihat Item</th>
-                              <th scope="col">Total</th>
-                              <th scope="col">Dibayar</th>
-                              <th scope="col">Aksi</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
+                    <!-- Nama Pengirim -->
+                    <label class="col-sm-7 col-form-label"> <button type="button" class="btn btn-danger btn-sm"
+                        onclick="decName()"><i class="fas fa-undo-alt"></i></button> </label>
+
+                  </div>
+
+                  <div class="row mb-2">
+                    <!-- Nama Pengirim -->
+                    <label class="col-sm-4 col-form-label"> Total Belanja </label>
+                    <div class="col-sm-5">
+                      <input type="text" class="form-control" id="notatotal" name="notatotal" required readonly>
+                      <input type="text" class="form-control" id="iterator" name="iterator" required readonly hidden>
+                      <input type="text" class="form-control" id="idpupuk" name="idpupuk" hidden>
+                      <input type="text" class="form-control" id="idkel" name="idkel" required hidden>
+                      <input type=text id="buyer" name="buyer" readonly required hidden>
+                      <input type=text id="namaanggota" name="namaanggota" hidden>
+
+                    </div>
+                    <div class="col-sm-3 mt-1">
+                      <button type="button" class="btn btn-success btn-sm" onclick="hitungTotal()"><i
+                          class="fas fa-coins"></i> totalkan</button>
+                    </div>
+                  </div>
+                  <div class="row" id="row">
+                    <!-- Nama Pengirim -->
+                    <label class="col-sm-4 col-form-label">Dibayar</label>
+                    <div class="input-group col-sm-5">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Rp.</span>
+                      </div>
+                      <input type="text" class="form-control" id="bayar" name="bayar" onkeyup="dibayarCtrl()">
+
+                    </div>
+
+                  </div>
+
+                  <div class="row mt-2 mb-2" id="row">
+                    <!-- Nama Pengirim -->
+                    <label class="col-sm-4 col-form-label">Biaya Transport</label>
+                    <div class="input-group col-sm-5">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Rp.</span>
+                      </div>
+                      <input type="text" class="form-control" id="transport" name="transport" onkeyup="transportCtrl()">
+
+                    </div>
+
+                    <div class="col-sm-3">
+                      <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> simpan</button>
+                    </div>
+
+                  </div>
+
+              </div>
+              <!-- end of cardbody -->
+            </div>
+            <!-- end of card shadow -->
+            </form>
+          </div>
+          <!-- end of col -->
+        </div>
+        <!-- end of row -->
+
+        <div class="row">
+          <div class="col col-lg-12">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-user"></i> Data Penjualan Pupuk -
+                  Anggota</h6>
+              </div>
+
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col col-lg-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="tableAng" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Anggota</th>
+                            <th scope="col">Lihat Item</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Dibayar</th>
+                            <th scope="col">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
 $nopen = 1;
     $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0' ORDER BY ID_PJ DESC");
     foreach ($sqlPenj as $sp) {
@@ -372,35 +374,35 @@ $nopen = 1;
         echo ("</tr>");
         ?>
 
-                            <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
-                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                              <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    Data Item Penjualan Anggota :
-                                    <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="container">
-                                      <div class="row mb-2">
-                                        <div class="col-sm">
-                                          Item
-                                        </div>
-                                        <div class="col-sm">
-                                          Qty
-                                        </div>
-                                        <div class="col-sm">
-                                          Harga / Karung
-                                        </div>
-                                        <div class="col-sm">
-                                          Total
-                                        </div>
+                          <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Data Item Penjualan Anggota :
+                                  <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row mb-2">
+                                      <div class="col-sm">
+                                        Item
                                       </div>
-                                      <!-- here for looop -->
-                                      <?php
+                                      <div class="col-sm">
+                                        Qty
+                                      </div>
+                                      <div class="col-sm">
+                                        Harga / Karung
+                                      </div>
+                                      <div class="col-sm">
+                                        Total
+                                      </div>
+                                    </div>
+                                    <!-- here for looop -->
+                                    <?php
 $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_keluar WHERE key_transaksi LIKE '" . $sp['ID_KEY'] . "'");
         foreach ($getItem as $gi) {
             $nameppk = "";
@@ -425,96 +427,95 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
         }
         ?>
 
-                                      <!-- end of loop -->
-                                    </div>
+                                    <!-- end of loop -->
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close
-                                    </button>
-                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close
+                                  </button>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
 
-                            <div class="modal fade" id="delItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
-                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    Hapus Anggota : <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
+                          <div class="modal fade" id="delItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Hapus Anggota : <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <center>
+                                      <h3 class="text-danger">PERINGATAN!</h3>
+                                      Membatalkan/ menghapus data mungkin akan
+                                      menyebabkan beberapa data tidak singkron.
+                                      Pastikan
+                                      data yang akan dihapus adalah
+                                      data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                        yakin
+                                        akan
+                                        menghapus ?</strong>
+                                    </center>
                                   </div>
-                                  <div class="modal-body">
-                                    <div class="container">
-                                      <center>
-                                        <h3 class="text-danger">PERINGATAN!</h3>
-                                        Membatalkan/ menghapus data mungkin akan
-                                        menyebabkan beberapa data tidak singkron.
-                                        Pastikan
-                                        data yang akan dihapus adalah
-                                        data yang sudah tidak terpakai. <strong class="text-danger">Anda
-                                          yakin
-                                          akan
-                                          menghapus ?</strong>
-                                      </center>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                      data-dismiss="modal">kembali</button>
-                                    <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>" class="btn btn-danger">Ya,
-                                      Hapus</a>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
+                                  <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>" class="btn btn-danger">Ya,
+                                    Hapus</a>
 
-                                  </div>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
-                            <?php
+                          <?php
 $nopen++;
     }
     ?>
 
 
-                          </tbody>
-                        </table>
-                      </div>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col col-lg-12">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Data Penjualan Pupuk
-                    - Kelompok</h6>
-                </div>
+        <div class="row">
+          <div class="col col-lg-12">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Data Penjualan Pupuk
+                  - Kelompok</h6>
+              </div>
 
-                <div class="card-body">
-                  <div class="row mb-2">
-                    <div class="col col-lg-12">
-                      <div class="table-responsive">
-                        <table class="table table-bordered" id="tableKel" width="100%" cellspacing="0">
-                          <thead>
-                            <tr>
-                              <th scope="col">No</th>
-                              <th scope="col">Tanggal</th>
-                              <th scope="col">Kelompok</th>
-                              <th scope="col">Lihat Item</th>
-                              <th scope="col">Total</th>
-                              <th scope="col">Dibayar</th>
-                              <th scope="col">Aksi</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col col-lg-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="tableKel" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Kelompok</th>
+                            <th scope="col">Lihat Item</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Dibayar</th>
+                            <th scope="col">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
 $nopen = 1;
     $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_KT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_AKT LIKE '0' ORDER BY ID_PJ DESC");
     foreach ($sqlPenj as $sp) {
@@ -536,35 +537,35 @@ $nopen = 1;
         echo ("</tr>");
         ?>
 
-                            <div class="modal fade" id="viewItemK<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
-                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                              <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    Data Item Penjualan Kelompok :
-                                    <?php echo ($namakelompok . '<br>Tanggal : ' . $sp['Tanggal']); ?>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="container">
-                                      <div class="row mb-2">
-                                        <div class="col-sm">
-                                          Item
-                                        </div>
-                                        <div class="col-sm">
-                                          Qty
-                                        </div>
-                                        <div class="col-sm">
-                                          Harga / Karung
-                                        </div>
-                                        <div class="col-sm">
-                                          Total
-                                        </div>
+                          <div class="modal fade" id="viewItemK<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Data Item Penjualan Kelompok :
+                                  <?php echo ($namakelompok . '<br>Tanggal : ' . $sp['Tanggal']); ?>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row mb-2">
+                                      <div class="col-sm">
+                                        Item
                                       </div>
-                                      <!-- here for looop -->
-                                      <?php
+                                      <div class="col-sm">
+                                        Qty
+                                      </div>
+                                      <div class="col-sm">
+                                        Harga / Karung
+                                      </div>
+                                      <div class="col-sm">
+                                        Total
+                                      </div>
+                                    </div>
+                                    <!-- here for looop -->
+                                    <?php
 $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_keluar WHERE key_transaksi LIKE '" . $sp['ID_KEY'] . "'");
         foreach ($getItem as $gi) {
             $nameppk = "";
@@ -589,81 +590,80 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
         }
         ?>
 
-                                      <!-- end of loop -->
-                                    </div>
+                                    <!-- end of loop -->
                                   </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close
-                                    </button>
-                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close
+                                  </button>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
 
 
-                            <div class="modal fade" id="delItemK<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
-                              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    Hapus Transaski
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
+                          <div class="modal fade" id="delItemK<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Hapus Transaski
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <center>
+                                      <h3 class="text-danger">PERINGATAN!</h3>
+                                      Membatalkan/ menghapus data mungkin akan
+                                      menyebabkan beberapa data tidak singkron.
+                                      Pastikan
+                                      data yang akan dihapus adalah
+                                      data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                        yakin
+                                        akan
+                                        menghapus ?</strong>
+                                    </center>
                                   </div>
-                                  <div class="modal-body">
-                                    <div class="container">
-                                      <center>
-                                        <h3 class="text-danger">PERINGATAN!</h3>
-                                        Membatalkan/ menghapus data mungkin akan
-                                        menyebabkan beberapa data tidak singkron.
-                                        Pastikan
-                                        data yang akan dihapus adalah
-                                        data yang sudah tidak terpakai. <strong class="text-danger">Anda
-                                          yakin
-                                          akan
-                                          menghapus ?</strong>
-                                      </center>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                      data-dismiss="modal">kembali</button>
-                                    <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>" class="btn btn-danger">Ya,
-                                      Hapus</a>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
+                                  <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>" class="btn btn-danger">Ya,
+                                    Hapus</a>
 
-                                  </div>
                                 </div>
                               </div>
                             </div>
+                          </div>
 
-                            <?php
+                          <?php
 $nopen++;
     }
     ?>
-                          </tbody>
-                        </table>
-                      </div>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
 
       </div>
 
-      <!-- /.container-fluid -->
-      <?php include "segment/footer.php";?>
     </div>
-    <!-- End of Main Content -->
 
-    <!-- footer -->
+    <!-- /.container-fluid -->
+    <?php include "segment/footer.php";?>
+  </div>
+  <!-- End of Main Content -->
 
-    <!-- end footer -->
+  <!-- footer -->
+
+  <!-- end footer -->
 
   </div>
   <!-- End of Content Wrapper -->

@@ -1,5 +1,6 @@
 <?php
 include "connection.php";
+include "functions.php";
 session_start();
 if (isset($_SESSION['login'])) {
     if (!isset($_GET['m'])) {
@@ -20,24 +21,24 @@ if (isset($_SESSION['login'])) {
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>UD.Tri L | Dashboard</title>
+  <title>UD.Tri L | Dashboard</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
-    <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="img/logo1.png" rel="icon">
-    <?php
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="img/logo1.png" rel="icon">
+  <?php
 // header
     include "segment/header.php";
     //    end Header
@@ -46,31 +47,31 @@ if (isset($_SESSION['login'])) {
 </head>
 
 <body id="page-top">
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-        <!-- include sidebar -->
-        <?php include "segment/sidebar.php";?>
-        <!-- end include sidebar -->
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <!-- include sidebar -->
+    <?php include "segment/sidebar.php";?>
+    <!-- end include sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column ">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column ">
 
-            <!-- Main Content -->
-            <div id="content ">
+      <!-- Main Content -->
+      <div id="content ">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mt-5">
-                        <h1 class="h3 mt-5 text-gray-800">Dashboard</h1>
-                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i -->
-                        <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-                    </div>
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mt-5">
+            <h1 class="h3 mt-5 text-gray-800">Dashboard</h1>
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i -->
+            <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+          </div>
 
-                    <!-- Content Row -->
-                    <div class="row">
-                        <?php
+          <!-- Content Row -->
+          <div class="row">
+            <?php
 function getColor()
     {
         $numcolor = rand(1, 4);
@@ -94,7 +95,6 @@ function getColor()
     date_default_timezone_set('Asia/Jakarta');
     $tanggal = date("D, j M Y ");
 
-   
     $blnBl = substr($tanggal, 7, 9);
     switch ($blnBl) {
         case '01':
@@ -137,7 +137,7 @@ function getColor()
     //$blntahunBl = $blnBl . " " . $tahunBl;
     // echo($blnBl);
     // die();
-   $no=1;
+    $no = 1;
 
     $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
     foreach ($data as $key) {
@@ -162,25 +162,21 @@ function getColor()
                                 </div>
                             </div>');
 
-                            $sqlGetSold=mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE (ID_PK=".$key['ID_PK']." AND Tanggal LIKE '%".$blnBl."%')");
-                            foreach($sqlGetSold as $sgs){
-                                echo('<label id="nama'.$no.'" hidden>'.$det['Jenis_Pupuk'].'</label>');
-                                echo('<label id="total'.$no.'" hidden>'.$sgs['Total'].'</label>');
-                               
+            $sqlGetSold = mysqli_query($conn, "SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE (ID_PK=" . $key['ID_PK'] . " AND Tanggal LIKE '%" . $blnBl . "%')");
+            foreach ($sqlGetSold as $sgs) {
+                echo ('<label id="nama' . $no . '" hidden>' . $det['Jenis_Pupuk'] . '</label>');
+                echo ('<label id="total' . $no . '" hidden>' . $sgs['Total'] . '</label>');
 
-                            }
+            }
 
-                           
-                         
         }
         $no++;
-      
 
     }
-    echo('<label id="totppk" hidden>'.($no-1).'</label>');
+    echo ('<label id="totppk" hidden>' . ($no - 1) . '</label>');
     ?>
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+            <!-- Earnings (Monthly) Card Example -->
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -197,8 +193,8 @@ function getColor()
                             </div>
                         </div> -->
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+            <!-- Earnings (Monthly) Card Example -->
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -215,8 +211,8 @@ function getColor()
                             </div>
                         </div> -->
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+            <!-- Earnings (Monthly) Card Example -->
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -244,8 +240,8 @@ function getColor()
                             </div>
                         </div> -->
 
-                        <!-- Pending Requests Card Example -->
-                        <!-- <div class="col-xl-3 col-md-6 mb-4">
+            <!-- Pending Requests Card Example -->
+            <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -262,145 +258,199 @@ function getColor()
                             </div>
                         </div> -->
 
-                    </div>
+          </div>
 
-                    <!-- Content Row -->
+          <!-- Content Row -->
 
-                    <div class="row">
+          <div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-6 col-lg-7">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Total Penjualan Bulan <?=$blnBl;?></h6>
+            <!-- Area Chart -->
+            <div class="col-xl-6 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Total Penjualan Bulan <?=$blnBl;?></h6>
 
-
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div>
-		<canvas id="myChart"></canvas>
-	</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pie Chart -->
-                        <div class="col-xl-6 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    lklhkjkj
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    
 
                 </div>
-                <!-- /.container-fluid -->
-
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div>
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- End of Main Content -->
-            <!-- footer -->
-            <?php include "segment/footer.php";?>
-            <!-- end footer -->
+
+            <!-- Pie Chart -->
+            <div class="col-xl-6 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Keuangan</h6>
+
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <?php
+//pengeluaran atau pembelian pupuk
+    $sqlPengeluaran = mysqli_query($conn, "SELECT sum(Nominal) as total_pengeluaran  FROM stok_masuk ");
+    foreach ($sqlPengeluaran as $keyPengeluaran) {
+        $hasilPengeluaran = $keyPengeluaran['total_pengeluaran'];
+    }
+
+    //transport
+    $sqlTransport = mysqli_query($conn, "SELECT sum(Total) as total_transport FROM biaya_lain ");
+    foreach ($sqlTransport as $keyTransport) {
+        $hasilTransport = $keyTransport['total_transport'];
+    }
+    //total pengeluaran
+    $totalAll = $hasilTransport + $hasilPengeluaran;
+
+    //penjualan
+    $sqlPenjualan = mysqli_query($conn, "SELECT sum(Total) as total_penjualan FROM penjualan ");
+    foreach ($sqlPenjualan as $keyPenjualan) {
+        $hasilPenjualan = $keyPenjualan['total_penjualan'];
+    }
+    //total pendapatan
+    $totalPendapatan = $hasilPenjualan - $totalAll;
+
+    //piutang
+    $sqlPiutang = mysqli_query($conn, "SELECT SUM(Kredit)-SUM(Debit) as total_hutang FROM piutang ");
+    foreach ($sqlPiutang as $keyPiutang) {
+        $hasilPiutang = $keyPiutang['total_hutang'];
+    }
+//kas real
+    $kas = $totalPendapatan - $hasilPiutang;
+    ?>
+                  <h4 class="text-center text-warning">Total Pengeluaran</h4>
+                  <h5>Pembelian Pupuk = <?=rp($hasilPengeluaran);?></h5>
+                  <h5>Transport = <?=rp($hasilTransport);?></h5>
+                  <h5 class="text-success">Total = <?=rp($totalAll);?></h5>
+                  <hr>
+                  <h4 class="text-center text-info">Total Penjualan</h4>
+                  <h5>Pupuk = <?=rp($hasilPenjualan);?></h5>
+                  <hr>
+
+                  <?php if ($totalPendapatan < 0) {?>
+                  <h4 class="text-center text-danger">Total Pendapatan</h4>
+                  <h5 class="text-danger">Status Non Profit =
+                    <?php } else {?>
+                    <h4 class="text-center text-success">Total Pendapatan</h4>
+                    <h5 class="text-success">Status Profit = <?php }
+    ;?>
+                      <?=rp($totalPendapatan);?>
+                    </h5>
+                    <hr>
+                    <h4 class="text-center text-warning">Total Piutang</h4>
+                    <h5>Piutang = <?=rp($hasilPiutang);?></h5>
+                    <hr>
+                    <?php if ($kas < 0) {;?>
+                    <h4 class="text-center text-danger">Kas Saat Ini</h4>
+                    <h4 class="text-danger"><?=rp($kas);?></h4>
+                    <?php } else {;?>
+                    <h4 class="text-center text-warning">Kas Saat Ini</h4>
+                    <h4 class="text-success"><?=rp($kas);?></h4>
+                    <?php }
+    ;?>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
         </div>
-        <!-- End of Content Wrapper -->
-      
+        <!-- /.container-fluid -->
 
+      </div>
+      <!-- End of Main Content -->
+      <!-- footer -->
+      <?php include "segment/footer.php";?>
+      <!-- end footer -->
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- End of Content Wrapper -->
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  </div>
+  <!-- End of Page Wrapper -->
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <!-- <script src="js/demo/chart-area-demo.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <!-- <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script> -->
 
-    <script>
+  <script>
+  function getcolor() {
+    var prefix = 'rgba(';
+    var suffix = ')';
+    var colorCode = "";
+    for (let i = 0; i < 3; i++) {
+      colorCode += Math.floor((Math.random() * 255) + 1) + ",";
+      if (i === 2) {
+        colorCode += Math.floor((Math.random() * 255) + 1);
+      }
+    }
 
+    return prefix + colorCode + suffix;
+  }
 
-        function getcolor(){
-            var prefix='rgba(';
-            var suffix=')';
-            var colorCode="";
-                for(let i=0; i<3; i++){
-                    colorCode+= Math.floor((Math.random() * 255) + 1)+",";
-                    if(i===2)
-                    {
-                        colorCode+= Math.floor((Math.random() * 255) + 1);
-                    }
-                }
+  console.log(getcolor());
 
-                return prefix+colorCode+suffix;
-        }
+  var totalJenis = document.getElementById('totppk').innerHTML;
+  const namaPupuk = [];
+  const totalSold = [];
+  const color = [];
+  for (let i = 1; i <= totalJenis; i++) {
 
-console.log(getcolor());
-        
-        var totalJenis=document.getElementById('totppk').innerHTML;
-        const namaPupuk=[];
-        const totalSold=[];
-        const color=[];
-        for(let i=1; i<=totalJenis; i++){
-            
-            namaPupuk[i-1]=document.getElementById("nama"+i).innerHTML;
-            totalSold[i-1]=document.getElementById("total"+i).innerHTML;
-            color[i-1]=getcolor();
-            
-        }
+    namaPupuk[i - 1] = document.getElementById("nama" + i).innerHTML;
+    totalSold[i - 1] = document.getElementById("total" + i).innerHTML;
+    color[i - 1] = getcolor();
 
-        //membuat warna random
-       // rgba(255,99,132,1)
-        
-        //console.log(getColor());
-      
-		var ctx = document.getElementById("myChart").getContext('2d');
-		var myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels:namaPupuk,
-				datasets: [{
-					label: 'total penjualan',
-					data:totalSold,
-					backgroundColor: color,
-					//borderColor: 'rgba(45,123,78,99)',
-					//borderWidth: 23
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero:true
-						}
-					}]
-				}
-			}
-		});
+  }
 
-    </script>
+  //membuat warna random
+  // rgba(255,99,132,1)
+
+  //console.log(getColor());
+
+  var ctx = document.getElementById("myChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: namaPupuk,
+      datasets: [{
+        label: 'total penjualan',
+        data: totalSold,
+        backgroundColor: color,
+        //borderColor: 'rgba(45,123,78,99)',
+        //borderWidth: 23
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+  </script>
 </body>
 
 </html>
