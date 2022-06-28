@@ -174,6 +174,16 @@ function getColor()
 
     }
     echo ('<label id="totppk" hidden>' . ($no - 1) . '</label>');
+
+    $sqlGetTotAnggota=mysqli_query($conn,"SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%jun 2022%')");
+    foreach($sqlGetTotAnggota as $sgta){
+        echo ('<label id="totanggota" hidden >' . $sgta['tot'] . '</label>');
+    }
+
+    $sqlGetTotKelompok=mysqli_query($conn,"SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%jun 2022%')");
+    foreach($sqlGetTotKelompok as $sgtk){
+        echo ('<label id="totkelompok" hidden >' . $sgtk['tots'] . '</label>');
+    }
     ?>
             <!-- Earnings (Monthly) Card Example -->
             <!-- <div class="col-xl-3 col-md-6 mb-4">
@@ -283,6 +293,25 @@ function getColor()
             </div>
 
             <!-- Pie Chart -->
+            <div class="col-xl-6 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Total Pemasukan Bulan <?=$blnBl;?></h6>
+
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                 
+                <div>
+                    <canvas id="yourChart"></canvas>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
             <div class="col-xl-6 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
@@ -442,9 +471,61 @@ function getColor()
     },
     options: {
       scales: {
+        xAxes: [{
+            barPercentage: 0.4
+        }],
         yAxes: [{
           ticks: {
             beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+
+  var tota=document.getElementById("totanggota").innerHTML;
+  var totk=document.getElementById("totkelompok").innerHTML;
+  var colora=getcolor();
+  var colork=getcolor();
+
+  var ctx = document.getElementById("yourChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Anggota','Kelompok Tani'],
+      datasets: [{
+        label: 'total pemasukan',
+        data: [tota,totk],
+        backgroundColor: [colora,colork],
+        //borderColor: 'rgba(45,123,78,99)',
+        //borderWidth: 23
+      }]
+    },
+    options: {
+        tooltips: {
+         callbacks: {
+            label: function(t, d) {
+               var xLabel = d.datasets[t.datasetIndex].label;
+               var yLabel = t.yLabel >= 1000 ? 'Rp. ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 'R[. ' + t.yLabel;
+               return xLabel + ': ' + yLabel;
+            }
+         }
+      },
+      scales: {
+        xAxes: [{
+            barPercentage: 0.4
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            callback: function(value, index, values) {
+                  if (parseInt(value) >= 1000) {
+                     return 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                  } else {
+                     return 'Rp. ' + value;
+                  }
+               }
           }
         }]
       }
