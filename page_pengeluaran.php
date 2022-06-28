@@ -25,22 +25,22 @@ if (isset($_SESSION['login'])) {
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="vendor/datatables/jquery.dataTables.min.css"/>
-    <link type="text/css" rel="stylesheet" href="vendor/datatables/buttons.dataTables.min.css"/>
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <script src="vendor/datatables/jquery-3.5.1.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.buttons.min.js"></script>
-    <script src="vendor/datatables/jszip.min.js"></script>
-    <script src="vendor/datatables/buttons.html5.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/sb-admin-2.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="vendor/datatables/jquery.dataTables.min.css" />
+  <link type="text/css" rel="stylesheet" href="vendor/datatables/buttons.dataTables.min.css" />
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="vendor/datatables/jquery-3.5.1.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.buttons.min.js"></script>
+  <script src="vendor/datatables/jszip.min.js"></script>
+  <script src="vendor/datatables/buttons.html5.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
 
 
   <link href="img/logo1.png" rel="icon">
@@ -145,7 +145,7 @@ $no = 1;
               <div class="card shadow mb-4">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya Lainnya
+                  <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya Transport
                   </h6>
                 </div>
 
@@ -319,7 +319,7 @@ $toatalTransport = mysqli_query($conn, "SELECT sum(Total) as totalnyatrans FROM 
     <!-- End of Content Wrapper -->
 
   </div>
-  
+
 </body>
 
 </html>
@@ -333,23 +333,23 @@ $(document).ready(function() {
   $('#tablePengeluaran').DataTable({
     searching: false,
     "lengthMenu": [10],
-        dom: 'Bfrtip',
-        buttons: [ {
-            extend: 'excelHtml5',
-            autoFilter: true,
-            sheetName: 'Exported data'
-        } ]
+    dom: 'Bfrtip',
+    buttons: [{
+      extend: 'excelHtml5',
+      autoFilter: true,
+      sheetName: 'Exported data'
+    }]
   });
 
   $('#tableBiayalain').DataTable({
     searching: false,
     "lengthMenu": [10],
-        dom: 'Bfrtip',
-        buttons: [ {
-            extend: 'excelHtml5',
-            autoFilter: true,
-            sheetName: 'Exported data'
-        } ]
+    dom: 'Bfrtip',
+    buttons: [{
+      extend: 'excelHtml5',
+      autoFilter: true,
+      sheetName: 'Exported data'
+    }]
   });
 });
 

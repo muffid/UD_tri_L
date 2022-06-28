@@ -337,165 +337,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
             <div class="card shadow mb-4">
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-user"></i> Data Penjualan Pupuk -
-                  Anggota</h6>
-              </div>
-
-              <div class="card-body">
-                <div class="row mb-2">
-                  <div class="col col-lg-12">
-                    <div class="table-responsive">
-                      <table class="table table-bordered" id="tableAng" width="100%" cellspacing="0">
-                        <thead>
-                          <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Anggota</th>
-                            <th scope="col">Lihat Item</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Dibayar</th>
-                            <th scope="col">Aksi</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-$nopen = 1;
-    $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0' ORDER BY ID_PJ DESC");
-    foreach ($sqlPenj as $sp) {
-        echo ("<tr>");
-        echo ("<td>" . $nopen . "</td>");
-        echo ("<td>" . $sp['Tanggal'] . "</td>");
-        echo ("<td>" . $sp['ID_AKT'] . "</td>");
-        echo ('<td><center><a href="" data-toggle="modal" data-target="#viewItem' . $sp['ID_PJ'] . '"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Item Penjualan"> </i> lihat item</center> </a></td>');
-        echo ("<td>" . rp($sp['Total']) . "</td>");
-        echo ("<td>" . rp($sp['Dibayar']) . "</td>");
-        $newKey = "'" . $sp['ID_KEY'] . "'";
-
-        echo ('<td><center><a href=""  data-toggle="modal" data-target="#delItem' . $sp['ID_PJ'] . '" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></a>  <a href="" class="btn btn-outline-primary btn-sm" onclick="toPrintPage(' . $newKey . ')"><i class="fas fa-print"></i></a></center></td>');
-        echo ("</tr>");
-        ?>
-
-                          <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  Data Item Penjualan Anggota :
-                                  <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="container">
-                                    <div class="row mb-2">
-                                      <div class="col-sm">
-                                        Item
-                                      </div>
-                                      <div class="col-sm">
-                                        Qty
-                                      </div>
-                                      <div class="col-sm">
-                                        Harga / Karung
-                                      </div>
-                                      <div class="col-sm">
-                                        Total
-                                      </div>
-                                    </div>
-                                    <!-- here for looop -->
-                                    <?php
-$getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_keluar WHERE key_transaksi LIKE '" . $sp['ID_KEY'] . "'");
-        foreach ($getItem as $gi) {
-            $nameppk = "";
-            $getPupukName = mysqli_query($conn, "SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK =" . $gi['ID_PK']);
-            foreach ($getPupukName as $gpn) {
-                $nameppk = $gpn['Jenis_Pupuk'];
-            }
-            echo (' <div class="row">
-                                                                                <div class="col-sm">'
-                . $nameppk . '
-                                                                                </div>
-                                                                                <div class="col-sm">'
-                . $gi['Jumlah_Keluar'] . '
-                                                                                </div>
-                                                                                <div class="col-sm">'
-                . $gi['Harga'] . '
-                                                                                </div>
-                                                                                <div class="col-sm">'
-                . (int) $gi['Jumlah_Keluar'] * (int) $gi['Harga'] . '
-                                                                                </div>
-                                                                            </div>');
-        }
-        ?>
-
-                                    <!-- end of loop -->
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-
-                          <div class="modal fade" id="delItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  Hapus Anggota : <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  <div class="container">
-                                    <center>
-                                      <h3 class="text-danger">PERINGATAN!</h3>
-                                      Membatalkan/ menghapus data mungkin akan
-                                      menyebabkan beberapa data tidak singkron.
-                                      Pastikan
-                                      data yang akan dihapus adalah
-                                      data yang sudah tidak terpakai. <strong class="text-danger">Anda
-                                        yakin
-                                        akan
-                                        menghapus ?</strong>
-                                    </center>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
-                                  <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>" class="btn btn-danger">Ya,
-                                    Hapus</a>
-
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <?php
-$nopen++;
-    }
-    ?>
-
-
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col col-lg-12">
-            <div class="card shadow mb-4">
-              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Data Penjualan Pupuk
-                  - Kelompok</h6>
+                  Kelompok Tani</h6>
               </div>
 
               <div class="card-body">
@@ -555,7 +397,7 @@ $nopen = 1;
                                         Item
                                       </div>
                                       <div class="col-sm">
-                                        Qty
+                                        Jumlah
                                       </div>
                                       <div class="col-sm">
                                         Harga / Karung
@@ -581,10 +423,10 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
                 . $gi['Jumlah_Keluar'] . '
                                                                                 </div>
                                                                                 <div class="col-sm">'
-                . $gi['Harga'] . '
+                . rp($gi['Harga']) . '
                                                                                 </div>
                                                                                 <div class="col-sm">'
-                . (int) $gi['Jumlah_Keluar'] * (int) $gi['Harga'] . '
+                . rp((int) $gi['Jumlah_Keluar'] * (int) $gi['Harga']) . '
                                                                                 </div>
                                                                             </div>');
         }
@@ -642,6 +484,164 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
 $nopen++;
     }
     ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-lg-12">
+            <div class="card shadow mb-4">
+              <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Data Penjualan Pupuk
+                  - Anggota</h6>
+              </div>
+
+              <div class="card-body">
+                <div class="row mb-2">
+                  <div class="col col-lg-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered" id="tableAng" width="100%" cellspacing="0">
+                        <thead>
+                          <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Nama Anggota</th>
+                            <th scope="col">Lihat Item</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Dibayar</th>
+                            <th scope="col">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+$nopen = 1;
+    $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0' ORDER BY ID_PJ DESC");
+    foreach ($sqlPenj as $sp) {
+        echo ("<tr>");
+        echo ("<td>" . $nopen . "</td>");
+        echo ("<td>" . $sp['Tanggal'] . "</td>");
+        echo ("<td>" . $sp['ID_AKT'] . "</td>");
+        echo ('<td><center><a href="" data-toggle="modal" data-target="#viewItem' . $sp['ID_PJ'] . '"><i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="Lihat Item Penjualan"> </i> lihat item</center> </a></td>');
+        echo ("<td>" . rp($sp['Total']) . "</td>");
+        echo ("<td>" . rp($sp['Dibayar']) . "</td>");
+        $newKey = "'" . $sp['ID_KEY'] . "'";
+
+        echo ('<td><center><a href=""  data-toggle="modal" data-target="#delItem' . $sp['ID_PJ'] . '" class="btn btn-outline-warning btn-sm"><i class="fas fa-trash-alt"></i></a>  <a href="" class="btn btn-outline-primary btn-sm" onclick="toPrintPage(' . $newKey . ')"><i class="fas fa-print"></i></a></center></td>');
+        echo ("</tr>");
+        ?>
+
+                          <div class="modal fade" id="viewItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Data Item Penjualan Anggota :
+                                  <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <div class="row mb-2">
+                                      <div class="col-sm">
+                                        Item
+                                      </div>
+                                      <div class="col-sm">
+                                        Jumlah
+                                      </div>
+                                      <div class="col-sm">
+                                        Harga / Karung
+                                      </div>
+                                      <div class="col-sm">
+                                        Total
+                                      </div>
+                                    </div>
+                                    <!-- here for looop -->
+                                    <?php
+$getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_keluar WHERE key_transaksi LIKE '" . $sp['ID_KEY'] . "'");
+        foreach ($getItem as $gi) {
+            $nameppk = "";
+            $getPupukName = mysqli_query($conn, "SELECT Jenis_Pupuk FROM data_pupuk WHERE ID_PK =" . $gi['ID_PK']);
+            foreach ($getPupukName as $gpn) {
+                $nameppk = $gpn['Jenis_Pupuk'];
+            }
+            echo (' <div class="row">
+                                                                                <div class="col-sm">'
+                . $nameppk . '
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                . $gi['Jumlah_Keluar'] . '
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                . rp($gi['Harga']) . '
+                                                                                </div>
+                                                                                <div class="col-sm">'
+                . rp((int) $gi['Jumlah_Keluar'] * (int) $gi['Harga']) . '
+                                                                                </div>
+                                                                            </div>');
+        }
+        ?>
+
+                                    <!-- end of loop -->
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="modal fade" id="delItem<?=$sp['ID_PJ'];?>" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  Hapus Anggota : <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="container">
+                                    <center>
+                                      <h3 class="text-danger">PERINGATAN!</h3>
+                                      Membatalkan/ menghapus data mungkin akan
+                                      menyebabkan beberapa data tidak singkron.
+                                      Pastikan
+                                      data yang akan dihapus adalah
+                                      data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                        yakin
+                                        akan
+                                        menghapus ?</strong>
+                                    </center>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">kembali</button>
+                                  <a href="cancelStokKeluar.php?key=<?=$sp['ID_KEY'];?>" class="btn btn-danger">Ya,
+                                    Hapus</a>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <?php
+$nopen++;
+    }
+    ?>
+
+
                         </tbody>
                       </table>
                     </div>

@@ -20,13 +20,13 @@
     <hr class=" sidebar-divider">
     <!-- Menu Stok Pupuk -->
     <div class="sidebar-heading">
-      Stok Pupuk
+      Transaksi Pupuk
     </div>
     <!-- Nav Item - Pages Collapse Menu  -->
   <li <?php if ($_GET['m'] == 2 && $_GET['n'] == 1) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
     <a class="nav-link" href="page_stok_masuk.php?m=2&n=1">
       <i class=" fas fa-fw fa-truck-moving"></i>
-      <span>Stok Masuk</span></a>
+      <span>Stok Pupuk Masuk</span></a>
   </li>
   <li <?php if ($_GET['m'] == 3 && $_GET['n'] == 1) {echo "class='nav-item active'";} else {echo "class='nav-item'";}?>>
     <a class="nav-link" href="page_stok_keluar.php?m=3&n=1">

@@ -23,24 +23,24 @@ if (isset($_SESSION['login'])) {
 
   <title>UD. Tri L | Piutang</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="vendor/datatables/jquery.dataTables.min.css"/>
-    <link type="text/css" rel="stylesheet" href="vendor/datatables/buttons.dataTables.min.css"/>
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <script src="vendor/datatables/jquery-3.5.1.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.buttons.min.js"></script>
-    <script src="vendor/datatables/jszip.min.js"></script>
-    <script src="vendor/datatables/buttons.html5.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/sb-admin-2.min.js"></script>
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="vendor/datatables/jquery.dataTables.min.css" />
+  <link type="text/css" rel="stylesheet" href="vendor/datatables/buttons.dataTables.min.css" />
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script src="vendor/datatables/jquery-3.5.1.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.buttons.min.js"></script>
+  <script src="vendor/datatables/jszip.min.js"></script>
+  <script src="vendor/datatables/buttons.html5.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="js/sb-admin-2.min.js"></script>
 
   <script src="vendor/datatables/jquery-3.5.1.js"></script>
   <script src="vendor/datatables/jquery.dataTables.min.js"></script>
@@ -82,7 +82,7 @@ if (isset($_SESSION['login'])) {
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mt-5">
-            <h1 class="h3 mt-5 text-gray-800">Pengeluaran</h1>
+            <h1 class="h3 mt-5 text-gray-800">Piutang</h1>
 
           </div>
           <!-- konten -->
@@ -91,7 +91,7 @@ if (isset($_SESSION['login'])) {
               <div class="card shadow mb-4">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Data Piutang Kelompok Tani</h6>
                 </div>
 
                 <div class="card-body">
@@ -101,7 +101,7 @@ if (isset($_SESSION['login'])) {
                         <tr>
                           <th scope="col">No</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Kelompok</th>
+                          <th scope="col">Kelompok Tani</th>
                           <th scope="col">Debit</th>
                           <th scope="col">Kredit</th>
 
@@ -112,7 +112,7 @@ if (isset($_SESSION['login'])) {
 $no = 1;
     $totalHutang = 0;
     $totalDibayar = 0;
-    $sqlData = mysqli_query($conn, "select * from piutang where ID_AKT LIKE ''");
+    $sqlData = mysqli_query($conn, "select * from piutang where ID_AKT LIKE '' ORDER BY ID_PT DESC");
     foreach ($sqlData as $sd) {
         echo ('<tr><td>' . $no . '</td>');
         echo ('<td>' . $sd["Tanggal"] . '</td>');
@@ -204,7 +204,7 @@ $no = 1;
               <div class="card shadow mb-4">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran Biaya</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Data Piutang Anggota</h6>
                 </div>
 
                 <div class="card-body">
@@ -214,7 +214,7 @@ $no = 1;
                         <tr>
                           <th scope="col">No</th>
                           <th scope="col">Tanggal</th>
-                          <th scope="col">Kelompok</th>
+                          <th scope="col">Nama Anggota</th>
                           <th scope="col">Debit</th>
                           <th scope="col">Kredit</th>
 
@@ -225,7 +225,7 @@ $no = 1;
 $noA = 1;
     $totalHutangA = 0;
     $totalDibayarA = 0;
-    $sqlData = mysqli_query($conn, "select * from piutang where ID_KT=0");
+    $sqlData = mysqli_query($conn, "select * from piutang where ID_KT=0 ORDER BY ID_PT DESC");
     foreach ($sqlData as $sd) {
         echo ('<tr><td>' . $noA . '</td>');
         echo ('<td>' . $sd["Tanggal"] . '</td>');
@@ -322,7 +322,7 @@ $noA = 1;
 
     <!-- Bootstrap core JavaScript-->
     <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-    
+
 
 
 </body>
