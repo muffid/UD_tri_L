@@ -315,6 +315,13 @@ function getColor()
     //total pendapatan
     $totalPendapatan = $hasilPenjualan - $totalAll;
 
+    //piutang
+    $sqlPiutang = mysqli_query($conn, "SELECT SUM(Kredit)-SUM(Debit) as total_hutang FROM piutang ");
+    foreach ($sqlPiutang as $keyPiutang) {
+        $hasilPiutang = $keyPiutang['total_hutang'];
+    }
+//kas real
+    $kas = $totalPendapatan - $hasilPiutang;
     ?>
                   <h4 class="text-center text-warning">Total Pengeluaran</h4>
                   <h5>Pembelian Pupuk = <?=rp($hasilPengeluaran);?></h5>
@@ -332,9 +339,21 @@ function getColor()
                     <h4 class="text-center text-success">Total Pendapatan</h4>
                     <h5 class="text-success">Profit = <?php }
     ;?>
-
                       <?=rp($totalPendapatan);?>
                     </h5>
+                    <hr>
+                    <h4 class="text-center text-warning">Total Piutang</h4>
+                    <h5>Piutang = <?=rp($hasilPiutang);?></h5>
+                    <hr>
+                    <?php if ($kas < 0) {;?>
+                    <h4 class="text-center text-danger">Kas Saat Ini</h4>
+                    <h4 class="text-danger"><?=rp($kas);?></h4>
+                    <?php } else {;?>
+                    <h4 class="text-center text-warning">Kas Saat Ini</h4>
+                    <h4 class="text-success"><?=rp($kas);?></h4>
+                    <?php }
+    ;?>
+
                 </div>
               </div>
             </div>
