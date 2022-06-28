@@ -334,10 +334,10 @@ function getColor()
 
                   <?php if ($totalPendapatan < 0) {?>
                   <h4 class="text-center text-danger">Total Pendapatan</h4>
-                  <h5 class="text-danger">Non Profit =
+                  <h5 class="text-danger">Status Non Profit =
                     <?php } else {?>
                     <h4 class="text-center text-success">Total Pendapatan</h4>
-                    <h5 class="text-success">Profit = <?php }
+                    <h5 class="text-success">Status Profit = <?php }
     ;?>
                       <?=rp($totalPendapatan);?>
                     </h5>
