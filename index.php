@@ -312,7 +312,7 @@ function getColor()
             </div>
 
 
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-6 col-lg-5" hidden>
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -484,53 +484,56 @@ function getColor()
   });
 
 
-  var tota=document.getElementById("totanggota").innerHTML;
-  var totk=document.getElementById("totkelompok").innerHTML;
+  var tota=parseInt(document.getElementById("totanggota").innerHTML);
+  var totk=parseInt(document.getElementById("totkelompok").innerHTML);
   var colora=getcolor();
   var colork=getcolor();
 
   var ctx = document.getElementById("yourChart").getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Anggota','Kelompok Tani'],
-      datasets: [{
-        label: 'total pemasukan',
-        data: [tota,totk],
-        backgroundColor: [colora,colork],
-        //borderColor: 'rgba(45,123,78,99)',
-        //borderWidth: 23
-      }]
+  
+  var myPie = new Chart(ctx, {
+  type: 'pie',
+  data: {
+    labels: ["Anggota","Kelompok"],
+    datasets: [{
+      backgroundColor: [getcolor(),getcolor()],
+      data: [tota, totk]
+    }],
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'total pemasukan bulan ini',
+      fontStyle: 'bold',
+      fontSize: 20
     },
-    options: {
-        tooltips: {
-         callbacks: {
-            label: function(t, d) {
-               var xLabel = d.datasets[t.datasetIndex].label;
-               var yLabel = t.yLabel >= 1000 ? 'Rp. ' + t.yLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 'R[. ' + t.yLabel;
-               return xLabel + ': ' + yLabel;
-            }
-         }
-      },
-      scales: {
-        xAxes: [{
-            barPercentage: 0.4
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            callback: function(value, index, values) {
-                  if (parseInt(value) >= 1000) {
-                     return 'Rp. ' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                  } else {
-                     return 'Rp. ' + value;
-                  }
-               }
+    tooltips: {
+      callbacks: {
+        // this callback is used to create the tooltip label
+        label: function(tooltipItem, data) {
+          // get the data label and data value to display
+          // convert the data value to local string so it uses a comma seperated number
+          var dataLabel = data.labels[tooltipItem.index];
+          var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+
+          // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
+          if (Chart.helpers.isArray(dataLabel)) {
+            // show value on first line of multiline label
+            // need to clone because we are changing the value
+            dataLabel = dataLabel.slice();
+            dataLabel[0] += value;
+          } else {
+            dataLabel += value;
           }
-        }]
+
+          // return the text to display on the tooltip
+          return "Hasil Penjualan Ke "+dataLabel;
+        }
       }
     }
-  });
+  }
+});
+
   </script>
 </body>
 
