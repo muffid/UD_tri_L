@@ -96,7 +96,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="checkPiutang()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -199,7 +199,7 @@ unset($_SESSION["info"]);
                   <div class="row mb-2">
                     <label class="col-sm-4 col-form-label"> </label>
                     <div class="col-sm-8">
-                      <button type="submit" class="btn btn-primary btn-sm">bayar</button>
+                      <button type="submit" id="btnpelunasan" class="btn btn-primary btn-sm">bayar</button>
                     </div>
                     </form>
                   </div>
@@ -311,6 +311,16 @@ function convertRP() {
   document.getElementById("bayar").value = toRp(num, "Rp. ");
 
 
+}
+
+function checkPiutang(){
+  var piutang=document.getElementById("piutangaktif").innerHTML;
+  var piutangNum = piutang.replace("Rp. ","").replace(".","");
+  if(piutangNum>0){
+    document.getElementById("btnpelunasan").disabled = false;
+  }else{
+    document.getElementById("btnpelunasan").disabled=true;
+  }
 }
 
 
