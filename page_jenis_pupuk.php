@@ -220,16 +220,14 @@ $no = 1;
                               <div class="modal-body">
                                 <center>
                                   <h3 class="text-danger">PERINGATAN!</h3>Menghapus
-                                  data mungkin akan
-                                  menyebabkan beberapa data tidak singkron. Pastikan
-                                  data yang akan dihapus adalah
-                                  data yang sudah tidak terpakai. <strong class="text-danger">Anda yakin
+                                  data Pupuk <?=$all['Jenis_Pupuk'];?> mungkin akan
+                                  menyebabkan beberapa data tidak singkron. <strong class="text-danger">Anda yakin
                                     akan
                                     menghapus ?</strong>
                                 </center>
                               </div>
                               <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
                                 <a href="deletePupuk.php?id=<?=$all['ID_PK'];?>" class="btn btn-danger">Ya, Hapus</a>
                               </div>
                             </div>

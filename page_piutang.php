@@ -81,8 +81,9 @@ if (isset($_SESSION['login'])) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mt-5">
-            <h1 class="h3 mt-5 text-gray-800">Piutang</h1>
+          <hr class="sidebar-divider my-0 mt-5 mb-5">
+          <div class="d-sm-flex align-items-center justify-content-between ">
+            <h1 class="h3 mb-3 text-gray-800">Piutang</h1>
 
           </div>
           <!-- konten -->

@@ -38,11 +38,6 @@ if (isset($_SESSION['login'])) {
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="img/logo1.png" rel="icon">
-  <?php
-// header
-    include "segment/header.php";
-    //    end Header
-    ?>
 
 </head>
 
@@ -58,15 +53,20 @@ if (isset($_SESSION['login'])) {
 
       <!-- Main Content -->
       <div id="content ">
+        <?php
+// header
+    include "segment/header.php";
+    //    end Header
+    ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mt-5">
-            <h1 class="h3 mt-5 text-gray-800">Dashboard</h1>
-            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i -->
-            <!-- class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+          <hr class="sidebar-divider my-0 mt-5 mb-5">
+          <div class="d-sm-flex align-items-center justify-content-between ">
+            <h1 class="h3 mb-3 text-gray-800">Dashboard</h1>
+
           </div>
 
           <!-- Content Row -->
@@ -175,13 +175,13 @@ function getColor()
     }
     echo ('<label id="totppk" hidden>' . ($no - 1) . '</label>');
 
-    $sqlGetTotAnggota=mysqli_query($conn,"SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%jun 2022%')");
-    foreach($sqlGetTotAnggota as $sgta){
+    $sqlGetTotAnggota = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%jun 2022%')");
+    foreach ($sqlGetTotAnggota as $sgta) {
         echo ('<label id="totanggota" hidden >' . $sgta['tot'] . '</label>');
     }
 
-    $sqlGetTotKelompok=mysqli_query($conn,"SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%jun 2022%')");
-    foreach($sqlGetTotKelompok as $sgtk){
+    $sqlGetTotKelompok = mysqli_query($conn, "SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%jun 2022%')");
+    foreach ($sqlGetTotKelompok as $sgtk) {
         echo ('<label id="totkelompok" hidden >' . $sgtk['tots'] . '</label>');
     }
     ?>
@@ -302,8 +302,8 @@ function getColor()
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                 
-                <div>
+
+                  <div>
                     <canvas id="yourChart"></canvas>
                   </div>
 
@@ -472,7 +472,7 @@ function getColor()
     options: {
       scales: {
         xAxes: [{
-            barPercentage: 0.4
+          barPercentage: 0.4
         }],
         yAxes: [{
           ticks: {
@@ -484,56 +484,55 @@ function getColor()
   });
 
 
-  var tota=parseInt(document.getElementById("totanggota").innerHTML);
-  var totk=parseInt(document.getElementById("totkelompok").innerHTML);
-  var colora=getcolor();
-  var colork=getcolor();
+  var tota = parseInt(document.getElementById("totanggota").innerHTML);
+  var totk = parseInt(document.getElementById("totkelompok").innerHTML);
+  var colora = getcolor();
+  var colork = getcolor();
 
   var ctx = document.getElementById("yourChart").getContext('2d');
-  
+
   var myPie = new Chart(ctx, {
-  type: 'pie',
-  data: {
-    labels: ["Anggota","Kelompok"],
-    datasets: [{
-      backgroundColor: [getcolor(),getcolor()],
-      data: [tota, totk]
-    }],
-  },
-  options: {
-    title: {
-      display: true,
-      text: 'total pemasukan bulan ini',
-      fontStyle: 'bold',
-      fontSize: 20
+    type: 'pie',
+    data: {
+      labels: ["Anggota", "Kelompok"],
+      datasets: [{
+        backgroundColor: [getcolor(), getcolor()],
+        data: [tota, totk]
+      }],
     },
-    tooltips: {
-      callbacks: {
-        // this callback is used to create the tooltip label
-        label: function(tooltipItem, data) {
-          // get the data label and data value to display
-          // convert the data value to local string so it uses a comma seperated number
-          var dataLabel = data.labels[tooltipItem.index];
-          var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
+    options: {
+      title: {
+        display: true,
+        text: 'total pemasukan bulan ini',
+        fontStyle: 'bold',
+        fontSize: 20
+      },
+      tooltips: {
+        callbacks: {
+          // this callback is used to create the tooltip label
+          label: function(tooltipItem, data) {
+            // get the data label and data value to display
+            // convert the data value to local string so it uses a comma seperated number
+            var dataLabel = data.labels[tooltipItem.index];
+            var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
 
-          // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
-          if (Chart.helpers.isArray(dataLabel)) {
-            // show value on first line of multiline label
-            // need to clone because we are changing the value
-            dataLabel = dataLabel.slice();
-            dataLabel[0] += value;
-          } else {
-            dataLabel += value;
+            // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
+            if (Chart.helpers.isArray(dataLabel)) {
+              // show value on first line of multiline label
+              // need to clone because we are changing the value
+              dataLabel = dataLabel.slice();
+              dataLabel[0] += value;
+            } else {
+              dataLabel += value;
+            }
+
+            // return the text to display on the tooltip
+            return "Hasil Penjualan Ke " + dataLabel;
           }
-
-          // return the text to display on the tooltip
-          return "Hasil Penjualan Ke "+dataLabel;
         }
       }
     }
-  }
-});
-
+  });
   </script>
 </body>
 

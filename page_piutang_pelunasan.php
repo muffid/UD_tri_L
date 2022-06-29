@@ -114,8 +114,9 @@ if (isset($_SESSION['login'])) {
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mt-5">
-            <h1 class="h3 mt-5 text-gray-800">Pelunasan</h1>
+          <hr class="sidebar-divider my-0 mt-5 mb-5">
+          <div class="d-sm-flex align-items-center justify-content-between ">
+            <h1 class="h3 mb-3 text-gray-800">Pelunasan</h1>
             <a href="page_piutang.php?m=10&n=10"
               class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
                 class="far fa-arrow-alt-circle-left  text-white-50"></i> Kembali Ke Halaman Piutang</a>
@@ -313,13 +314,13 @@ function convertRP() {
 
 }
 
-function checkPiutang(){
-  var piutang=document.getElementById("piutangaktif").innerHTML;
-  var piutangNum = piutang.replace("Rp. ","").replace(".","");
-  if(piutangNum>0){
+function checkPiutang() {
+  var piutang = document.getElementById("piutangaktif").innerHTML;
+  var piutangNum = piutang.replace("Rp. ", "").replace(".", "");
+  if (piutangNum > 0) {
     document.getElementById("btnpelunasan").disabled = false;
-  }else{
-    document.getElementById("btnpelunasan").disabled=true;
+  } else {
+    document.getElementById("btnpelunasan").disabled = true;
   }
 }
 

@@ -459,11 +459,10 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
                                   <div class="container">
                                     <center>
                                       <h3 class="text-danger">PERINGATAN!</h3>
-                                      Membatalkan/ menghapus data mungkin akan
+                                      Membatalkan/ menghapus data Penjualan kepada kelompok tani <?=$namakelompok;?>
+                                      mungkin akan
                                       menyebabkan beberapa data tidak singkron.
-                                      Pastikan
-                                      data yang akan dihapus adalah
-                                      data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                      <strong class="text-danger">Anda
                                         yakin
                                         akan
                                         menghapus ?</strong>
@@ -606,7 +605,8 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  Hapus Anggota : <?php echo ($sp['ID_AKT'] . '<br>Tanggal : ' . $sp['Tanggal']); ?>
+                                  Hapus Transaksi Anggota :
+                                  <?php echo ($sp['ID_AKT'] . '<br>Tanggal Pembelian : ' . $sp['Tanggal']); ?>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -615,11 +615,10 @@ $getItem = mysqli_query($conn, "SELECT ID_PK,Jumlah_Keluar,Harga FROM stok_kelua
                                   <div class="container">
                                     <center>
                                       <h3 class="text-danger">PERINGATAN!</h3>
-                                      Membatalkan/ menghapus data mungkin akan
+                                      Membatalkan/ menghapus data Penjualan kepada <?php echo $sp['ID_AKT']; ?> mungkin
+                                      akan
                                       menyebabkan beberapa data tidak singkron.
-                                      Pastikan
-                                      data yang akan dihapus adalah
-                                      data yang sudah tidak terpakai. <strong class="text-danger">Anda
+                                      <strong class="text-danger">Anda
                                         yakin
                                         akan
                                         menghapus ?</strong>

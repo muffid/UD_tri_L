@@ -278,10 +278,8 @@ $no = 1;
                               <div class="modal-body">
                                 <center>
                                   <h3 class="text-danger">PERINGATAN!</h3>
-                                  Menghapus data mungkin akan
-                                  menyebabkan beberapa data tidak singkron. Pastikan
-                                  data yang akan dihapus adalah
-                                  data yang sudah tidak terpakai. <strong class="text-danger">Anda yakin
+                                  Menghapus data Kelompok tani <?=$all['Nama_Kel'];?> mungkin akan
+                                  menyebabkan beberapa data tidak singkron. <strong class="text-danger">Anda yakin
                                     akan
                                     menghapus ?</strong>
                                 </center>

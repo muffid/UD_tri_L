@@ -49,8 +49,10 @@ if (isset($_SESSION['login'])) {
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <div class="d-sm-flex align-items-center justify-content-between mt-5">
-            <h1 class="h3 mt-5 text-gray-800">Edit Data Kelompok Tani</h1>
+          <hr class="sidebar-divider my-0 mt-5 mb-5">
+          <div class="d-sm-flex align-items-center justify-content-between ">
+            <h1 class="h3 mb-3 text-gray-800">Edit Data Kelompok Tani</h1>
+
             <a href="page_kel_tani.php?m=4&n=2"
               class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
                 class="far fa-arrow-alt-circle-left  text-white-50"></i> Kembali Ke Halaman Kelompok Tani</a>

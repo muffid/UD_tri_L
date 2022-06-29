@@ -292,7 +292,7 @@ $no = 1;
                         <!-- Modal delete -->
                         <div class="modal fade" id="exampleModalCenter<?=$all['ID_SM'];?>" tabindex="-1" role="dialog"
                           aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                          <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLongTitle">
@@ -309,8 +309,8 @@ $no = 1;
                                   menyebabkan beberapa data tidak singkron.
                                   Pastikan
                                   data pupuk masuk yang akan dihapus adalah
-                                  data yang belum dilakukan penjualan pada kelompok tani sama sekali. <strong
-                                    class="text-danger">Anda
+                                  data yang <strong>belum dilakukan penjualan </strong> pada kelompok tani/ Anggota sama
+                                  sekali. <strong class="text-danger">Anda
                                     yakin
                                     akan
                                     menghapus ?</strong>
