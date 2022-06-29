@@ -14,12 +14,13 @@
 
 <nav class="navbar navbar-expand navbar-light bg-white topbar  fixed-top shadow">
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-    <div class="">
+    <div class="sidebar-brand-icon rotate-n-15">
       <img style="width:40px" src="img/logo1.png">
     </div>
-    <div class="font-weight-bold mt-3 mx-3 mr-5">
-      <h3><?php echo ($_SESSION['per']); ?> </h3>
-    </div>
+
+
+    <div class="sidebar-brand-text mx-3"><?php echo ($_SESSION['per']); ?></div>
+
   </a>
 
   <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
