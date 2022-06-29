@@ -19,7 +19,7 @@ if (isset($_SESSION['login'])) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>UD. Tri L | Blank</title>
+  <title>UD. Tri L | Anggota</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,12 +29,8 @@ if (isset($_SESSION['login'])) {
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-  <?php
-// header
-    include "segment/header.php";
-    //    end Header
-    ?>
 
+  <link href="img/logo1.png" rel="icon">
 </head>
 
 <body id="page-top">
@@ -50,7 +46,11 @@ if (isset($_SESSION['login'])) {
 
       <!-- Main Content -->
       <div id="content">
-
+        <?php
+// header
+    include "segment/header.php";
+    //    end Header
+    ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
