@@ -840,7 +840,7 @@ $nopen++;
       var stokpupuk = e.options[e.selectedIndex].className;
       var inputJml = document.getElementById("jumlah").value;
 
-      if(parseInt(stokpupuk)>parseInt(inputJml)){
+      if(parseInt(stokpupuk)>=parseInt(inputJml)){
 
       
     const nodeTR = document.createElement("tr");
