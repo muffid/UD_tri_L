@@ -317,7 +317,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                     </div>
 
                     <div class="col-sm-3">
-                      <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> simpan</button>
+                      <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit" disabled><i class="fas fa-save"></i> simpan</button>
                     </div>
 
                   </div>
@@ -794,8 +794,10 @@ $nopen++;
       if (tbody.hasChildNodes()) {
         tbody.removeChild(tbody.lastElementChild);
         name--;
-      } else {
-
+        console.log(name);
+        if(name==0){
+          document.getElementById('btnSubmit').disabled=true;
+        }
       }
     }
     hitungTotal();
@@ -908,6 +910,9 @@ $nopen++;
 
     var row = document.getElementById("row");
     row.appendChild(inputID);
+    document.getElementById('btnSubmit').disabled=false;
+
+
       }else{alert('Stok pupuk tidak mencukupi. Stok pupuk tersedia : '+stokpupuk+' karung');}
     }else{
       alert('Masukan jumlah karung');
