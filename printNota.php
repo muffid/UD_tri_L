@@ -11,6 +11,15 @@ $pembeli="";
 $tanggal="";
 $KEY=$_GET['KEY'];
 
+$alamat="";
+$telp="";
+
+$sqlGetInfo=mysqli_query($conn,"select Alamat, No_telp from user where Id=1");
+foreach($sqlGetInfo as $sgi){
+	$alamat=$sgi['Alamat'];
+	$telp=$sgi['No_telp'];
+}
+
 if (isset($_SESSION['login']) ) {
 
 	if($BUYER==1){
@@ -63,7 +72,7 @@ td{
 <td colspan="2" style="width:100%; padding:10px;"><span style="font-size:20px; color:green; font-weight:bold;">NOTA PENJUALAN UD TRI L</span></td>
 </tr>
 <tr>
-<td colspan="2" style="width:100%; padding:5px;"><span style="font-size:12px;">Alamat: Dampit Kab Malang Telp : 0857875604545 email:udtril@gmail.com</span></td>
+<td colspan="2" style="width:100%; padding:5px;"><span style="font-size:12px;">Alamat: '.$alamat.' || Telp : '.$telp.'</span></td>
 </tr>
 <tr>
 <td style="width:60%;">Pembeli : '.$pembeli.'</td>
