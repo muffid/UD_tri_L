@@ -114,7 +114,7 @@ if (isset($_SESSION['login'])) {
                     <label class="col-sm-4 col-form-label"> Nama Kelompok </label>
                     <div class="col-sm-8">
                       <select class="custom-select" id="selectcust" onclick="custControl()">
-                        <option selected="true" disabled="disabled">-- pilih kelompok tani --
+                        <option value="nocust" selected="true" disabled="disabled">-- pilih kelompok tani --
                         </option>
                         <?php
 $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY ID_KT DESC");
@@ -145,7 +145,7 @@ $data = mysqli_query($conn, "SELECT ID_KT,Nama_Kel FROM data_kel_tani ORDER BY I
                     <div class="col-sm-8">
                       <select class="custom-select" id="selectpupuk" name="selectpupuk" onchange="pupukControl()"
                         required>
-                        <option selected="true" disabled="disabled">-- pilih jenis pupuk --
+                        <option  value="nopuk" selected="true" disabled="disabled">-- pilih jenis pupuk --
                         </option>
                         <?php
 $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk ORDER BY ID_PK DESC");
@@ -270,7 +270,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                   <div class="row mb-2">
                     <!-- Nama Pengirim -->
                     <label class="col-sm-7 col-form-label"> <button type="button" class="btn btn-danger btn-sm"
-                        onclick="decName()"><i class="fas fa-undo-alt"></i></button> </label>
+                        onclick="decName()"><i class="fas fa-undo-alt"></i> hapus baris</button> </label>
 
                   </div>
 
@@ -317,7 +317,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                     </div>
 
                     <div class="col-sm-3">
-                      <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> simpan</button>
+                      <button type="submit" class="btn btn-primary btn-sm" id="btnSubmit" disabled><i class="fas fa-save"></i> simpan</button>
                     </div>
 
                   </div>
@@ -794,23 +794,55 @@ $nopen++;
       if (tbody.hasChildNodes()) {
         tbody.removeChild(tbody.lastElementChild);
         name--;
-      } else {
-
+        console.log(name);
+        if(name==0){
+          document.getElementById('btnSubmit').disabled=true;
+        }
       }
     }
     hitungTotal();
 
   }
 
+  function checkFill(){
+    var selPupuk = document.getElementById("selectpupuk");
+    var selCust = document.getElementById("selectcust");
+    var cust = selCust.options[selCust.selectedIndex].value;
+    var pupukopt = selPupuk.options[selPupuk.selectedIndex].value;
+    var angg = document.getElementById('anggota').value;
+
+    if(siapacust===1){
+      if(pupukopt==='nopuk' || cust==='nocust'){
+        return false;
+      }else{return true;}
+   }else{
+    if(pupukopt==='nopuk' || angg===''){
+        return false;
+      }else{return true;}
+   }
+}
 
   function addFields() {
+
+    
     var selPupuk = document.getElementById("selectpupuk");
     var pupuk = selPupuk.options[selPupuk.selectedIndex].text;
-
     var harga = document.getElementById("harga").value.split('.').join("");
     var hargaNoRp = harga.replace("Rp ", "");
     var jumlah = document.getElementById("jumlah").value;
+    var inputJumlah=document.getElementById('jumlah').value;
 
+    
+    if(checkFill()){
+    if(inputJumlah>0 ){
+
+      var e = document.getElementById("selectpupuk");
+      var stokpupuk = e.options[e.selectedIndex].className;
+      var inputJml = document.getElementById("jumlah").value;
+
+      if(parseInt(stokpupuk)>=parseInt(inputJml)){
+
+      
     const nodeTR = document.createElement("tr");
 
     const nodeTDb = document.createElement("td");
@@ -878,7 +910,18 @@ $nopen++;
 
     var row = document.getElementById("row");
     row.appendChild(inputID);
+    document.getElementById('btnSubmit').disabled=false;
 
+
+      }else{alert('Stok pupuk tidak mencukupi. Stok pupuk tersedia : '+stokpupuk+' karung');}
+    }else{
+      alert('Masukan jumlah karung');
+    }
+
+  
+  }else{
+    alert('Format salah, lengkapi data terlebih dahulu')
+  }
 
   }
 
@@ -894,7 +937,10 @@ $nopen++;
     document.getElementById("notatotal").value = toRp(totalResult.toString(), "Rp. ");
   }
 
+  var siapacust=1;
+
   function anggotaCtrl() {
+    siapacust=0;
     document.getElementById("namaanggota").required = true;
     document.getElementById("idkel").required = false;
     document.getElementById("divKel").hidden = true;
@@ -905,15 +951,16 @@ $nopen++;
 
   }
 
+  
   function kelompokCtrl() {
     document.getElementById("namaanggota").required = false;
-
+    siapacust=1;
     document.getElementById("idkel").required = true;
     document.getElementById("divKel").hidden = false;
     document.getElementById("divAng").hidden = true;
     document.getElementById("buyer").value = "2";
     document.getElementById("anggota").value = "";
-    document.getElementById("notanama").innerHTML = "Nama Pembeli : __________________"
+    document.getElementById("notanama").innerHTML = "Nama Pembeli : __________________";
 
   }
 
