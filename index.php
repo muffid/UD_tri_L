@@ -170,9 +170,9 @@ function getColor()
 
             }
 
-            $sqlGetMasuk= mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS totM FROM stok_masuk WHERE (ID_PK=" . $key['ID_PK']." AND Tanggal LIKE '%".$blnBl."%')");
-            foreach($sqlGetMasuk as $sgm){
-              echo ('<label id="masuk' . $no . '" hidden>' . $sgm['totM'] . '</label>');
+            $sqlGetMasuk = mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS totM FROM stok_masuk WHERE (ID_PK=" . $key['ID_PK'] . " AND Tanggal LIKE '%" . $blnBl . "%')");
+            foreach ($sqlGetMasuk as $sgm) {
+                echo ('<label id="masuk' . $no . '" hidden>' . $sgm['totM'] . '</label>');
             }
 
         }
@@ -181,17 +181,17 @@ function getColor()
     }
     echo ('<label id="totppk" hidden>' . ($no - 1) . '</label>');
 
-    $totAng=0;
-    $totKel=0;
-    $sqlGetTotAnggota = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%".$tanggal."%')");
+    $totAng = 0;
+    $totKel = 0;
+    $sqlGetTotAnggota = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%" . $tanggal . "%')");
     foreach ($sqlGetTotAnggota as $sgta) {
-      $totAng= $sgta['tot'];
+        $totAng = $sgta['tot'];
         echo ('<label id="totanggota" hidden >' . $sgta['tot'] . '</label>');
     }
 
-    $sqlGetTotKelompok = mysqli_query($conn, "SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%".$tanggal."%')");
+    $sqlGetTotKelompok = mysqli_query($conn, "SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%" . $tanggal . "%')");
     foreach ($sqlGetTotKelompok as $sgtk) {
-      $totKel=$sgtk['tots'];
+        $totKel = $sgtk['tots'];
         echo ('<label id="totkelompok" hidden >' . $sgtk['tots'] . '</label>');
     }
     ?>
@@ -319,7 +319,7 @@ function getColor()
 
                   <div class="row">
                     <div class="col-md-12 mt-4">
-                      <p class="text-center font-weight-bold text-secondary">Total : <?=rp($totAng+$totKel); ?></p>
+                      <p class="text-center font-weight-bold text-secondary">Total : <?=rp($totAng + $totKel);?></p>
                     </div>
                   </div>
 
@@ -388,133 +388,152 @@ function getColor()
 //kas real
     $kas = $totalPendapatan - $hasilPiutang;
     ?>
-                          <div class = "row">
+                  <div class="row">
 
-                            <div class="col-xl-6 col-md-6 mb-2">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body d-flex">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-md-9">
-                                              <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
-                                                TOTAL PENGELUARAN 
-                                              </div>
+                    <div class="col-xl-6 col-md-6 mb-2">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body d-flex">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-md-9">
+                              <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
+                                TOTAL PENGELUARAN
+                              </div>
 
-                                              <div class="ml-4 mb-2 text-muted"><span style="font-size:14px;">
-                                               Total pengeluaran adalah jumlah dari biaya penbelian pupuk ditambahkan dengan 
-                                                biaya transport pengiriman pupuk.</span>
-                                              </div>
+                              <div class="ml-4 mb-2 text-muted"><span style="font-size:14px;">
+                                  Total pengeluaran adalah jumlah dari biaya penbelian pupuk ditambahkan dengan
+                                  biaya transport pengiriman pupuk.</span>
+                              </div>
 
-                                              <div class="ml-4 h4 mb-2 font-weight-bold text-success">
-                                                <?= rp($totalAll);?> 
-                                              </div>
-
-                                            </div><div class="col-md-3"><img src="img/money-bag.png" width="50%"></div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                              <div class="ml-4 h4 mb-2 font-weight-bold text-success">
+                                <?=rp($totalAll);?>
+                              </div>
+                              <h6 class="mt-3 ml-4">ke Halaman
+                                <a target="_blank" rel="nofollow" href="page_pengeluaran.php?m=8&n=8">
+                                  Pengeluaran >></a>
                             </div>
-                            <div class="col-md-6">
-                            <div class="row">
-                            <div class="col-xl-12 col-md-6 mb-4">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row">
-                                        <div class="col-auto ml-4">
-                                                <div class="text-md font-weight-bold mb-2">
-                                                   Total Biaya Transport</div>
-                                                    
-                                                <div class="h5 mb-0  text-success"> <?=rp($hasilTransport);?></div>
-                                            </div>
-                                        <div class="col-md-4 ml-4">
-                                            <img src="img/delivery-truck.png" width="35%">
-                                            </div>
-                                           
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="col-md-3"><img src="img/money-bag.png" width="50%"></div>
 
-                            <div class="col-xl-12 col-md-6 mb-4">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row">
-                                        <div class="col-auto ml-4">
-                                                <div class="text-md font-weight-bold  mb-2">
-                                                    Total Pembelian Pupuk</div>
-                                                  
-                                                <div class="h5 mb-0  text-success"> <?=rp($hasilPengeluaran);?></div>
-                                            </div>
-                                        <div class="col-md-4 ml-4">
-                                            <img src="img/purchase.png" width="35%">
-                                            </div>
-                                            
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></div></div>
-  </div>
-  <hr>
-                      <div class="row">
-
-                      <div class="col-xl-12 col-md-6 mb-2">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-md-10">
-                                            <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
-                                                    TOTAL PEMASUKAN</div>
-                                                    <div class="mb-0  ml-4 mb-2 text-muted">total pemasukan adalah total dari semua penjualan pupuk (termasuk piutang yang
-                                                      belum dilunasi)</div>
-                                                <div class="h3 mb-0 ml-4 mb-2 font-weight-bold text-success"><?=rp($hasilPenjualan);?></div>
-                                            </div>
-                                            <div class="col-md-2 ml-6">
-                                                <img src="img/duwit.png" width="40%">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                      </div><hr>
-
-                      <div class="row">
-
-                      <div class="col-xl-12 col-md-6 mb-2">
-                                <div class="card border-left-primary shadow h-100 py-2">
-                                    <div class="card-body">
-                                    <div class="ml-4 h4 mb-4 font-weight-bold text-gray-800">
-                                                    HUTANG PIUTANG</div>
-                                        <div class="row">
-                                          <div class="col-md-10">
-                                        <div class="table-responsive">
-                                          <table class="table table-bordered">
-                                          <thead>
-                                            <th scope="col">Total Hutang</th>
-                                            <th scope="col">Telah Dibayar</th>
-                                            <th scope="col">Hutang Aktif</th>
-                                          </thead>
-                                          <tbody>
-                                            <tr>
-                                              <td style="font-weight:bold;"><?=rp((int)$hasilPiutang);?></td>
-                                              <td style="font-weight:bold;"><?=rp((int)$hasilDibayar);?></td>
-                                              <td style="font-weight:bold;"><?=rp((int)$hasilPiutang-(int)$hasilDibayar);?></td>
-                                          </tbody>
-                                          </table>
-                                        </div>
-                                        </div><div class="col-md-2 mt-4"><img src="img/money.png" width="40%"></div>
-  </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
+                          </div>
+                        </div>
                       </div>
-         
-              
-<!-- 
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-xl-12 col-md-6 mb-4">
+                          <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-auto ml-4">
+                                  <div class="text-md font-weight-bold mb-2">
+                                    Total Biaya Transport</div>
+
+                                  <div class="h5 mb-0  text-success"> <?=rp($hasilTransport);?></div>
+                                </div>
+                                <div class="col-md-4 ml-4">
+                                  <img src="img/delivery-truck.png" width="35%">
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-xl-12 col-md-6 mb-4">
+                          <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-auto ml-4">
+                                  <div class="text-md font-weight-bold  mb-2">
+                                    Total Pembelian Pupuk</div>
+
+                                  <div class="h5 mb-0  text-success"> <?=rp($hasilPengeluaran);?></div>
+                                </div>
+                                <div class="col-md-4 ml-4">
+                                  <img src="img/purchase.png" width="35%">
+                                </div>
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+
+                    <div class="col-xl-12 col-md-6 mb-2">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-md-10">
+                              <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
+                                TOTAL PEMASUKAN</div>
+                              <div class="mb-0  ml-4 mb-2 text-muted">total pemasukan adalah total dari semua penjualan
+                                pupuk (termasuk piutang yang
+                                belum dilunasi)</div>
+                              <div class="h3 mb-0 ml-4 mb-2 font-weight-bold text-success"><?=rp($hasilPenjualan);?>
+                              </div>
+                            </div>
+                            <div class="col-md-2 ml-6">
+                              <img src="img/duwit.png" width="40%">
+                            </div>
+
+                          </div>
+                          <h6 class="mt-3 ml-4">ke Halaman
+                            <a target="_blank" rel="nofollow" href="page_pemasukan.php?m=9&n=9">
+                              Pemasukan >></a>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <hr>
+
+                  <div class="row">
+
+                    <div class="col-xl-12 col-md-6 mb-2">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="ml-4 h4 mb-4 font-weight-bold text-gray-800">
+                            HUTANG PIUTANG</div>
+                          <div class="row">
+                            <div class="col-md-10">
+                              <div class="table-responsive">
+                                <table class="table table-bordered">
+                                  <thead>
+                                    <th scope="col">Total Hutang</th>
+                                    <th scope="col">Telah Dibayar</th>
+                                    <th scope="col">Hutang Aktif</th>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td style="font-weight:bold;"><?=rp((int) $hasilPiutang);?></td>
+                                      <td style="font-weight:bold;"><?=rp((int) $hasilDibayar);?></td>
+                                      <td style="font-weight:bold;"><?=rp((int) $hasilPiutang - (int) $hasilDibayar);?>
+                                      </td>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="col-md-2 mt-4"><img src="img/money.png" width="40%"></div>
+                          </div>
+                          <h6>ke Halaman
+                            <a target="_blank" rel="nofollow" href="page_piutang.php?m=10&n=10">
+                              Piutang >></a>
+                          </h6>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <!--
                   <?php if ($totalPendapatan < 0) {?>
                   <h4 class="text-center text-danger">Total Pendapatan</h4>
                   <h5 class="text-danger">Status Non Profit =
@@ -544,180 +563,181 @@ function getColor()
 
 
 
-        </div>
-        <!-- /.container-fluid -->
+                </div>
+                <!-- /.container-fluid -->
 
-      </div>
-      <!-- End of Main Content -->
-      <!-- footer -->
-      <?php include "segment/footer.php";?>
-      <!-- end footer -->
-    </div>
-    <!-- End of Content Wrapper -->
+              </div>
+              <!-- End of Main Content -->
+              <!-- footer -->
+              <?php include "segment/footer.php";?>
+              <!-- end footer -->
+            </div>
+            <!-- End of Content Wrapper -->
 
 
-  </div>
-  <!-- End of Page Wrapper -->
+          </div>
+          <!-- End of Page Wrapper -->
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+          <!-- Bootstrap core JavaScript-->
+          <script src="vendor/jquery/jquery.min.js"></script>
+          <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+          <!-- Core plugin JavaScript-->
+          <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+          <!-- Custom scripts for all pages-->
+          <script src="js/sb-admin-2.min.js"></script>
 
-  <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+          <!-- Page level plugins -->
+          <script src="vendor/chart.js/Chart.min.js"></script>
 
-  <!-- Page level custom scripts -->
-  <!-- <script src="js/demo/chart-area-demo.js"></script>
+          <!-- Page level custom scripts -->
+          <!-- <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script> -->
 
-  <script>
-  function getcolor() {
-    var prefix = 'rgba(';
-    var suffix = ')';
-    var colorCode = "";
-    for (let i = 0; i < 3; i++) {
-      colorCode += Math.floor((Math.random() * 255) + 1) + ",";
-      if (i === 2) {
-        colorCode += Math.floor((Math.random() * 255) + 1);
-      }
-    }
-
-    return prefix + colorCode + suffix;
-  }
-
-  console.log(getcolor());
-
-  var totalJenis = document.getElementById('totppk').innerHTML;
-  const namaPupuk = [];
-  const totalSold = [];
-  const color = [];
-  const colorxx = [];
-  const totalMasuk=[];
-  for (let i = 1; i <= totalJenis; i++) {
-
-    namaPupuk[i - 1] = document.getElementById("nama" + i).innerHTML;
-    totalSold[i - 1] = document.getElementById("total" + i).innerHTML;
-    totalMasuk[i-1] = document.getElementById("masuk" + i).innerHTML;
-    color[i - 1] = getcolor();
-    colorxx[i - 1] = getcolor();
-
-  }
-
-  //membuat warna random
-  // rgba(255,99,132,1)
-
-  //console.log(getColor());
-
-  var ctx = document.getElementById("myChart").getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: namaPupuk,
-      datasets: [{
-        label: "penjualan",
-        data: totalSold,
-        backgroundColor: color,
-        //borderColor: 'rgba(45,123,78,99)',
-        //borderWidth: 23
-      }]
-    },
-    options: {
-      scales: {
-        xAxes: [{
-          barPercentage: 0.4
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
-
-  var ctx = document.getElementById("ourChart").getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: namaPupuk,
-      datasets: [{
-        label: "pembelian",
-        data: totalMasuk,
-        backgroundColor: colorxx,
-        //borderColor: 'rgba(45,123,78,99)',
-        //borderWidth: 23
-      }]
-    },
-    options: {
-      scales: {
-        xAxes: [{
-          barPercentage: 0.4
-        }],
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
-  });
-
-
-  var tota = parseInt(document.getElementById("totanggota").innerHTML);
-  var totk = parseInt(document.getElementById("totkelompok").innerHTML);
-  var colora = getcolor();
-  var colork = getcolor();
-
-  var ctx = document.getElementById("yourChart").getContext('2d');
-
-  var myPie = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: ["Anggota", "Kelompok"],
-      datasets: [{
-        backgroundColor: [getcolor(), getcolor()],
-        data: [tota, totk]
-      }],
-    },
-    options: {
-      title: {
-        display: true,
-        fontStyle: 'bold',
-        fontSize: 20
-      },
-      tooltips: {
-        callbacks: {
-          // this callback is used to create the tooltip label
-          label: function(tooltipItem, data) {
-            // get the data label and data value to display
-            // convert the data value to local string so it uses a comma seperated number
-            var dataLabel = data.labels[tooltipItem.index];
-            var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString();
-
-            // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
-            if (Chart.helpers.isArray(dataLabel)) {
-              // show value on first line of multiline label
-              // need to clone because we are changing the value
-              dataLabel = dataLabel.slice();
-              dataLabel[0] += value;
-            } else {
-              dataLabel += value;
+          <script>
+          function getcolor() {
+            var prefix = 'rgba(';
+            var suffix = ')';
+            var colorCode = "";
+            for (let i = 0; i < 3; i++) {
+              colorCode += Math.floor((Math.random() * 255) + 1) + ",";
+              if (i === 2) {
+                colorCode += Math.floor((Math.random() * 255) + 1);
+              }
             }
 
-            // return the text to display on the tooltip
-            return "Hasil Penjualan Ke " + dataLabel;
+            return prefix + colorCode + suffix;
           }
-        }
-      }
-    }
-  });
-  </script>
+
+          console.log(getcolor());
+
+          var totalJenis = document.getElementById('totppk').innerHTML;
+          const namaPupuk = [];
+          const totalSold = [];
+          const color = [];
+          const colorxx = [];
+          const totalMasuk = [];
+          for (let i = 1; i <= totalJenis; i++) {
+
+            namaPupuk[i - 1] = document.getElementById("nama" + i).innerHTML;
+            totalSold[i - 1] = document.getElementById("total" + i).innerHTML;
+            totalMasuk[i - 1] = document.getElementById("masuk" + i).innerHTML;
+            color[i - 1] = getcolor();
+            colorxx[i - 1] = getcolor();
+
+          }
+
+          //membuat warna random
+          // rgba(255,99,132,1)
+
+          //console.log(getColor());
+
+          var ctx = document.getElementById("myChart").getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: namaPupuk,
+              datasets: [{
+                label: "penjualan",
+                data: totalSold,
+                backgroundColor: color,
+                //borderColor: 'rgba(45,123,78,99)',
+                //borderWidth: 23
+              }]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  barPercentage: 0.4
+                }],
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+
+          var ctx = document.getElementById("ourChart").getContext('2d');
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: namaPupuk,
+              datasets: [{
+                label: "pembelian",
+                data: totalMasuk,
+                backgroundColor: colorxx,
+                //borderColor: 'rgba(45,123,78,99)',
+                //borderWidth: 23
+              }]
+            },
+            options: {
+              scales: {
+                xAxes: [{
+                  barPercentage: 0.4
+                }],
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              }
+            }
+          });
+
+
+          var tota = parseInt(document.getElementById("totanggota").innerHTML);
+          var totk = parseInt(document.getElementById("totkelompok").innerHTML);
+          var colora = getcolor();
+          var colork = getcolor();
+
+          var ctx = document.getElementById("yourChart").getContext('2d');
+
+          var myPie = new Chart(ctx, {
+            type: 'pie',
+            data: {
+              labels: ["Anggota", "Kelompok"],
+              datasets: [{
+                backgroundColor: [getcolor(), getcolor()],
+                data: [tota, totk]
+              }],
+            },
+            options: {
+              title: {
+                display: true,
+                fontStyle: 'bold',
+                fontSize: 20
+              },
+              tooltips: {
+                callbacks: {
+                  // this callback is used to create the tooltip label
+                  label: function(tooltipItem, data) {
+                    // get the data label and data value to display
+                    // convert the data value to local string so it uses a comma seperated number
+                    var dataLabel = data.labels[tooltipItem.index];
+                    var value = ': ' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]
+                      .toLocaleString();
+
+                    // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
+                    if (Chart.helpers.isArray(dataLabel)) {
+                      // show value on first line of multiline label
+                      // need to clone because we are changing the value
+                      dataLabel = dataLabel.slice();
+                      dataLabel[0] += value;
+                    } else {
+                      dataLabel += value;
+                    }
+
+                    // return the text to display on the tooltip
+                    return "Hasil Penjualan Ke " + dataLabel;
+                  }
+                }
+              }
+            }
+          });
+          </script>
 </body>
 
 </html>
