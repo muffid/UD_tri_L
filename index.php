@@ -141,6 +141,7 @@ function getColor()
 
     $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
     foreach ($data as $key) {
+
         $detail = mysqli_query($conn, "SELECT * FROM data_pupuk WHERE ID_PK=" . $key['ID_PK']);
         foreach ($detail as $det) {
             $colorFix = getColor();
@@ -148,14 +149,14 @@ function getColor()
                                 <div class="card border-left-' . $colorFix . ' shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
-                                            <div class="col mr-2">
+                                            <div class="col-md-7">
                                                 <div class="text-md font-weight-bold text-' . $colorFix . ' text-uppercase mb-1">
                                                     ' . $det['Jenis_Pupuk'] . '</div>
                                                     <div class="mb-0  text-gray-800">sisa stok </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">' . $det['Stok'] . ' karung</div>
                                             </div>
-                                            <div class="col-auto">
-                                                <i class="fas fa-warehouse fa-2x text-gray-300"></i>
+                                            <div class="col-md-5">
+                                            <img src="img/warehouse.png" width="50%" height="50%">
                                             </div>
                                         </div>
                                     </div>
@@ -169,19 +170,28 @@ function getColor()
 
             }
 
+            $sqlGetMasuk= mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS totM FROM stok_masuk WHERE (ID_PK=" . $key['ID_PK']." AND Tanggal LIKE '%".$blnBl."%')");
+            foreach($sqlGetMasuk as $sgm){
+              echo ('<label id="masuk' . $no . '" hidden>' . $sgm['totM'] . '</label>');
+            }
+
         }
         $no++;
 
     }
     echo ('<label id="totppk" hidden>' . ($no - 1) . '</label>');
 
-    $sqlGetTotAnggota = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%jun 2022%')");
+    $totAng=0;
+    $totKel=0;
+    $sqlGetTotAnggota = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%".$tanggal."%')");
     foreach ($sqlGetTotAnggota as $sgta) {
+      $totAng= $sgta['tot'];
         echo ('<label id="totanggota" hidden >' . $sgta['tot'] . '</label>');
     }
 
-    $sqlGetTotKelompok = mysqli_query($conn, "SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%jun 2022%')");
+    $sqlGetTotKelompok = mysqli_query($conn, "SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%".$tanggal."%')");
     foreach ($sqlGetTotKelompok as $sgtk) {
+      $totKel=$sgtk['tots'];
         echo ('<label id="totkelompok" hidden >' . $sgtk['tots'] . '</label>');
     }
     ?>
@@ -275,48 +285,69 @@ function getColor()
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-6 col-lg-7">
+            <div class="col-xl-4 col-lg-7">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Total Penjualan Bulan <?=$blnBl;?></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Penjualan Pupuk Bulan <?=$blnBl;?></h6>
 
 
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                   <div>
-                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart" height="225"></canvas>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Pie Chart -->
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Total Pemasukan Bulan <?=$blnBl;?></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pemasukan Bulan <?=$blnBl;?></h6>
 
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
 
-                  <div>
-                    <canvas id="yourChart"></canvas>
+                  <div class="row">
+                    <canvas id="yourChart" height="150"></canvas>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-12 mt-4">
+                      <p class="text-center font-weight-bold text-secondary">Total : <?=rp($totAng+$totKel); ?></p>
+                    </div>
+                  </div>
+
 
                 </div>
               </div>
             </div>
 
-
-            <div class="col-xl-6 col-lg-5" hidden>
+            <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Keuangan</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pembelian Pupuk Bulan <?=$blnBl;?></h6>
+
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <canvas id="ourChart" height="223"></canvas>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Neraca Keuangan</h6>
 
                 </div>
                 <!-- Card Body -->
@@ -352,15 +383,100 @@ function getColor()
 //kas real
     $kas = $totalPendapatan - $hasilPiutang;
     ?>
-                  <h4 class="text-center text-warning">Total Pengeluaran</h4>
-                  <h5>Pembelian Pupuk = <?=rp($hasilPengeluaran);?></h5>
-                  <h5>Transport = <?=rp($hasilTransport);?></h5>
-                  <h5 class="text-success">Total = <?=rp($totalAll);?></h5>
-                  <hr>
-                  <h4 class="text-center text-info">Total Penjualan</h4>
-                  <h5>Pupuk = <?=rp($hasilPenjualan);?></h5>
-                  <hr>
+                          <div class = "row">
 
+                            <div class="col-xl-6 col-md-6 mb-2">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body d-flex">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-md-9">
+                                              <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
+                                                TOTAL PENGELUARAN 
+                                              </div>
+
+                                              <div class="ml-4 mb-2 text-muted"><span style="font-size:14px;">
+                                               Total pengeluaran adalah jumlah dari biaya penbelian pupuk ditambahkan dengan 
+                                                biaya transport pengiriman pupuk.</span>
+                                              </div>
+
+                                              <div class="ml-4 h4 mb-2 font-weight-bold text-success">
+                                                <?= rp($totalAll);?> 
+                                              </div>
+
+                                            </div><div class="col-md-3"><img src="img/money-bag.png" width="50%"></div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="row">
+                            <div class="col-xl-12 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                        <div class="col-auto ml-4">
+                                                <div class="text-md font-weight-bold mb-2">
+                                                   Total Biaya Transport</div>
+                                                    
+                                                <div class="h5 mb-0  text-gray-800"> <?=rp($hasilTransport);?></div>
+                                            </div>
+                                        <div class="col-md-4 ml-4">
+                                            <img src="img/delivery-truck.png" width="35%">
+                                            </div>
+                                           
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                        <div class="col-auto ml-4">
+                                                <div class="text-md font-weight-bold  mb-2">
+                                                    Total Pembelian Pupuk</div>
+                                                  
+                                                <div class="h5 mb-0  text-gray-800"> <?=rp($hasilPengeluaran);?></div>
+                                            </div>
+                                        <div class="col-md-4 ml-4">
+                                            <img src="img/purchase.png" width="35%">
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div></div></div>
+  </div>
+  <hr>
+                      <div class="row">
+
+                      <div class="col-xl-12 col-md-6 mb-2">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-md-10">
+                                            <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
+                                                    TOTAL PEMASUKAN</div>
+                                                    <div class="mb-0  ml-4 mb-2 text-muted">total pemasukan adalah total dari semua penjualan pupuk (termasuk piutang yang
+                                                      belum dilunasi)</div>
+                                                <div class="h3 mb-0 ml-4 mb-2 font-weight-bold text-success"><?=rp($hasilPenjualan);?></div>
+                                            </div>
+                                            <div class="col-md-2 ml-6">
+                                                <img src="img/duwit.png" width="40%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                      </div><hr>
+         
+              
+<!-- 
                   <?php if ($totalPendapatan < 0) {?>
                   <h4 class="text-center text-danger">Total Pendapatan</h4>
                   <h5 class="text-danger">Status Non Profit =
@@ -386,7 +502,7 @@ function getColor()
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
 
 
@@ -443,11 +559,15 @@ function getColor()
   const namaPupuk = [];
   const totalSold = [];
   const color = [];
+  const colorxx = [];
+  const totalMasuk=[];
   for (let i = 1; i <= totalJenis; i++) {
 
     namaPupuk[i - 1] = document.getElementById("nama" + i).innerHTML;
     totalSold[i - 1] = document.getElementById("total" + i).innerHTML;
+    totalMasuk[i-1] = document.getElementById("masuk" + i).innerHTML;
     color[i - 1] = getcolor();
+    colorxx[i - 1] = getcolor();
 
   }
 
@@ -462,9 +582,36 @@ function getColor()
     data: {
       labels: namaPupuk,
       datasets: [{
-        label: 'total penjualan',
+        label: "penjualan",
         data: totalSold,
         backgroundColor: color,
+        //borderColor: 'rgba(45,123,78,99)',
+        //borderWidth: 23
+      }]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          barPercentage: 0.4
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+
+  var ctx = document.getElementById("ourChart").getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: namaPupuk,
+      datasets: [{
+        label: "pembelian",
+        data: totalMasuk,
+        backgroundColor: colorxx,
         //borderColor: 'rgba(45,123,78,99)',
         //borderWidth: 23
       }]
@@ -503,7 +650,6 @@ function getColor()
     options: {
       title: {
         display: true,
-        text: 'total pemasukan bulan ini',
         fontStyle: 'bold',
         fontSize: 20
       },
