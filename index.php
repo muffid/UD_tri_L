@@ -498,7 +498,7 @@ function getColor()
                     <div class="col-xl-12 col-md-6 mb-2">
                       <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
-                          <div class="ml-4 h4 mb-4 font-weight-bold text-gray-800">
+                          <div class="h4 mb-4 font-weight-bold text-gray-800">
                             HUTANG PIUTANG</div>
                           <div class="row">
                             <div class="col-md-10">
