@@ -151,16 +151,19 @@ unset($_SESSION["info"]);
 $no = 1;
     $data = mysqli_query($conn, "SELECT * FROM data_pupuk ORDER BY ID_PK DESC");
     foreach ($data as $all) {
+        $status = $all['Status'];
         echo ('<tr><td>' . $no . '</td>');
         echo ('<td>' . $all['Jenis_Pupuk'] . '</td>');
         echo ('<td>' . rp($all['Harga']) . '</td>');
         echo ('<td>' . $all['Stok'] . ' karung </td>');
-        echo ('<td>
-                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
-        echo ($all['ID_PK'] . '">Edit</a>
-                                                <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter');
-        echo ($all['ID_PK'] . '">Hapus Pupuk</a></td></tr>
-                                              ');
+        echo ('<td> <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modalSubscriptionForm');
+        echo ($all['ID_PK'] . '">Edit</a> ');
+        if ($status == 0) {
+            echo ('<a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter' . $all['ID_PK'] . '"> Hapus Pupuk</a></td></tr>');
+        } else {
+            echo ('</td></tr>');
+        }
+
         $no++;
         ?></tr>
                         <!-- modal edit-->
