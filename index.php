@@ -376,9 +376,14 @@ function getColor()
     $totalPendapatan = $hasilPenjualan - $totalAll;
 
     //piutang
-    $sqlPiutang = mysqli_query($conn, "SELECT SUM(Kredit)-SUM(Debit) as total_hutang FROM piutang ");
-    foreach ($sqlPiutang as $keyPiutang) {
+    $sqlHutang = mysqli_query($conn, "SELECT SUM(Kredit) as total_hutang FROM piutang ");
+    foreach ($sqlHutang as $keyPiutang) {
         $hasilPiutang = $keyPiutang['total_hutang'];
+    }
+
+    $sqlDibayar = mysqli_query($conn, "SELECT SUM(Debit) as total_bayar FROM piutang ");
+    foreach ($sqlDibayar as $keyPiutang) {
+        $hasilDibayar = $keyPiutang['total_bayar'];
     }
 //kas real
     $kas = $totalPendapatan - $hasilPiutang;
@@ -419,7 +424,7 @@ function getColor()
                                                 <div class="text-md font-weight-bold mb-2">
                                                    Total Biaya Transport</div>
                                                     
-                                                <div class="h5 mb-0  text-gray-800"> <?=rp($hasilTransport);?></div>
+                                                <div class="h5 mb-0  text-success"> <?=rp($hasilTransport);?></div>
                                             </div>
                                         <div class="col-md-4 ml-4">
                                             <img src="img/delivery-truck.png" width="35%">
@@ -439,7 +444,7 @@ function getColor()
                                                 <div class="text-md font-weight-bold  mb-2">
                                                     Total Pembelian Pupuk</div>
                                                   
-                                                <div class="h5 mb-0  text-gray-800"> <?=rp($hasilPengeluaran);?></div>
+                                                <div class="h5 mb-0  text-success"> <?=rp($hasilPengeluaran);?></div>
                                             </div>
                                         <div class="col-md-4 ml-4">
                                             <img src="img/purchase.png" width="35%">
@@ -474,6 +479,39 @@ function getColor()
                             </div>
 
                       </div><hr>
+
+                      <div class="row">
+
+                      <div class="col-xl-12 col-md-6 mb-2">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                    <div class="ml-4 h4 mb-4 font-weight-bold text-gray-800">
+                                                    HUTANG PIUTANG</div>
+                                        <div class="row">
+                                          <div class="col-md-10">
+                                        <div class="table-responsive">
+                                          <table class="table table-bordered">
+                                          <thead>
+                                            <th scope="col">Total Hutang</th>
+                                            <th scope="col">Telah Dibayar</th>
+                                            <th scope="col">Hutang Aktif</th>
+                                          </thead>
+                                          <tbody>
+                                            <tr>
+                                              <td style="font-weight:bold;"><?=rp((int)$hasilPiutang);?></td>
+                                              <td style="font-weight:bold;"><?=rp((int)$hasilDibayar);?></td>
+                                              <td style="font-weight:bold;"><?=rp((int)$hasilPiutang-(int)$hasilDibayar);?></td>
+                                          </tbody>
+                                          </table>
+                                        </div>
+                                        </div><div class="col-md-2 mt-4"><img src="img/money.png" width="40%"></div>
+  </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                      </div>
          
               
 <!-- 
