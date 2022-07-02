@@ -39,6 +39,14 @@ if (isset($_SESSION['login'])) {
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="img/logo1.png" rel="icon">
 
+ <style> .badge.badge-danger{
+ 
+ position: absolute; 
+ top: -35px;
+ right: -150px;
+ font-size: 15px;
+}</style>
+
 </head>
 
 <body id="page-top">
@@ -134,9 +142,16 @@ function getColor()
             $blnBl = 'Dec';
             break;
     }
-    //$blntahunBl = $blnBl . " " . $tahunBl;
-    // echo($blnBl);
-    // die();
+
+    function checkStok($stokNow){
+      $standard=50;
+      if($stokNow<=$standard){
+        return '<span class="badge badge-danger">! Stok menipis</span>';
+      }else{
+        return'';
+      }
+    }
+    
     $no = 1;
 
     $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
@@ -150,8 +165,8 @@ function getColor()
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-md-7">
-                                                <div class="text-md font-weight-bold text-' . $colorFix . ' text-uppercase mb-1">
-                                                    ' . $det['Jenis_Pupuk'] . '</div>
+                                                <div class="text-md font-weight-bold text-' . $colorFix . '  mb-1">
+                                                    ' . $det['Jenis_Pupuk'] .checkStok( $det['Stok']).'</div>
                                                     <div class="mb-0  text-gray-800">sisa stok </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">' . $det['Stok'] . ' karung</div>
                                             </div>
