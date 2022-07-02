@@ -96,7 +96,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top" >
+<body id="page-top">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -118,7 +118,7 @@ if (isset($_SESSION['login'])) {
           <div class="d-sm-flex align-items-center justify-content-between ">
             <h1 class="h3 mb-3 text-gray-800">Pelunasan</h1>
             <a href="page_piutang.php?m=10&n=10"
-              class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
+              class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4"><i
                 class="far fa-arrow-alt-circle-left  text-white-50"></i> Kembali Ke Halaman Piutang</a>
 
           </div>
@@ -309,19 +309,19 @@ function toPrintPage(key, buyer) {
 function convertRP() {
 
   var bayar = document.getElementById("bayar").value;
-  var bayarNum =  bayar.replace("Rp. ", "").replace(".", "");
+  var bayarNum = bayar.replace("Rp. ", "").replace(".", "");
 
   var piutang = document.getElementById("piutangaktif").innerHTML;
   var piutangNum = piutang.replace("Rp. ", "").replace(".", "");
 
   document.getElementById("bayar").value = toRp(bayar, "Rp. ");
-  
 
-  console.log(bayarNum+" - "+piutangNum);
-  if(parseInt(bayarNum)>parseInt(piutangNum) || parseInt(bayarNum)==0 || bayarNum==""){
-    document.getElementById("btnpelunasan").disabled=true;
-  }else{
-    document.getElementById("btnpelunasan").disabled=false;
+
+  console.log(bayarNum + " - " + piutangNum);
+  if (parseInt(bayarNum) > parseInt(piutangNum) || parseInt(bayarNum) == 0 || bayarNum == "") {
+    document.getElementById("btnpelunasan").disabled = true;
+  } else {
+    document.getElementById("btnpelunasan").disabled = false;
   }
 
 

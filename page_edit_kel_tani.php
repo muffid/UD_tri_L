@@ -54,7 +54,7 @@ if (isset($_SESSION['login'])) {
             <h1 class="h3 mb-3 text-gray-800">Edit Data Kelompok Tani</h1>
 
             <a href="page_kel_tani.php?m=4&n=2"
-              class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
+              class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4 "><i
                 class="far fa-arrow-alt-circle-left  text-white-50"></i> Kembali Ke Halaman Kelompok Tani</a>
 
           </div>

@@ -58,8 +58,8 @@ if (isset($_SESSION['login'])) {
           <hr class="sidebar-divider my-0 mt-5 mb-5">
           <div class="d-sm-flex align-items-center justify-content-between ">
             <h1 class="h3 mb-3 text-gray-800">Blank Page</h1>
-            <a href="index.php?m=1&n=1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mt-4"><i
-                class="far fa-arrow-alt-circle-left  text-white-50"></i> Kembali Ke Halaman Dashboard</a>
+            <a href="index.php?m=1&n=1" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4"><i
+                class=" far fa-arrow-alt-circle-left text-white-50"></i> Kembali Ke Halaman Dashboard</a>
           </div>
           <center class=" mt-5">
             <h1 class=" mt-5"> Fitur Ini Belum Terupgrade </h1>
