@@ -270,8 +270,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                     <div class="row mb-2">
                       <!-- Nama Pengirim -->
-                      <label class="col-sm-7 col-form-label"> <button type="button" class="btn btn-danger btn-sm"
-                          onclick="decName()"><i class="fas fa-undo-alt"></i> hapus baris</button> </label>
+                     <button type="button" class="btn btn-danger btn-sm ml-2"
+                          onclick="decName()"><i class="fas fa-undo-alt"></i> hapus baris</button>
 
                     </div>
 

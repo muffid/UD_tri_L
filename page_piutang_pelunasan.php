@@ -96,7 +96,7 @@ if (isset($_SESSION['login'])) {
 
 </head>
 
-<body id="page-top" onload="checkPiutang()">
+<body id="page-top" >
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -200,7 +200,7 @@ unset($_SESSION["info"]);
                   <div class="row mb-2">
                     <label class="col-sm-4 col-form-label"> </label>
                     <div class="col-sm-8">
-                      <button type="submit" id="btnpelunasan" class="btn btn-primary btn-sm">bayar</button>
+                      <button type="submit" id="btnpelunasan" class="btn btn-primary btn-sm" disabled>bayar</button>
                     </div>
                     </form>
                   </div>
@@ -308,8 +308,21 @@ function toPrintPage(key, buyer) {
 
 function convertRP() {
 
-  var num = document.getElementById("bayar").value;
-  document.getElementById("bayar").value = toRp(num, "Rp. ");
+  var bayar = document.getElementById("bayar").value;
+  var bayarNum =  bayar.replace("Rp. ", "").replace(".", "");
+
+  var piutang = document.getElementById("piutangaktif").innerHTML;
+  var piutangNum = piutang.replace("Rp. ", "").replace(".", "");
+
+  document.getElementById("bayar").value = toRp(bayar, "Rp. ");
+  
+
+  console.log(bayarNum+" - "+piutangNum);
+  if(parseInt(bayarNum)>parseInt(piutangNum) || parseInt(bayarNum)==0){
+    document.getElementById("btnpelunasan").disabled=true;
+  }else{
+    document.getElementById("btnpelunasan").disabled=false;
+  }
 
 
 }
