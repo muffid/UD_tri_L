@@ -318,7 +318,7 @@ function convertRP() {
   
 
   console.log(bayarNum+" - "+piutangNum);
-  if(parseInt(bayarNum)>parseInt(piutangNum) || parseInt(bayarNum)==0){
+  if(parseInt(bayarNum)>parseInt(piutangNum) || parseInt(bayarNum)==0 || bayarNum==""){
     document.getElementById("btnpelunasan").disabled=true;
   }else{
     document.getElementById("btnpelunasan").disabled=false;
