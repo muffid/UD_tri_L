@@ -39,13 +39,16 @@ if (isset($_SESSION['login'])) {
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="img/logo1.png" rel="icon">
 
- <style> .badge.badge-danger{
- 
- position: absolute; 
- top: -35px;
- right: -150px;
- font-size: 15px;
-}</style>
+ <style> 
+  .badge{
+  position: absolute; 
+  top: -35px;
+  /*right: -150px; */
+  font-size: 12px;
+  padding:5px;
+  font-weight: normal;
+  }
+</style>
 
 </head>
 
@@ -145,10 +148,12 @@ function getColor()
 
     function checkStok($stokNow){
       $standard=50;
-      if($stokNow<=$standard){
-        return '<span class="badge badge-danger">! Stok menipis</span>';
+      if($stokNow==0){
+        return '<span class="badge badge-danger">stok sudah habis</span>';
+      }else if($stokNow<=$standard){
+        return '<span class="badge badge-warning">stok menipis</span>';
       }else{
-        return'';
+        return '';
       }
     }
     
@@ -166,12 +171,12 @@ function getColor()
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-md-7">
                                                 <div class="text-md font-weight-bold text-' . $colorFix . '  mb-1">
-                                                    ' . $det['Jenis_Pupuk'] .checkStok( $det['Stok']).'</div>
+                                                    ' . $det['Jenis_Pupuk'].'</div>
                                                     <div class="mb-0  text-gray-800">sisa stok </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">' . $det['Stok'] . ' karung</div>
                                             </div>
                                             <div class="col-md-5">
-                                            <img src="img/warehouse.png" width="50%" height="50%">
+                                            <img src="img/warehouse.png" width="50%" height="50%">'.checkStok( $det['Stok']).'
                                             </div>
                                         </div>
                                     </div>
