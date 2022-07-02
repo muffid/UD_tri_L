@@ -408,7 +408,7 @@ function getColor()
                                 <?=rp($totalAll);?>
                               </div>
                               <h6 class="mt-3 ml-4">ke Halaman
-                                <a target="_blank" rel="nofollow" href="page_pengeluaran.php?m=8&n=8">
+                                <a rel="nofollow" href="page_pengeluaran.php?m=8&n=8">
                                   Pengeluaran >></a>
                             </div>
                             <div class="col-md-3"><img src="img/money-bag.png" width="50%"></div>
@@ -483,7 +483,7 @@ function getColor()
 
                           </div>
                           <h6 class="mt-3 ml-4">ke Halaman
-                            <a target="_blank" rel="nofollow" href="page_pemasukan.php?m=9&n=9">
+                            <a rel="nofollow" href="page_pemasukan.php?m=9&n=9">
                               Pemasukan >></a>
                           </h6>
                         </div>
@@ -522,7 +522,7 @@ function getColor()
                             <div class="col-md-2 mt-4"><img src="img/money.png" width="40%"></div>
                           </div>
                           <h6>ke Halaman
-                            <a target="_blank" rel="nofollow" href="page_piutang.php?m=10&n=10">
+                            <a rel="nofollow" href="page_piutang.php?m=10&n=10">
                               Piutang >></a>
                           </h6>
 
