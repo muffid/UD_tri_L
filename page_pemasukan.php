@@ -160,6 +160,97 @@ $no = 1;
                   </div>
                 </div>
 
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-success text-uppercase mb-1">
+                                Total Pemasukan</div>
+
+                              <div class="mb-0  text-gray-800">total</div>
+                              <?php
+$toatalPemasukan = mysqli_query($conn, "SELECT sum(Total) as totalPemasukan FROM penjualan");
+    foreach ($toatalPemasukan as $tp) {
+        $toatalPemasukannya = $tp['totalPemasukan'];
+    }
+
+    //piutang
+    $sqlHutang = mysqli_query($conn, "SELECT SUM(Kredit) as total_hutang FROM piutang ");
+    foreach ($sqlHutang as $keyPiutang) {
+        $hasilPiutang = $keyPiutang['total_hutang'];
+    }
+
+    $sqlDibayar = mysqli_query($conn, "SELECT SUM(Debit) as total_bayar FROM piutang ");
+    foreach ($sqlDibayar as $keyPiutang) {
+        $hasilDibayar = $keyPiutang['total_bayar'];
+    }
+    //kas real
+    $piutangAktif = $hasilPiutang - $hasilDibayar;
+    $kas = $toatalPemasukannya - $piutangAktif;
+    ?>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800"><?=rp($toatalPemasukannya);?></div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-coins fa-2x text-success"></i>
+                            </div>
+                            <div class="mt-3 text-muted" style="font-size: 0.875em;">total pemasukan adalah total dari
+                              semua
+                              penjualan
+                              pupuk (termasuk piutang yang
+                              belum dilunasi)</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-warning text-uppercase mb-1">
+                                Total Piutang Aktif</div>
+                              <div class="mb-0  text-gray-800">total</div>
+
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?=rp($piutangAktif);?></div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-coins fa-2x text-warning"></i>
+                            </div>
+                            <div class="mt-3 text-muted" style="font-size: 0.875em;">total piutang aktif adalah hutang
+                              yang belum dilunasi</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 mb-4">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                Total Pemasukan Aktual</div>
+                              <div class="mb-0  text-gray-800">total</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800"><?=rp($kas);?>
+                              </div>
+                            </div>
+                            <div class="col-auto">
+                              <i class="fas fa-money-bill-wave fa-2x text-primary"></i>
+                            </div>
+                            <div class="mt-3 text-muted" style="font-size: 0.875em;">total pemasukan adalah total kas
+                              yang Real dari (total pemasukan - total piutang aktif)</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>

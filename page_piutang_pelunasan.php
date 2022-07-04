@@ -188,10 +188,12 @@ unset($_SESSION["info"]);
                   <h6 class="m-0 font-weight-bold text-primary">Form Pelunasan</h6>
                 </div>
                 <div class="card-body">
-                  <div class="row mb-2">
 
-                    <label class="col-sm-4 col-form-label"> Nominal </label>
+                  <div class="row  mb-2">
+                    <label class="mt-3 col-sm-4 col-form-label"> Nominal </label>
                     <div class="col-sm-8">
+                      <div class="text-muted font-italic" style="font-size: 0.885em;">*saat akan dilunasi nominal tidak
+                        boleh lebih</div>
                       <form method="POST" action="pelunasan.php?id=<?=$_GET['cust'];?>">
                         <input type="text" class="form-control" id="bayar" name="bayar" onkeyup="convertRP()">
                     </div>

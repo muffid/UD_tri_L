@@ -270,8 +270,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                     <div class="row mb-2">
                       <!-- Nama Pengirim -->
-                     <button type="button" class="btn btn-danger btn-sm ml-2"
-                          onclick="decName()"><i class="fas fa-undo-alt"></i> hapus baris</button>
+                      <button type="button" class="btn btn-danger btn-sm ml-2" onclick="decName()"><i
+                          class="fas fa-undo-alt"></i> hapus baris</button>
 
                     </div>
 
@@ -800,6 +800,7 @@ $nopen++;
       if (tbody.hasChildNodes()) {
         tbody.removeChild(tbody.lastElementChild);
         name--;
+        document.getElementById('iterator').value = name;
         console.log(name);
         if (name == 0) {
           document.getElementById('btnSubmit').disabled = true;

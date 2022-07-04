@@ -39,16 +39,16 @@ if (isset($_SESSION['login'])) {
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="img/logo1.png" rel="icon">
 
- <style> 
-  .badge{
-  position: absolute; 
-  top: -35px;
-  /*right: -150px; */
-  font-size: 12px;
-  padding:5px;
-  font-weight: normal;
+  <style>
+  .badge {
+    position: absolute;
+    top: -35px;
+    /*right: -150px; */
+    font-size: 12px;
+    padding: 5px;
+    font-weight: normal;
   }
-</style>
+  </style>
 
 </head>
 
@@ -146,17 +146,18 @@ function getColor()
             break;
     }
 
-    function checkStok($stokNow){
-      $standard=50;
-      if($stokNow==0){
-        return '<span class="badge badge-danger">stok sudah habis</span>';
-      }else if($stokNow<=$standard){
-        return '<span class="badge badge-warning">stok menipis</span>';
-      }else{
-        return '';
-      }
+    function checkStok($stokNow)
+    {
+        $standard = 50;
+        if ($stokNow == 0) {
+            return '<span class="badge badge-danger">stok sudah habis</span>';
+        } else if ($stokNow <= $standard) {
+            return '<span class="badge badge-warning">stok menipis</span>';
+        } else {
+            return '';
+        }
     }
-    
+
     $no = 1;
 
     $data = mysqli_query($conn, "SELECT ID_PK FROM data_pupuk");
@@ -171,12 +172,12 @@ function getColor()
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-md-7">
                                                 <div class="text-md font-weight-bold text-' . $colorFix . '  mb-1">
-                                                    ' . $det['Jenis_Pupuk'].'</div>
+                                                    ' . $det['Jenis_Pupuk'] . '</div>
                                                     <div class="mb-0  text-gray-800">sisa stok </div>
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">' . $det['Stok'] . ' karung</div>
                                             </div>
                                             <div class="col-md-5">
-                                            <img src="img/warehouse.png" width="50%" height="50%">'.checkStok( $det['Stok']).'
+                                            <img src="img/warehouse.png" width="50%" height="50%">' . checkStok($det['Stok']) . '
                                             </div>
                                         </div>
                                     </div>
@@ -502,7 +503,8 @@ function getColor()
                             </div>
 
                           </div>
-                          <h6 class="mt-3 ml-4">ke Halaman
+
+                          <h6 class="mt-3 ml-4">untuk melihat total aktual ke Halaman
                             <a rel="nofollow" href="page_pemasukan.php?m=9&n=9">
                               Pemasukan >></a>
                           </h6>
