@@ -183,7 +183,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                     <!-- Nama Pengirim -->
                     <label class="col-sm-4 col-form-label"> Jumlah (karung) </label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="jumlah" name="jumlah" onkeyup="stokAvailCheck()"
+                      <input type="number" class="form-control" id="jumlah" name="jumlah" onkeyup="stokAvailCheck()"
                         required)>
                       <p style="color:green; font-size:12px;" id="stok_hint"></p>
                     </div>
