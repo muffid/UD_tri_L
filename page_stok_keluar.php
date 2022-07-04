@@ -183,7 +183,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                     <!-- Nama Pengirim -->
                     <label class="col-sm-4 col-form-label"> Jumlah (karung) </label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="jumlah" name="jumlah" onkeyup="stokAvailCheck()"
+                      <input type="number" class="form-control" id="jumlah" name="jumlah" onkeyup="stokAvailCheck()"
                         required)>
                       <p style="color:green; font-size:12px;" id="stok_hint"></p>
                     </div>
@@ -270,8 +270,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
 
                     <div class="row mb-2">
                       <!-- Nama Pengirim -->
-                     <button type="button" class="btn btn-danger btn-sm ml-2"
-                          onclick="decName()"><i class="fas fa-undo-alt"></i> hapus baris</button>
+                      <button type="button" class="btn btn-danger btn-sm ml-2" onclick="decName()"><i
+                          class="fas fa-undo-alt"></i> hapus baris</button>
 
                     </div>
 
@@ -800,6 +800,7 @@ $nopen++;
       if (tbody.hasChildNodes()) {
         tbody.removeChild(tbody.lastElementChild);
         name--;
+        document.getElementById('iterator').value = name;
         console.log(name);
         if (name == 0) {
           document.getElementById('btnSubmit').disabled = true;

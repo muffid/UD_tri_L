@@ -30,13 +30,25 @@ if (mysqli_query($conn, $sql)) {
         $dat = $key['total_stok'];
     }
 
-    //merubah perawan / gak perawan
+    //mengisi total pupuk masuk & merubah perawan / gak perawan
+    $aqlPupuk = mysqli_query($conn, "SELECT * FROM data_pupuk WHERE ID_PK=" . $idppk);
+    foreach ($aqlPupuk as $keyPupuk) {
+        $jumPupuk = $keyPupuk['Stok'];
+    }
+    if ($jumPupuk == 0) {
+        $total = "UPDATE data_pupuk SET Stok='" . $dat . "', Status=1 WHERE  ID_PK=" . $idppk;
+        mysqli_query($conn, $total);
+        $_SESSION["info"] = 'Stok berhasil ditambah ';
+        header("Location: page_stok_masuk.php?m=2&n=1");
+        //echo("berasil jeh");
+    } else {
+        $jumPupukBaru = $jumPupuk + $jumlah;
+        $total = "UPDATE data_pupuk SET Stok='" . $jumPupukBaru . "' WHERE  ID_PK=" . $idppk;
+        mysqli_query($conn, $total);
+        $_SESSION["info"] = 'Stok berhasil ditambah ';
+        header("Location: page_stok_masuk.php?m=2&n=1");
 
-    $total = "UPDATE data_pupuk SET Stok='" . $dat . "', Status=1 WHERE  ID_PK=" . $idppk;
-    mysqli_query($conn, $total);
-    $_SESSION["info"] = 'Stok berhasil ditambah ';
-    header("Location: page_stok_masuk.php?m=2&n=1");
-    //echo("berasil jeh");
+    }
 
     exit();
 } else {
