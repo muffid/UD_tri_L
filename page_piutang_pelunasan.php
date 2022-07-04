@@ -309,7 +309,7 @@ function toPrintPage(key, buyer) {
 function convertRP() {
 
   var bayar = document.getElementById("bayar").value;
-  var bayarNum = bayar.replace("Rp. ", "").replace(".", "");
+  var bayarNum = bayar.replace("Rp. ", "").split('.').join("");
 
   var piutang = document.getElementById("piutangaktif").innerHTML;
   var piutangNum = piutang.replace("Rp. ", "").replace(".", "");
