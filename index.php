@@ -670,9 +670,7 @@ function getColor()
             },
             options: {
               scales: {
-                xAxes: [{
-                  barPercentage: 0.4
-                }],
+               
                 yAxes: [{
                   ticks: {
                     beginAtZero: true
@@ -697,9 +695,7 @@ function getColor()
             },
             options: {
               scales: {
-                xAxes: [{
-                  barPercentage: 0.4
-                }],
+               
                 yAxes: [{
                   ticks: {
                     beginAtZero: true
