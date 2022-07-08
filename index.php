@@ -48,6 +48,18 @@ if (isset($_SESSION['login'])) {
     padding: 5px;
     font-weight: normal;
   }
+
+  #info {
+    background-color: #F0F8FF;
+    color: #FFFFFF;
+    display:inline;
+    white-space:pre-wrap;
+    line-height : 24px;
+    font-size: 14px;
+    padding: 5px;
+   
+
+}
   </style>
 
 </head>
@@ -334,25 +346,58 @@ function getColor()
                 <!-- Card Body -->
                 <div class="card-body">
                   <?php
+
+    //sisa stok
+    $sqlGetSisa=mysqli_query($conn,"SELECT SUM(Stok) AS sisa FROM data_pupuk");
+    $sisa=0;
+    foreach($sqlGetSisa as $sgs){
+      $sisa=$sgs['sisa'];
+    }
 //pengeluaran atau pembelian pupuk
     $sqlPengeluaran = mysqli_query($conn, "SELECT sum(Nominal) as total_pengeluaran  FROM stok_masuk ");
     foreach ($sqlPengeluaran as $keyPengeluaran) {
         $hasilPengeluaran = $keyPengeluaran['total_pengeluaran'];
     }
 
+    //pembelian pupuk bulanan
+    $sqlGetPembPupukBulanan = mysqli_query($conn,"SELECT SUM(Nominal) as totpupukbulanan FROM stok_masuk WHERE Tanggal LIKE '%".$tanggal."%'");
+    $totPembBulanan=0;
+    foreach($sqlGetPembPupukBulanan as $sgppb){
+      $totPembBulanan=$sgppb['totpupukbulanan'];
+    } 
+
+    
     //transport
     $sqlTransport = mysqli_query($conn, "SELECT sum(Total) as total_transport FROM biaya_lain ");
     foreach ($sqlTransport as $keyTransport) {
         $hasilTransport = $keyTransport['total_transport'];
     }
+
+    //transport bulanan
+    $sqlGetTransBulan = mysqli_query($conn,"SELECT SUM(Total) as totbulanan FROM biaya_lain WHERE Tanggal LIKE '%".$tanggal."%'");
+    $totTransBulanan=0;
+    foreach($sqlGetTransBulan as $sgtb){
+      $totTransBulanan=$sgtb['totbulanan'];
+    }
+
     //total pengeluaran
     $totalAll = $hasilTransport + $hasilPengeluaran;
+    //total pengluaran bulanan
+    $totPengluaranBulanan = $totPembBulanan + $totTransBulanan;
 
     //penjualan
     $sqlPenjualan = mysqli_query($conn, "SELECT sum(Total) as total_penjualan FROM penjualan ");
     foreach ($sqlPenjualan as $keyPenjualan) {
         $hasilPenjualan = $keyPenjualan['total_penjualan'];
     }
+    
+    //pennjualan bulanan
+    $totPenjBul=0;
+    $sqlPenjualanBulanan = mysqli_query($conn, "SELECT sum(Total) as total_penjualan FROM penjualan WHERE Tanggal LIKE '%".$tanggal."%'");
+    foreach ($sqlPenjualanBulanan as $spenjB) {
+        $totPenjBul = $spenjB['total_penjualan'];
+    }
+    
     //total pendapatan
     $totalPendapatan = $hasilPenjualan - $totalAll;
 
@@ -386,11 +431,12 @@ function getColor()
                               </div>
 
                               <div class="ml-4 h4 mb-2 font-weight-bold text-success">
-                                <?=rp($totalAll);?>
+                                <?=rp($totalAll);?>   <br><div class="h6 mb-0 mt-4 text-dark" id="info"> Total bulan ini : <?=rp($totPengluaranBulanan);?></div>
                               </div>
-                              <h6 class="mt-3 ml-4">ke Halaman
+                              
+                              <h6 class="mt-4 ml-4">ke Halaman
                                 <a rel="nofollow" href="page_pengeluaran.php?m=8&n=8">
-                                  Pengeluaran >></a>
+                                  Pengeluaran <i class="fas fa-arrow-right"></i> </a>
                             </div>
                             <div class="col-md-3"><img src="img/money-bag.png" width="50%"></div>
 
@@ -409,6 +455,7 @@ function getColor()
                                     Total Biaya Transport</div>
 
                                   <div class="h5 mb-0  text-success"> <?=rp($hasilTransport);?></div>
+                                  <br><div class="h6 mb-0 mt-0 text-dark" id="info"> Total bulan ini : <?=rp($totTransBulanan);?></div>
                                 </div>
                                 <div class="col-md-4 ml-4">
                                   <img src="img/delivery-truck.png" width="35%">
@@ -429,6 +476,7 @@ function getColor()
                                     Total Pembelian Pupuk</div>
 
                                   <div class="h5 mb-0  text-success"> <?=rp($hasilPengeluaran);?></div>
+                                  <br><div class="h6 mb-0 mt-0 text-dark" id="info"> Total bulan ini : <?=rp($totPembBulanan);?></div>
                                 </div>
                                 <div class="col-md-4 ml-4">
                                   <img src="img/purchase.png" width="35%">
@@ -445,7 +493,7 @@ function getColor()
                   <hr>
                   <div class="row">
 
-                    <div class="col-xl-12 col-md-6 mb-2">
+                    <div class="col-xl-6 col-md-6 mb-2">
                       <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                           <div class="row no-gutters align-items-center">
@@ -455,19 +503,45 @@ function getColor()
                               <div class="mb-0  ml-4 mb-2 text-muted">total pemasukan adalah total dari semua penjualan
                                 pupuk (termasuk piutang yang
                                 belum dilunasi)</div>
-                              <div class="h3 mb-0 ml-4 mb-2 font-weight-bold text-success"><?=rp($hasilPenjualan);?>
+                              <div class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success"><?=rp($hasilPenjualan);?>
+                              <br><div class="h6 mb-2 mt-4 text-dark" id="info"> Total bulan ini : <?=rp($totPenjBul);?></div>
                               </div>
                             </div>
-                            <div class="col-md-2 ml-6">
-                              <img src="img/duwit.png" width="40%">
-                            </div>
+                            <!-- <div class="col-md-2 ml-6">
+                              <img src="img/duwit.png" width="100%">
+                            </div> -->
 
                           </div>
 
-                          <h6 class="mt-3 ml-4">untuk melihat total aktual ke Halaman
+                          <h6 class="mt-4 ml-4">untuk melihat total aktual ke Halaman
                             <a rel="nofollow" href="page_pemasukan.php?m=9&n=9">
-                              Pemasukan >></a>
+                              Pemasukan <i class="fas fa-arrow-right"></i></a>
                           </h6>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-6 col-md-6 mb-2">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col-md-10">
+                              <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
+                                PROFIT PUPUK</div>
+                              <div class="mb-0  ml-4 mb-2 text-muted">Profit pupuk adalah total penjualan pupuk dikurangi total pembelian pupuk. </div>
+                              <div class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success"><?=rp($hasilPenjualan - $hasilPengeluaran);?>
+                              <br><div class="h6 mb-4 mt-4 text-dark" id="info"> NET Profit : <?=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?></div>
+                              </div><br><div class="mb-0  ml-4 text-dark" style="font-size:14px;">Masih ada <span style="font-size:18px; font-weight:bold;background-color: #F0F8FF;padding:5px;"><?=$sisa;?></span> Karung Pupuk yang
+                            belum terjual.</div>
+                            </div>
+                            <!-- <div class="col-md-2 ml-6">
+                              <img src="img/duwit.png" width="100%">
+                            </div> -->
+
+                          </div>
+
+                          
                         </div>
                       </div>
                     </div>
@@ -505,7 +579,7 @@ function getColor()
                           </div>
                           <h6>ke Halaman
                             <a rel="nofollow" href="page_piutang.php?m=10&n=10">
-                              Piutang >></a>
+                              Piutang <i class="fas fa-arrow-right"></i></a>
                           </h6>
 
                         </div>
