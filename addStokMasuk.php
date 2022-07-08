@@ -35,8 +35,10 @@ if (mysqli_query($conn, $sql)) {
     foreach ($aqlPupuk as $keyPupuk) {
         $jumPupuk = $keyPupuk['Stok'];
     }
+
+    //update stok
     if ($jumPupuk == 0) {
-        $total = "UPDATE data_pupuk SET Stok='" . $dat . "', Status=1 WHERE  ID_PK=" . $idppk;
+        $total = "UPDATE data_pupuk SET Stok='" . $jumlah . "', Status=1 WHERE  ID_PK=" . $idppk;
         mysqli_query($conn, $total);
         $_SESSION["info"] = 'Stok berhasil ditambah ';
         header("Location: page_stok_masuk.php?m=2&n=1");

@@ -314,7 +314,7 @@ function convertRP() {
   var bayarNum = bayar.replace("Rp. ", "").split('.').join("");
 
   var piutang = document.getElementById("piutangaktif").innerHTML;
-  var piutangNum = piutang.replace("Rp. ", "").replace(".", "");
+  var piutangNum = piutang.replace("Rp. ", "").split('.').join("");
 
   document.getElementById("bayar").value = toRp(bayar, "Rp. ");
 

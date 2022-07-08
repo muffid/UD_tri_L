@@ -104,47 +104,7 @@ function getColor()
     }
 
     date_default_timezone_set('Asia/Jakarta');
-    $tanggal = date("D, j M Y ");
-
-    $blnBl = substr($tanggal, 7, 9);
-    switch ($blnBl) {
-        case '01':
-            $blnBl = 'Jan';
-            break;
-        case '02':
-            $blnBl = 'Feb';
-            break;
-        case '03':
-            $blnBl = 'Mar';
-            break;
-        case '04':
-            $blnBl = 'Apr';
-            break;
-        case '05':
-            $blnBl = 'May';
-            break;
-        case '06':
-            $blnBl = 'Jun';
-            break;
-        case '07':
-            $blnBl = 'Jul';
-            break;
-        case '08':
-            $blnBl = 'Aug';
-            break;
-        case '09':
-            $blnBl = 'Sep';
-            break;
-        case '10':
-            $blnBl = 'Oct';
-            break;
-        case '11':
-            $blnBl = 'Nov';
-            break;
-        case '12':
-            $blnBl = 'Dec';
-            break;
-    }
+    $tanggal = date(" M Y ");
 
     function checkStok($stokNow)
     {
@@ -177,21 +137,21 @@ function getColor()
                                                 <div class="h5 mb-0 font-weight-bold text-gray-800">' . $det['Stok'] . ' karung</div>
                                             </div>
                                             <div class="col-md-5">
-                                            <img src="img/warehouse.png" width="50%" height="50%">' . checkStok($det['Stok']) . '
+                                            <img src="img/warehouse.png" class="img-fluid" alt="Responsive image" width="50%" height="50%">' . checkStok($det['Stok']) . '
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>');
 
-            $sqlGetSold = mysqli_query($conn, "SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE (ID_PK=" . $key['ID_PK'] . " AND Tanggal LIKE '%" . $blnBl . "%')");
+            $sqlGetSold = mysqli_query($conn, "SELECT SUM(Jumlah_Keluar) AS Total FROM stok_keluar WHERE (ID_PK=" . $key['ID_PK'] . " AND Tanggal LIKE '%" . $tanggal . "%')");
             foreach ($sqlGetSold as $sgs) {
                 echo ('<label id="nama' . $no . '" hidden>' . $det['Jenis_Pupuk'] . '</label>');
                 echo ('<label id="total' . $no . '" hidden>' . $sgs['Total'] . '</label>');
 
             }
 
-            $sqlGetMasuk = mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS totM FROM stok_masuk WHERE (ID_PK=" . $key['ID_PK'] . " AND Tanggal LIKE '%" . $blnBl . "%')");
+            $sqlGetMasuk = mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS totM FROM stok_masuk WHERE (ID_PK=" . $key['ID_PK'] . " AND Tanggal LIKE '%" . $tanggal . "%')");
             foreach ($sqlGetMasuk as $sgm) {
                 echo ('<label id="masuk' . $no . '" hidden>' . $sgm['totM'] . '</label>');
             }
@@ -204,10 +164,10 @@ function getColor()
 
     $totAng = 0;
     $totKel = 0;
-    $sqlGetTotAnggota = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_KT = 0 AND Tanggal LIKE '%" . $tanggal . "%')");
-    foreach ($sqlGetTotAnggota as $sgta) {
-        $totAng = $sgta['tot'];
-        echo ('<label id="totanggota" hidden >' . $sgta['tot'] . '</label>');
+    $sqlGetTotAnggotaz = mysqli_query($conn, "SELECT SUM(Total) AS tot FROM penjualan WHERE (ID_AKT NOT LIKE '0' AND Tanggal LIKE '%" . $tanggal . "%')");
+    foreach($sqlGetTotAnggotaz as $z){
+      $totAng = (int)$z['tot'];
+      echo('<label id="totanggota" hidden>'.$totAng.'</label>');
     }
 
     $sqlGetTotKelompok = mysqli_query($conn, "SELECT SUM(Total) AS tots FROM penjualan WHERE (ID_AKT LIKE '0' AND Tanggal LIKE '%" . $tanggal . "%')");
@@ -310,7 +270,7 @@ function getColor()
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Penjualan Pupuk Bulan <?=$blnBl;?></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Penjualan Pupuk Bulan <?=$tanggal;?></h6>
 
 
                 </div>
@@ -328,7 +288,7 @@ function getColor()
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Pemasukan Bulan <?=$blnBl;?></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pemasukan Bulan <?=$tanggal;?></h6>
 
                 </div>
                 <!-- Card Body -->
@@ -353,7 +313,7 @@ function getColor()
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Pembelian Pupuk Bulan <?=$blnBl;?></h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pembelian Pupuk Bulan <?=$tanggal;?></h6>
 
                 </div>
                 <!-- Card Body -->
