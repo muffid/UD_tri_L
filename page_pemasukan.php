@@ -149,13 +149,20 @@ $no = 1;
         $total = $total + (int) $hasil;
     endforeach;
     ?>
-                      <tbody>
+
                         <tr>
-                          <th colspan="5" class="text-center">TOTAL</th>
-                          <th><?=rp($total);?></th>
+                          <td><text style="display:none;"><?=$no++;?></text></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td class="text-center">TOTAL</td>
+                          <td><?=rp($total);?></td>
                         </tr>
+
                       </tbody>
-                      </tbody>
+                      <!-- <tfoot>
+
+                      </tfoot> -->
                     </table>
                   </div>
                 </div>
