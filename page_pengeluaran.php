@@ -225,7 +225,7 @@ $nobl = 1;
 
 
                         <tr>
-                          <th><text style="display:none;"><?=$no++;?></text></th>
+                          <th><text style="display:none;"><?=$nobl++;?></text></th>
                           <th></th>
                           <th class="text-center">TOTAL</th>
                           <th><?=rp($totalbl);?></th>
