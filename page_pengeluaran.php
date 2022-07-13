@@ -127,12 +127,14 @@ $no = 1;
                         </tr> <?php $no++;
     $total = $total + (int) $gd['Nominal'];
     endforeach;?>
-                      <tbody>
+
                         <tr>
-                          <th colspan="4" class="text-center">TOTAL</th>
+                          <th><text style="display:none;"><?=$no++;?></text></th>
+                          <th></th>
+                          <th></th>
+                          <th class="text-center">TOTAL</th>
                           <th><?=rp($total);?></th>
                         </tr>
-                      </tbody>
                       </tbody>
                     </table>
                   </div>
@@ -221,12 +223,15 @@ $nobl = 1;
                         <?php $nobl++;
     $totalbl = $totalbl + (int) $key['Total'];endforeach;?>
 
-                      <tbody>
+
                         <tr>
-                          <th colspan="3" class="text-center">TOTAL</th>
+                          <th><text style="display:none;"><?=$no++;?></text></th>
+                          <th></th>
+                          <th class="text-center">TOTAL</th>
                           <th><?=rp($totalbl);?></th>
                         </tr>
-                      </tbody>
+
+
                       </tbody>
                     </table>
                   </div>

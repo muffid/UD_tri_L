@@ -151,12 +151,12 @@ $no = 1;
     ?>
 
                         <tr>
-                          <td><text style="display:none;"><?=$no++;?></text></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td class="text-center">TOTAL</td>
-                          <td><?=rp($total);?></td>
+                          <th><text style="display:none;"><?=$no++;?></text></th>
+                          <th></th>
+                          <th></th>
+                          <th></th>
+                          <th class="text-center">TOTAL</th>
+                          <th><?=rp($total);?></th>
                         </tr>
 
                       </tbody>
@@ -255,7 +255,49 @@ $toatalPemasukan = mysqli_query($conn, "SELECT sum(Total) as totalPemasukan FROM
                         </div>
                       </div>
                     </div>
+
                   </div>
+
+
+                  <?php
+
+    if (isset($_GET['BTBL'])) {
+        $sqlPengeluaran = mysqli_query($conn, "SELECT sum(Nominal) as total_pengeluaran  FROM stok_masuk WHERE Tanggal LIKE '%" . $_GET['BTBL'] . "%' ");
+    } else {
+        $sqlPengeluaran = mysqli_query($conn, "SELECT sum(Nominal) as total_pengeluaran  FROM stok_masuk");
+    }
+
+    foreach ($sqlPengeluaran as $keyPengeluaran) {
+        $hasilPengeluaran = $keyPengeluaran['total_pengeluaran'];
+    }?>
+
+                  <div class="row">
+                    <div class="col-xl-12 ">
+                      <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                              <div class="text-md font-weight-bold text-primary text-uppercase mb-1">
+                                Profit Pupuk/ Kas</div>
+                              <div class="mb-0  text-gray-800">total</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?=rp($total - $hasilPengeluaran);?>
+                              </div>
+                              <div class="mt-3 text-muted" style="font-size: 0.875em;">penghasilan bersih dari penjualan
+                                dikurangi pembelian pupuk / bulan (jika di set bulannya)</div>
+                            </div>
+                            <div class="col-auto">
+                              <div class="col-md-3"><img src="img/money-bag.png" width="50%"></div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+
                 </div>
 
               </div>
