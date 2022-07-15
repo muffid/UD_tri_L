@@ -20,9 +20,11 @@ if (mysqli_query($conn, $sql)) {
     foreach ($slc as $idslc) {
         $idstpp = $idslc['ID_SM'];
     }
-    //input biaya lain
+    //input biaya lain jika transport > 0
+    if($trans>0){
     $tran = "INSERT INTO biaya_lain (ID_BL, Tanggal, ID_SM, ID_PJ, Total) VALUES ('','$tanggal','$idstpp','','$trans')";
     mysqli_query($conn, $tran);
+    }
 
 //    tamabh stok
     $sqlDP = mysqli_query($conn, "SELECT SUM(Jumlah_Masuk) AS total_stok From stok_masuk where ID_PK=" . $idppk);
