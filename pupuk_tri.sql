@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2022 at 04:44 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Waktu pembuatan: 02 Agu 2022 pada 13.11
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `anggota_kel_tani`
+-- Struktur dari tabel `anggota_kel_tani`
 --
 
 CREATE TABLE `anggota_kel_tani` (
@@ -40,7 +40,7 @@ CREATE TABLE `anggota_kel_tani` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `biaya_lain`
+-- Struktur dari tabel `biaya_lain`
 --
 
 CREATE TABLE `biaya_lain` (
@@ -52,7 +52,7 @@ CREATE TABLE `biaya_lain` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `biaya_lain`
+-- Dumping data untuk tabel `biaya_lain`
 --
 
 INSERT INTO `biaya_lain` (`ID_BL`, `Tanggal`, `ID_SM`, `ID_PJ`, `Total`) VALUES
@@ -63,7 +63,7 @@ INSERT INTO `biaya_lain` (`ID_BL`, `Tanggal`, `ID_SM`, `ID_PJ`, `Total`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_kel_tani`
+-- Struktur dari tabel `data_kel_tani`
 --
 
 CREATE TABLE `data_kel_tani` (
@@ -77,7 +77,7 @@ CREATE TABLE `data_kel_tani` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_kel_tani`
+-- Dumping data untuk tabel `data_kel_tani`
 --
 
 INSERT INTO `data_kel_tani` (`ID_KT`, `NIK`, `Nama_Kel`, `Nama_Ketua`, `Alamat`, `Telp`, `Foto`) VALUES
@@ -90,7 +90,7 @@ INSERT INTO `data_kel_tani` (`ID_KT`, `NIK`, `Nama_Kel`, `Nama_Ketua`, `Alamat`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_pupuk`
+-- Struktur dari tabel `data_pupuk`
 --
 
 CREATE TABLE `data_pupuk` (
@@ -102,17 +102,17 @@ CREATE TABLE `data_pupuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `data_pupuk`
+-- Dumping data untuk tabel `data_pupuk`
 --
 
 INSERT INTO `data_pupuk` (`ID_PK`, `Jenis_Pupuk`, `Stok`, `Harga`, `Status`) VALUES
 (1, 'phonska', 0, 119000, 1),
-(2, 'urea', 346, 116500, 1);
+(2, 'urea', 150, 116500, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penjualan`
+-- Struktur dari tabel `penjualan`
 --
 
 CREATE TABLE `penjualan` (
@@ -126,7 +126,7 @@ CREATE TABLE `penjualan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `penjualan`
+-- Dumping data untuk tabel `penjualan`
 --
 
 INSERT INTO `penjualan` (`ID_PJ`, `ID_KT`, `ID_AKT`, `ID_KEY`, `Tanggal`, `Total`, `Dibayar`) VALUES
@@ -137,12 +137,14 @@ INSERT INTO `penjualan` (`ID_PJ`, `ID_KT`, `ID_AKT`, `ID_KEY`, `Tanggal`, `Total
 (6, 0, 'sumiati', 'pRPSV', 'Thu, 14 Jul 2022 ', 240000, 240000),
 (7, 1, '0', 'rM41L', 'Fri, 15 Jul 2022 ', 19040000, 0),
 (8, 0, 'djari', 'g8txl', 'Fri, 15 Jul 2022 ', 240000, 240000),
-(9, 0, 'sutarman ', 'StpEP', 'Fri, 15 Jul 2022 ', 750000, 750000);
+(9, 0, 'sutarman ', 'StpEP', 'Fri, 15 Jul 2022 ', 750000, 750000),
+(10, 1, '0', 'rZilw', 'Fri, 15 Jul 2022 ', 40309000, 40309000),
+(11, 4, '0', 'iNcPW', 'Tue, 19 Jul 2022 ', 1165000, 1000000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `piutang`
+-- Struktur dari tabel `piutang`
 --
 
 CREATE TABLE `piutang` (
@@ -156,18 +158,21 @@ CREATE TABLE `piutang` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `piutang`
+-- Dumping data untuk tabel `piutang`
 --
 
 INSERT INTO `piutang` (`ID_PT`, `ID_KT`, `ID_AKT`, `ID_KEY`, `Debit`, `Kredit`, `Tanggal`) VALUES
 (1, 1, '', 'HiIob', 0, 12218000, 'Sun, 26 Jun 2022 '),
 (3, 1, '', 'Fq12I', 10550000, 0, 'Mon, 11 Jul 2022 '),
-(4, 1, '', 'rM41L', 0, 19040000, 'Fri, 15 Jul 2022 ');
+(4, 1, '', 'rM41L', 0, 19040000, 'Fri, 15 Jul 2022 '),
+(5, 1, '', '3Ioos', 20708000, 0, 'Fri, 15 Jul 2022 '),
+(6, 4, '', 'iNcPW', 0, 165000, 'Tue, 19 Jul 2022 '),
+(7, 4, '', '85dD0', 165000, 0, 'Tue, 19 Jul 2022 ');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stok_keluar`
+-- Struktur dari tabel `stok_keluar`
 --
 
 CREATE TABLE `stok_keluar` (
@@ -182,7 +187,7 @@ CREATE TABLE `stok_keluar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `stok_keluar`
+-- Dumping data untuk tabel `stok_keluar`
 --
 
 INSERT INTO `stok_keluar` (`ID_SK`, `key_transaksi`, `Tanggal`, `ID_KT`, `ID_AKT`, `ID_PK`, `Jumlah_Keluar`, `Harga`) VALUES
@@ -194,12 +199,14 @@ INSERT INTO `stok_keluar` (`ID_SK`, `key_transaksi`, `Tanggal`, `ID_KT`, `ID_AKT
 (7, 'pRPSV', 'Thu, 14 Jul 2022 ', 0, 'sumiati', 2, 2, 120000),
 (8, 'rM41L', 'Fri, 15 Jul 2022 ', 1, '', 1, 160, 119000),
 (9, 'g8txl', 'Fri, 15 Jul 2022 ', 0, 'djari', 2, 2, 120000),
-(10, 'StpEP', 'Fri, 15 Jul 2022 ', 0, 'sutarman ', 2, 6, 125000);
+(10, 'StpEP', 'Fri, 15 Jul 2022 ', 0, 'sutarman ', 2, 6, 125000),
+(11, 'rZilw', 'Fri, 15 Jul 2022 ', 1, '', 2, 346, 116500),
+(12, 'iNcPW', 'Tue, 19 Jul 2022 ', 4, '', 2, 10, 116500);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stok_masuk`
+-- Struktur dari tabel `stok_masuk`
 --
 
 CREATE TABLE `stok_masuk` (
@@ -213,7 +220,7 @@ CREATE TABLE `stok_masuk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `stok_masuk`
+-- Dumping data untuk tabel `stok_masuk`
 --
 
 INSERT INTO `stok_masuk` (`ID_SM`, `Tanggal`, `ID_PK`, `Nama_Pengirim`, `Jumlah_Masuk`, `Nominal`, `Status`) VALUES
@@ -222,12 +229,13 @@ INSERT INTO `stok_masuk` (`ID_SM`, `Tanggal`, `ID_PK`, `Nama_Pengirim`, `Jumlah_
 (3, 'Fri, 10 Jun 2022 ', 2, 'bambang stok juni', 200, 21818200, 0),
 (7, 'Wed, 13 Jul 2022 ', 2, 'bambang', 160, 17454500, 0),
 (8, 'Thu, 14 Jul 2022 ', 1, 'p rusdi', 160, 17854500, 0),
-(9, 'Fri, 15 Jul 2022 ', 1, 'p budi', 160, 17854500, 0);
+(9, 'Fri, 15 Jul 2022 ', 1, 'p budi', 160, 17854500, 0),
+(10, 'Tue, 19 Jul 2022 ', 2, 'Dimas', 160, 17888000, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -245,7 +253,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`Id`, `Nama`, `User_Name`, `Password`, `Status`, `Gambar`, `Alamat`, `Perusahaan`, `Job`, `Tentang`, `No_telp`) VALUES
@@ -256,110 +264,110 @@ INSERT INTO `user` (`Id`, `Nama`, `User_Name`, `Password`, `Status`, `Gambar`, `
 --
 
 --
--- Indexes for table `anggota_kel_tani`
+-- Indeks untuk tabel `anggota_kel_tani`
 --
 ALTER TABLE `anggota_kel_tani`
   ADD PRIMARY KEY (`ID_AKT`);
 
 --
--- Indexes for table `biaya_lain`
+-- Indeks untuk tabel `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
   ADD PRIMARY KEY (`ID_BL`);
 
 --
--- Indexes for table `data_kel_tani`
+-- Indeks untuk tabel `data_kel_tani`
 --
 ALTER TABLE `data_kel_tani`
   ADD PRIMARY KEY (`ID_KT`) USING BTREE;
 
 --
--- Indexes for table `data_pupuk`
+-- Indeks untuk tabel `data_pupuk`
 --
 ALTER TABLE `data_pupuk`
   ADD PRIMARY KEY (`ID_PK`);
 
 --
--- Indexes for table `penjualan`
+-- Indeks untuk tabel `penjualan`
 --
 ALTER TABLE `penjualan`
   ADD PRIMARY KEY (`ID_PJ`);
 
 --
--- Indexes for table `piutang`
+-- Indeks untuk tabel `piutang`
 --
 ALTER TABLE `piutang`
   ADD PRIMARY KEY (`ID_PT`);
 
 --
--- Indexes for table `stok_keluar`
+-- Indeks untuk tabel `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
   ADD PRIMARY KEY (`ID_SK`);
 
 --
--- Indexes for table `stok_masuk`
+-- Indeks untuk tabel `stok_masuk`
 --
 ALTER TABLE `stok_masuk`
   ADD PRIMARY KEY (`ID_SM`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`Id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `anggota_kel_tani`
+-- AUTO_INCREMENT untuk tabel `anggota_kel_tani`
 --
 ALTER TABLE `anggota_kel_tani`
   MODIFY `ID_AKT` int(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `biaya_lain`
+-- AUTO_INCREMENT untuk tabel `biaya_lain`
 --
 ALTER TABLE `biaya_lain`
   MODIFY `ID_BL` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `data_kel_tani`
+-- AUTO_INCREMENT untuk tabel `data_kel_tani`
 --
 ALTER TABLE `data_kel_tani`
   MODIFY `ID_KT` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `data_pupuk`
+-- AUTO_INCREMENT untuk tabel `data_pupuk`
 --
 ALTER TABLE `data_pupuk`
   MODIFY `ID_PK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `penjualan`
+-- AUTO_INCREMENT untuk tabel `penjualan`
 --
 ALTER TABLE `penjualan`
-  MODIFY `ID_PJ` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_PJ` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `piutang`
+-- AUTO_INCREMENT untuk tabel `piutang`
 --
 ALTER TABLE `piutang`
-  MODIFY `ID_PT` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_PT` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `stok_keluar`
+-- AUTO_INCREMENT untuk tabel `stok_keluar`
 --
 ALTER TABLE `stok_keluar`
-  MODIFY `ID_SK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ID_SK` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `stok_masuk`
+-- AUTO_INCREMENT untuk tabel `stok_masuk`
 --
 ALTER TABLE `stok_masuk`
-  MODIFY `ID_SM` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_SM` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
