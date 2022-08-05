@@ -340,7 +340,7 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
               <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"> <i class="fas fa-user"></i> Data Penjualan Pupuk -
-                    Kelompok Tani</h6>
+                    Kelompok Tani Pada Bulan <?=substr($tanggal, 6)  ?></h6>
                 </div>
 
                 <div class="card-body">
@@ -362,7 +362,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga,Stok FROM data_pupuk
                           <tbody>
                             <?php
 $nopen = 1;
-    $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_KT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_AKT LIKE '0' ORDER BY ID_PJ DESC");
+$tgl = substr($tanggal, 6);
+    $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_KT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_AKT LIKE '0' AND Tanggal LIKE '%$tgl%' ORDER BY ID_PJ DESC");
     foreach ($sqlPenj as $sp) {
         echo ("<tr>");
         echo ("<td>" . $nopen . "</td>");
@@ -502,7 +503,7 @@ $nopen++;
               <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-friends"></i> Data Penjualan Pupuk
-                    - Anggota</h6>
+                    - Anggota Pada Bulan <?=substr($tanggal, 6)  ?></h6>
                 </div>
 
                 <div class="card-body">
@@ -524,7 +525,7 @@ $nopen++;
                           <tbody>
                             <?php
 $nopen = 1;
-    $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0' ORDER BY ID_PJ DESC");
+    $sqlPenj = mysqli_query($conn, "SELECT ID_PJ,ID_AKT,ID_KEY,Tanggal,Total,Dibayar FROM penjualan WHERE ID_KT LIKE '0' AND Tanggal LIKE '%$tgl%'  ORDER BY ID_PJ DESC");
     foreach ($sqlPenj as $sp) {
         echo ("<tr>");
         echo ("<td>" . $nopen . "</td>");

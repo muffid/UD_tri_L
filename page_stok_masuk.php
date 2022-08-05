@@ -247,7 +247,8 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
               <div class="card shadow mb-4">
 
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Historis Stok Pupuk Masuk</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Data Historis Stok Pupuk Masuk Pada Bulan
+                    <?= substr($tanggal, 6) ?></h6>
 
                 </div>
 
@@ -269,9 +270,10 @@ $data = mysqli_query($conn, "SELECT ID_PK,Jenis_Pupuk,Harga FROM data_pupuk ORDE
 
                       <tbody>
                         <?php
+                         $tgl = substr($tanggal, 6);
 $no = 1;
     $data = mysqli_query($conn, "SELECT * FROM stok_masuk
-    INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK ORDER BY ID_SM DESC
+    INNER JOIN data_pupuk ON stok_masuk.ID_PK = data_pupuk.ID_PK WHERE  stok_masuk.Tanggal LIKE '%$tgl%' ORDER BY ID_SM DESC
     ");
     foreach ($data as $all):
         echo ('<tr><td>' . $no . '</td>');

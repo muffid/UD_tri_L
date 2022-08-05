@@ -52,14 +52,14 @@ if (isset($_SESSION['login'])) {
   #info {
     background-color: #F0F8FF;
     color: #FFFFFF;
-    display:inline;
-    white-space:pre-wrap;
-    line-height : 24px;
+    display: inline;
+    white-space: pre-wrap;
+    line-height: 24px;
     font-size: 14px;
     padding: 5px;
-   
 
-}
+
+  }
   </style>
 
 </head>
@@ -426,14 +426,15 @@ function getColor()
                               </div>
 
                               <div class="ml-4 mb-2 text-muted"><span style="font-size:14px;">
-                                  Total pengeluaran adalah jumlah dari biaya penbelian pupuk ditambahkan dengan
-                                  biaya transport pengiriman pupuk.</span>
+                                  pada bulan <?=$tanggal;?>.</span>
                               </div>
 
                               <div class="ml-4 h4 mb-2 font-weight-bold text-success">
-                                <?=rp($totalAll);?>   <br><div class="h6 mb-0 mt-4 text-dark" id="info"> Total bulan ini : <?=rp($totPengluaranBulanan);?></div>
+                                <?=rp($totPengluaranBulanan);?> <br>
+                                <!-- <div class="h6 mb-0 mt-4 text-dark" id="info"> Total bulan ini :
+                                  <?//=rp($totPengluaranBulanan);?></div> -->
                               </div>
-                              
+
                               <h6 class="mt-4 ml-4">ke Halaman
                                 <a rel="nofollow" href="page_pengeluaran.php?m=8&n=8">
                                   Pengeluaran <i class="fas fa-arrow-right"></i> </a>
@@ -452,10 +453,13 @@ function getColor()
                               <div class="row">
                                 <div class="col-auto ml-4">
                                   <div class="text-md font-weight-bold mb-2">
-                                    Total Biaya Transport</div>
+                                    Total Biaya Transport</div><span style="font-size:14px;">
+                                    pada bulan <?=$tanggal;?>.</span>
 
-                                  <div class="h5 mb-0  text-success"> <?=rp($hasilTransport);?></div>
-                                  <br><div class="h6 mb-0 mt-0 text-dark" id="info"> Total bulan ini : <?=rp($totTransBulanan);?></div>
+                                  <div class="h5 mb-0 mt-2 text-success"> <?=rp($totTransBulanan);?></div>
+                                  <br>
+                                  <!-- <div class="h6 mb-0 mt-0 text-dark" id="info"> Total bulan ini :
+                                    <?//=rp($totTransBulanan);?></div> -->
                                 </div>
                                 <div class="col-md-4 ml-4">
                                   <img src="img/delivery-truck.png" width="35%">
@@ -473,10 +477,13 @@ function getColor()
                               <div class="row">
                                 <div class="col-auto ml-4">
                                   <div class="text-md font-weight-bold  mb-2">
-                                    Total Pembelian Pupuk</div>
+                                    Total Pembelian Pupuk</div><span style="font-size:14px;">
+                                    pada bulan <?=$tanggal;?>.</span>
 
-                                  <div class="h5 mb-0  text-success"> <?=rp($hasilPengeluaran);?></div>
-                                  <br><div class="h6 mb-0 mt-0 text-dark" id="info"> Total bulan ini : <?=rp($totPembBulanan);?></div>
+                                  <div class="h5 mb-0 mt-2 text-success"> <?=rp($totPembBulanan);?></div>
+                                  <br>
+                                  <!-- <div class="h6 mb-0 mt-0 text-dark" id="info"> Total bulan ini :
+                                    <?//=rp($totPembBulanan);?></div> -->
                                 </div>
                                 <div class="col-md-4 ml-4">
                                   <img src="img/purchase.png" width="35%">
@@ -500,11 +507,11 @@ function getColor()
                             <div class="col-md-10">
                               <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
                                 TOTAL PEMASUKAN</div>
-                              <div class="mb-0  ml-4 mb-2 text-muted">total pemasukan adalah total dari semua penjualan
-                                pupuk (termasuk piutang yang
-                                belum dilunasi)</div>
-                              <div class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success"><?=rp($hasilPenjualan);?>
-                              <br><div class="h6 mb-2 mt-4 text-dark" id="info"> Total bulan ini : <?=rp($totPenjBul);?></div>
+                              <div class="mb-0  ml-4 mb-2 text-muted">pada bulan <?=$tanggal;?>.</div>
+                              <div class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success"><?=rp($totPenjBul);?>
+                                <br>
+                                <!-- <div class="h6 mb-2 mt-4 text-dark" id="info"> Total bulan ini : <?//=rp($totPenjBul);?>
+                                </div> -->
                               </div>
                             </div>
                             <!-- <div class="col-md-2 ml-6">
@@ -529,11 +536,18 @@ function getColor()
                             <div class="col-md-10">
                               <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
                                 PROFIT PUPUK</div>
-                              <div class="mb-0  ml-4 mb-2 text-muted">Profit pupuk adalah total penjualan pupuk dikurangi total pembelian pupuk. </div>
-                              <div class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success"><?=rp($hasilPenjualan - $hasilPengeluaran);?>
-                              <br><div class="h6 mb-4 mt-4 text-dark" id="info"> NET Profit : <?=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?></div>
-                              </div><br><div class="mb-0  ml-4 text-dark" style="font-size:14px;">Masih ada <span style="font-size:18px; font-weight:bold;background-color: #F0F8FF;padding:5px;"><?=$sisa;?></span> Karung Pupuk yang
-                            belum terjual.</div>
+                              <div class="mb-0  ml-4 mb-2 text-muted">Profit pupuk adalah total penjualan pupuk
+                                dikurangi total pembelian pupuk pada bulan <?= $tanggal; ?>. </div>
+                              <div class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success">
+                                <?=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?>
+                                <br>
+                                <!-- <div class="h6 mb-4 mt-4 text-dark" id="info"> NET Profit :
+                                  <?//=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?></div>-->
+                              </div><br>
+                              <div class="mb-0  ml-4 text-dark" style="font-size:14px;">Masih ada <span
+                                  style="font-size:18px; font-weight:bold;background-color: #F0F8FF;padding:5px;"><?=$sisa;?></span>
+                                Karung Pupuk yang
+                                belum terjual.</div>
                             </div>
                             <!-- <div class="col-md-2 ml-6">
                               <img src="img/duwit.png" width="100%">
@@ -541,7 +555,7 @@ function getColor()
 
                           </div>
 
-                          
+
                         </div>
                       </div>
                     </div>
@@ -569,7 +583,8 @@ function getColor()
                                     <tr>
                                       <td style="font-weight:bold;"><?=rp((int) $hasilPiutang);?></td>
                                       <td style="font-weight:bold;"><?=rp((int) $hasilDibayar);?></td>
-                                      <td style="font-weight:bold;"><?=rp((int) $hasilPiutang - (int) $hasilDibayar);?>
+                                      <td style="font-weight:bold;">
+                                        <?=rp((int) $hasilPiutang - (int) $hasilDibayar);?>
                                       </td>
                                   </tbody>
                                 </table>
@@ -704,7 +719,7 @@ function getColor()
             },
             options: {
               scales: {
-               
+
                 yAxes: [{
                   ticks: {
                     beginAtZero: true
@@ -729,7 +744,7 @@ function getColor()
             },
             options: {
               scales: {
-               
+
                 yAxes: [{
                   ticks: {
                     beginAtZero: true
