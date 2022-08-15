@@ -69,34 +69,81 @@ if (isset($_SESSION['login'])) {
                             <h6 class="m-0 font-weight-bold text-primary">Rekap Pupuk</h6>
                         </div>
                         <div class="card-body">
-                            <p>Use Font Awesome Icons (included with this theme package) along with the circle
-                                buttons as shown in the examples below!</p>
+                            <h6 class="m-0 font-weight-bold text-primary">Rekap Pada Bulan Juli</h6>
+                            <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
 
                             <table class="table table-bordered">
                                 <thead class=" thead-dark">
                                     <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Nama Pupuk</th>
-                                        <th colspan="2">Juli</th>
-                                    </tr>
-                                    <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Nama Pupuk</th>
-                                        <th colspan="2">Juli</th>
+                                        <th scope="col">Pupuk</th>
+                                        <th scope="col">Jumlah Pupuk Masuk</th>
+                                        <th scope="col">Harga Beli Global</th>
+                                        <th scope="col">Terjual</th>
+                                        <th scope="col">Harga Jual/ Karung</th>
+                                        <th scope="col">Sisa</th>
+                                        <th scope="col">Keuntungan</th>
                                     </tr>
 
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Urea</td>
-                                        <td>200</td>
+                                        <th scope="row">Urea</th>
+                                        <td>120 Karung</td>
+                                        <td>Rp. 17.000.000</td>
+                                        <td>115 Karung</td>
+                                        <td>Rp. 150.000</td>
+                                        <td>5 Karung</td>
+                                        <td>Rp. 250.000</td>
 
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
-                                        <td>Phoska</td>
-                                        <td>200</td>
+                                        <th scope="row">Phoska</th>
+                                        <td>120 Karung</td>
+                                        <td>Rp. 17.000.000</td>
+                                        <td>120 Karung</td>
+                                        <td>Rp. 150.000</td>
+                                        <td>0 Karung</td>
+                                        <td>Rp. 1.000.000</td>
+
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <h6 class="mt-5 font-weight-bold text-primary">Rekap Pada Bulan Agustus</h6>
+                            <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
+
+                            <table class="table table-bordered">
+                                <thead class=" thead-dark">
+                                    <tr>
+                                        <th scope="col">Pupuk</th>
+                                        <th scope="col">Jumlah Pupuk Masuk</th>
+                                        <th scope="col">Harga Beli Global</th>
+                                        <th scope="col">Terjual</th>
+                                        <th scope="col">Harga Jual/ Karung</th>
+                                        <th scope="col">Sisa</th>
+                                        <th scope="col">Keuntungan</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Urea</th>
+                                        <td>120 Karung</td>
+                                        <td>Rp. 17.000.000</td>
+                                        <td>115 Karung</td>
+                                        <td>Rp. 150.000</td>
+                                        <td>5 Karung</td>
+                                        <td>Rp. 250.000</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Phoska</th>
+                                        <td>120 Karung</td>
+                                        <td>Rp. 17.000.000</td>
+                                        <td>120 Karung</td>
+                                        <td>Rp. 150.000</td>
+                                        <td>0 Karung</td>
+                                        <td>Rp. 1.000.000</td>
 
                                     </tr>
                                 </tbody>
