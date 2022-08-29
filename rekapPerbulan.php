@@ -1,7 +1,93 @@
 <?php
 session_start();
 if (isset($_SESSION['login'])) {
-    ?>
+ include "connection.php";
+ 
+ $hargaJualPerKarung = 0;
+ $iterator = 0;
+ $totBulanValid = 0;
+ $bulanValid = array();
+ $totPerBulan = array();
+ $nominalPerBulan = array();
+ date_default_timezone_set('Asia/Jakarta');
+ $tanggal = date("M");
+ $arrMonth = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
+ $nominal_pembelian = array();
+ $terjual = array();
+ $harga_jual = array();
+ $sisa = array();
+ $keuntungan = array();
+
+ $totalPenjualan = 0;  
+ $arrayData = array();
+ $arrEnum = array(
+    "Jan" => 1,
+    "Feb" => 2,
+    "Mar" => 3,
+    "Apr" => 4,
+    "May" => 5,
+    "Jun" => 6,
+    "Jul" => 7,
+    "Aug" => 8,
+    "Sep" => 9,
+    "Oct" => 10,
+    "Nov" => 11,
+    "Dec" =>12
+ );
+
+ //mencari harga jual per karung
+ $jualPerkarung = mysqli_query($conn,"SELECT Harga FROM data_pupuk WHERE ID_PK=2");
+ foreach($jualPerkarung as $jpk){
+    $hargaJualPerKarung = $jpk['Harga'];
+ }
+
+ //mencari total penjualan
+ $totPenj = mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS totP FROM stok_keluar WHERE Tanggal LIKE '%2022%' AND ID_PK=2");
+ foreach($totPenj as $tp){
+ $totalPenjualan = $tp['totP'];
+ }
+ 
+ //mencari bulan sekarang sampai kebelakang
+ for($k = 0; $k<sizeof($arrMonth); $k++){
+    $iterator = $arrEnum[$tanggal];
+ }
+
+ //setelah mencari bulan kebelakang sekarang mencari bulan apa saja yang ada pemasukan pupuk
+ for($l = 0; $l<$iterator; $l++){
+    $avail = mysqli_query($conn,"SELECT SUM(Jumlah_Masuk) AS totP FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND ID_PK=2");
+    foreach($avail as $a){
+        if($a['totP']==""){
+        }else{
+            //jumlah bulan yang ada pemasukan pupuk
+            $totBulanValid++;
+            //array berisi nama bulan yang ada pemasukn pupuk
+            array_push($bulanValid,$arrMonth[$l]);
+            //array berisi total pemasukan pupuk per bulan
+            array_push($totPerBulan,$a['totP']);
+            //array berisi nominal uang yang keluar per bulan
+            $nominal_keluar = mysqli_query($conn,"SELECT Nominal FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND ID_PK=2");
+            foreach($nominal_keluar as $nk){
+                array_push($nominalPerBulan,$nk['Nominal']);
+            }
+
+        }
+    }
+ }
+$c = $totalPenjualan;
+$res = array_fill(0,$totBulanValid,0);
+for($m = 0; $m<$totBulanValid; $m++){
+    if($c > (int)$totPerBulan[$m]){
+        array_push($terjual,$totPerBulan[$m]);
+        $c = $c - (int)$totPerBulan[$m];
+
+    }else{
+        array_push($terjual,$c);
+        
+    }
+}
+ 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- =======================================================
@@ -23,9 +109,7 @@ if (isset($_SESSION['login'])) {
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -75,81 +159,35 @@ if (isset($_SESSION['login'])) {
                             <table class="table table-bordered">
                                 <thead class=" thead-dark">
                                     <tr>
-                                        <th scope="col">Pupuk</th>
-                                        <th scope="col">Jumlah Pupuk Masuk</th>
-                                        <th scope="col">Harga Beli Global</th>
+                                        <th scope="col">Bulan</th>
+                                        <th scope="col">Total Pemeblian</th>
+                                        <th scope="col">Nominal</th>
                                         <th scope="col">Terjual</th>
-                                        <th scope="col">Harga Jual/ Karung</th>
+                                        <th scope="col">Harga Jual/Karung</th>
                                         <th scope="col">Sisa</th>
-                                        <th scope="col">Keuntungan</th>
+
                                     </tr>
 
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">Urea</th>
-                                        <td>120 Karung</td>
-                                        <td>Rp. 17.000.000</td>
-                                        <td>115 Karung</td>
-                                        <td>Rp. 150.000</td>
-                                        <td>5 Karung</td>
-                                        <td>Rp. 250.000</td>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Phoska</th>
-                                        <td>120 Karung</td>
-                                        <td>Rp. 17.000.000</td>
-                                        <td>120 Karung</td>
-                                        <td>Rp. 150.000</td>
-                                        <td>0 Karung</td>
-                                        <td>Rp. 1.000.000</td>
-
-                                    </tr>
+                                  <?php
+                                  for($i = 0; $i < $totBulanValid; $i++){
+                                    echo('<tr>');
+                                 
+                                        echo('<td>'.$bulanValid[$i].'</td>');
+                                        echo('<td>'.$totPerBulan[$i].'</td>');
+                                        echo('<td>'.$nominalPerBulan[$i].'</td>');
+                                        echo('<td>'.$terjual[$i].'</td>');
+                                        echo('<td>'.$hargaJualPerKarung.'</td>');
+                                        echo('<td>'.((int)$totPerBulan[$i] - (int)$terjual[$i]).'</td>');
+                                    
+                                    echo('</tr>');
+                                  }
+                                  ?>
                                 </tbody>
 
                             </table>
-                            <h6 class="mt-5 font-weight-bold text-primary">Rekap Pada Bulan Agustus</h6>
-                            <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
-
-                            <table class="table table-bordered">
-                                <thead class=" thead-dark">
-                                    <tr>
-                                        <th scope="col">Pupuk</th>
-                                        <th scope="col">Jumlah Pupuk Masuk</th>
-                                        <th scope="col">Harga Beli Global</th>
-                                        <th scope="col">Terjual</th>
-                                        <th scope="col">Harga Jual/ Karung</th>
-                                        <th scope="col">Sisa</th>
-                                        <th scope="col">Keuntungan</th>
-                                    </tr>
-
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Urea</th>
-                                        <td>120 Karung</td>
-                                        <td>Rp. 17.000.000</td>
-                                        <td>115 Karung</td>
-                                        <td>Rp. 150.000</td>
-                                        <td>5 Karung</td>
-                                        <td>Rp. 250.000</td>
-
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Phoska</th>
-                                        <td>120 Karung</td>
-                                        <td>Rp. 17.000.000</td>
-                                        <td>120 Karung</td>
-                                        <td>Rp. 150.000</td>
-                                        <td>0 Karung</td>
-                                        <td>Rp. 1.000.000</td>
-
-                                    </tr>
-                                </tbody>
-
-                            </table>
-
+                            
                         </div>
                     </div>
 
