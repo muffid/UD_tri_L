@@ -2,6 +2,7 @@
 session_start();
 if (isset($_SESSION['login'])) {
  include "connection.php";
+ include "functions.php";
  
  $hargaJualPerKarung = 0;
  $iterator = 0;
@@ -13,7 +14,6 @@ if (isset($_SESSION['login'])) {
  $tanggal = date("M");
  $arrMonth = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Des'];
  $nominal_pembelian = array();
- $terjual = array();
  $harga_jual = array();
  $sisa = array();
  $keuntungan = array();
@@ -47,10 +47,9 @@ if (isset($_SESSION['login'])) {
  $totalPenjualan = $tp['totP'];
  }
  
- //mencari bulan sekarang sampai kebelakang
- for($k = 0; $k<sizeof($arrMonth); $k++){
-    $iterator = $arrEnum[$tanggal];
- }
+
+    $iterator =$arrEnum[$tanggal];
+ 
 
  //setelah mencari bulan kebelakang sekarang mencari bulan apa saja yang ada pemasukan pupuk
  for($l = 0; $l<$iterator; $l++){
@@ -65,27 +64,34 @@ if (isset($_SESSION['login'])) {
             //array berisi total pemasukan pupuk per bulan
             array_push($totPerBulan,$a['totP']);
             //array berisi nominal uang yang keluar per bulan
-            $nominal_keluar = mysqli_query($conn,"SELECT Nominal FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND ID_PK=2");
+            $nominal_keluar = mysqli_query($conn,"SELECT SUM(Nominal) AS nom FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND ID_PK=2");
             foreach($nominal_keluar as $nk){
-                array_push($nominalPerBulan,$nk['Nominal']);
+                array_push($nominalPerBulan,$nk['nom']);
             }
-
         }
     }
  }
+
+
+$terjual = array_fill(0,$totBulanValid,0);
 $c = $totalPenjualan;
 $res = array_fill(0,$totBulanValid,0);
 for($m = 0; $m<$totBulanValid; $m++){
     if($c > (int)$totPerBulan[$m]){
-        array_push($terjual,$totPerBulan[$m]);
+        // array_push($terjual,$totPerBulan[$m]);
+        $terjual[$m] = $totPerBulan[$m];
         $c = $c - (int)$totPerBulan[$m];
 
     }else{
-        array_push($terjual,$c);
-        
+        // array_push($terjual,$c);
+        $terjual[$m] = $c;
+        break;
     }
 }
- 
+
+for($c =0; $c<sizeof($terjual); $c++){
+    echo($terjual[$c].'<br>');
+}
 
 ?>
 <!DOCTYPE html>
@@ -104,16 +110,12 @@ for($m = 0; $m<$totBulanValid; $m++){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>UD. Tri L | Rekap Perbulan</title>
-
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
     <link href="img/logo1.png" rel="icon">
 </head>
 
@@ -160,10 +162,12 @@ for($m = 0; $m<$totBulanValid; $m++){
                                 <thead class=" thead-dark">
                                     <tr>
                                         <th scope="col">Bulan</th>
-                                        <th scope="col">Total Pemeblian</th>
-                                        <th scope="col">Nominal</th>
-                                        <th scope="col">Terjual</th>
+                                        <th scope="col">Jumlah Pembelian</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Jumlah Terjual</th>
                                         <th scope="col">Harga Jual/Karung</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Keuntungan</th>
                                         <th scope="col">Sisa</th>
 
                                     </tr>
@@ -171,14 +175,18 @@ for($m = 0; $m<$totBulanValid; $m++){
                                 </thead>
                                 <tbody>
                                   <?php
+                                 
                                   for($i = 0; $i < $totBulanValid; $i++){
                                     echo('<tr>');
-                                 
+
                                         echo('<td>'.$bulanValid[$i].'</td>');
                                         echo('<td>'.$totPerBulan[$i].'</td>');
-                                        echo('<td>'.$nominalPerBulan[$i].'</td>');
+                                        echo('<td>'.rp($nominalPerBulan[$i]).'</td>');
                                         echo('<td>'.$terjual[$i].'</td>');
-                                        echo('<td>'.$hargaJualPerKarung.'</td>');
+                                        echo('<td>'.rp($hargaJualPerKarung).'</td>');
+                                        echo('<td>'.rp(((int)$terjual[$i] * (int)$hargaJualPerKarung)).'</td>');
+                                        $totalSales = ((int)$terjual[$i] * (int)$hargaJualPerKarung);
+                                        echo('<td>'.rp(($totalSales - (int)$nominalPerBulan[$i])).'</td>');
                                         echo('<td>'.((int)$totPerBulan[$i] - (int)$terjual[$i]).'</td>');
                                     
                                     echo('</tr>');
