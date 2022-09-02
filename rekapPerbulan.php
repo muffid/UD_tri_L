@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$tanggal = date(" M Y ");
 if (isset($_SESSION['login'])) {
  include "connection.php";
  include "functions.php";
@@ -89,9 +91,7 @@ for($m = 0; $m<$totBulanValid; $m++){
     }
 }
 
-for($c =0; $c<sizeof($terjual); $c++){
-    echo($terjual[$c].'<br>');
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -113,7 +113,9 @@ for($c =0; $c<sizeof($terjual); $c++){
     <title>UD. Tri L | Rekap Perbulan</title>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="img/logo1.png" rel="icon">
@@ -154,9 +156,44 @@ for($c =0; $c<sizeof($terjual); $c++){
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Rekap Pupuk</h6>
                         </div>
+
+                        <div class="mt-4 ml-4  ">
+                            <!-- Jenis Pupuk -->
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h6 class="m-0 font-weight-bold text-primary">Rekap Pada Bulan
+                                        <?php  echo $tanggal ;?></h6>
+                                    <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
+                                </div>
+                                <div class="col-lg-2">
+
+                                    <select class=" custom-select" id="jenisPP">
+                                        <option selected="true" disabled="disabled">- pilih pupuk -
+                                        </option>
+                                        <?php
+                                    $pupuk = mysqli_query($conn, "SELECT Jenis_Pupuk From data_pupuk");
+                                    foreach ($pupuk as $key) {
+                                       $ambil_pupuk = $key['Jenis_Pupuk'];                                  
+                                    ?>
+                                        <option><?= $ambil_pupuk; ?>
+                                        </option><?php }?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <select class="custom-select" id="select_tahun">
+                                        <option selected="true" disabled="disabled">- pilih tahun -
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="button" class="btn btn-info">OK</button>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="card-body">
-                            <h6 class="m-0 font-weight-bold text-primary">Rekap Pada Bulan Juli</h6>
-                            <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
 
                             <table class="table table-bordered">
                                 <thead class=" thead-dark">
@@ -165,7 +202,7 @@ for($c =0; $c<sizeof($terjual); $c++){
                                         <th scope="col">Jumlah Pembelian</th>
                                         <th scope="col">Total</th>
                                         <th scope="col">Jumlah Terjual</th>
-                                        <th scope="col">Harga Jual/Karung</th>
+                                        <th scope="col">Harga Jual /Karung</th>
                                         <th scope="col">Total</th>
                                         <th scope="col">Keuntungan</th>
                                         <th scope="col">Sisa</th>
@@ -174,7 +211,7 @@ for($c =0; $c<sizeof($terjual); $c++){
 
                                 </thead>
                                 <tbody>
-                                  <?php
+                                    <?php
                                  
                                   for($i = 0; $i < $totBulanValid; $i++){
                                     echo('<tr>');
@@ -195,7 +232,7 @@ for($c =0; $c<sizeof($terjual); $c++){
                                 </tbody>
 
                             </table>
-                            
+
                         </div>
                     </div>
 
@@ -223,6 +260,17 @@ for($c =0; $c<sizeof($terjual); $c++){
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script>
+    var select = document.getElementById('select_tahun');
+    var date = new Date();
+    var year = date.getFullYear();
+    for (var i = year - 5; i <= year + 2; i++) {
+        var option = document.createElement('option');
+        option.value = option.innerHTML = i;
+        if (i === year) option.selected = true;
+        select_tahun.appendChild(option);
+    }
+    </script>
 
 </body>
 
