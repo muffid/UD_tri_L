@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 $tanggal = date(" M Y ");
 if (isset($_SESSION['login'])) {
  include "connection.php";
@@ -36,26 +37,35 @@ if (isset($_SESSION['login'])) {
     "Nov" => 11,
     "Dec" =>12
  );
+    
+ 
+ $pilihPupuk = "";
+ $pilihTahun = "";
 
- //mencari harga jual per karung
+ if (!isset($_POST['pupuk'])) {
+    
+ }else{ 
+    $pilihPupuk = $_POST['pupuk'];
+    $pilihTahun = $_POST['select_tahun'];
+
+     //mencari harga jual per karung (queri pupuk)
  $jualPerkarung = mysqli_query($conn,"SELECT Harga FROM data_pupuk WHERE ID_PK=2");
  foreach($jualPerkarung as $jpk){
     $hargaJualPerKarung = $jpk['Harga'];
  }
 
- //mencari total penjualan
- $totPenj = mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS totP FROM stok_keluar WHERE Tanggal LIKE '%2022%' AND ID_PK=2");
+ //mencari total penjualan (tahun)
+ $totPenj = mysqli_query($conn,"SELECT SUM(Jumlah_Keluar) AS totP FROM stok_keluar WHERE Tanggal LIKE '%".$pilihTahun."%' AND ID_PK=".$pilihPupuk);
  foreach($totPenj as $tp){
  $totalPenjualan = $tp['totP'];
- }
- 
+//  echo ($totalPenjualan);
+ } 
 
     $iterator =$arrEnum[$tanggal];
- 
 
  //setelah mencari bulan kebelakang sekarang mencari bulan apa saja yang ada pemasukan pupuk
  for($l = 0; $l<$iterator; $l++){
-    $avail = mysqli_query($conn,"SELECT SUM(Jumlah_Masuk) AS totP FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND ID_PK=2");
+    $avail = mysqli_query($conn,"SELECT SUM(Jumlah_Masuk) AS totP FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND Tanggal LIKE '%".$pilihTahun."%' AND ID_PK=".$pilihPupuk);
     foreach($avail as $a){
         if($a['totP']==""){
         }else{
@@ -66,7 +76,7 @@ if (isset($_SESSION['login'])) {
             //array berisi total pemasukan pupuk per bulan
             array_push($totPerBulan,$a['totP']);
             //array berisi nominal uang yang keluar per bulan
-            $nominal_keluar = mysqli_query($conn,"SELECT SUM(Nominal) AS nom FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND ID_PK=2");
+            $nominal_keluar = mysqli_query($conn,"SELECT SUM(Nominal) AS nom FROM stok_masuk WHERE Tanggal LIKE '%".$arrMonth[$l]."%' AND Tanggal LIKE '%".$pilihTahun."%' AND ID_PK=".$pilihPupuk);
             foreach($nominal_keluar as $nk){
                 array_push($nominalPerBulan,$nk['nom']);
             }
@@ -89,9 +99,9 @@ for($m = 0; $m<$totBulanValid; $m++){
         $terjual[$m] = $c;
         break;
     }
+    }
+
 }
-
-
 
 ?>
 <!DOCTYPE html>
@@ -155,43 +165,62 @@ for($m = 0; $m<$totBulanValid; $m++){
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Rekap Pupuk</h6>
+
                         </div>
 
                         <div class="mt-4 ml-4  ">
                             <!-- Jenis Pupuk -->
+                            <form action="" method="post">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h6 class="m-0 font-weight-bold text-primary">Rekap Bulanan,
+                                            <?php 
+                                            if ($pilihPupuk!="") {
+                                                                                            
+                                            $pp = mysqli_query($conn, "SELECT Jenis_Pupuk FROM data_pupuk Where ID_PK=".$pilihPupuk);
+                                            foreach ($pp as $k ) {
+                                                $ppp = $k['Jenis_Pupuk'];
+                                                echo "Pupuk ".$ppp." Tahun ".$pilihTahun;
+                                            }
+                                        }else{
+                                            echo "Pupuk ________ Tahun ________";
+                                        }
+                                            ?>
 
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <h6 class="m-0 font-weight-bold text-primary">Rekap Pada Bulan
-                                        <?php  echo $tanggal ;?></h6>
-                                    <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
-                                </div>
-                                <div class="col-lg-2">
+                                        </h6>
 
-                                    <select class=" custom-select" id="jenisPP">
-                                        <option selected="true" disabled="disabled">- pilih pupuk -
-                                        </option>
-                                        <?php
-                                    $pupuk = mysqli_query($conn, "SELECT Jenis_Pupuk From data_pupuk");
+                                        <p>Jika pupuk sisa, maka penjualan akan dimasukkan pada bulan ini</p>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <select class=" custom-select" id="pupuk" name="pupuk">
+                                            <option selected="true" disabled="disabled">- pilih pupuk -
+                                            </option>
+                                            <?php
+                                    $pupuk = mysqli_query($conn, "SELECT ID_PK, Jenis_Pupuk From data_pupuk");
                                     foreach ($pupuk as $key) {
+                                        $idPupuk = $key['ID_PK'];
                                        $ambil_pupuk = $key['Jenis_Pupuk'];                                  
                                     ?>
-                                        <option><?= $ambil_pupuk; ?>
-                                        </option><?php }?>
-                                    </select>
+                                            <option value="<?= $idPupuk;?>"><?= $ambil_pupuk; ?>
+                                            </option><?php }?>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select class="custom-select" id="select_tahun" name="select_tahun">
+                                            <option selected="true" disabled="disabled">- pilih tahun -
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button type="submit" class="btn btn-info">OK</button>
+                                    </div>
+
                                 </div>
-                                <div class="col-lg-2">
-                                    <select class="custom-select" id="select_tahun">
-                                        <option selected="true" disabled="disabled">- pilih tahun -
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="button" class="btn btn-info">OK</button>
-                                </div>
-                            </div>
+                            </form>
 
                         </div>
+
 
                         <div class="card-body">
 
@@ -212,6 +241,7 @@ for($m = 0; $m<$totBulanValid; $m++){
                                 </thead>
                                 <tbody>
                                     <?php
+                                    
                                  
                                   for($i = 0; $i < $totBulanValid; $i++){
                                     echo('<tr>');

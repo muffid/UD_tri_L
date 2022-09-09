@@ -552,23 +552,25 @@ function getColor()
                                                         <div class="col-md-10">
                                                             <div class="ml-4 h4 mb-2 font-weight-bold text-gray-800">
                                                                 PROFIT PUPUK</div>
-                                                            <div class="mb-0  ml-4 mb-2 text-muted">Profit pupuk adalah
-                                                                total penjualan pupuk
-                                                                dikurangi total pembelian pupuk pada bulan
-                                                                <?= $tanggal; ?>. </div>
-                                                            <div
+                                                            <div class="mb-0  ml-4 mb-2 text-muted">Profit dapat
+                                                                dilihat melali menu <br><a rel="nofollow"
+                                                                    href="rekapPerbulan.php?m=11&n=11">
+                                                                    Rekap Perbulan <i
+                                                                        class="fas fa-arrow-right"></i></a>
+                                                            </div>
+                                                            <!-- <div
                                                                 class="h3 mb-0 ml-4 mb-0 font-weight-bold text-success">
-                                                                <?=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?>
+                                                                <?//=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?>
                                                                 <br>
                                                                 <div class="h6 mb-4 mt-4 text-dark" id="info"> NET
                                                                     Profit :
-                                                                    <?=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?>
+                                                                    <?//=rp($hasilPenjualan - $hasilPengeluaran - $hasilTransport);?>
                                                                 </div>
-                                                            </div><br>
+                                                            </div><br> -->
                                                             <div class="mb-0  ml-4 text-dark" style="font-size:14px;">
                                                                 Masih ada <span
                                                                     style="font-size:18px; font-weight:bold;background-color: #F0F8FF;padding:5px;"><?=$sisa;?></span>
-                                                                Karung Pupuk yang
+                                                                Karung Pupuk semua jenis yang
                                                                 belum terjual.</div>
                                                         </div>
                                                         <!-- <div class="col-md-2 ml-6">
@@ -595,7 +597,7 @@ function getColor()
                                                     <div class="row">
                                                         <div class="col-md-10">
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered">
+                                                                <table class="">
                                                                     <thead>
                                                                         <!-- <th scope="col">Total Hutang</th>
                                     <th scope="col">Telah Dibayar</th> -->
